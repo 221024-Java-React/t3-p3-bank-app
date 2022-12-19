@@ -6,8 +6,8 @@ This will be a banking application written using React w/ Typescript and Java Sp
 
 ### To start the Vite Project
 
-Install dependencies with `npm i`
-Start the application with `npm run dev`
+-Install dependencies with `npm i` and `npm install --save @types/styled-components` for type-safe styled components.
+-Start the application with `npm start`
 
 ### Developer Workflow
 
