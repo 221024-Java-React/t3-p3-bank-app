@@ -7,7 +7,7 @@ Install dependencies with ```npm i```
 Start the application with ```npm run dev```
 
 ### Developer Workflow
-  1. Create a ```branch``` using the format ```firstName-lastName```
+  1. Create a ```branch``` using the format ```git checkout -b <firstName-lastName>```
   2. Work only on that branch.
   3. To push, push to your branch using ```git push -u origin <branch-name>```
 
