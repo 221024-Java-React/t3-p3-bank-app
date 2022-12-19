@@ -4,10 +4,10 @@ This will be a banking application written using React w/ Typescript and Java Sp
 
 [Tech Stack Diagram](https://docs.google.com/drawings/d/1wvP-Bj_BG0tvGTpS8vzAytTrb7zjpj1JeiU4IXNwv9M/edit)
 
-### To start the Vite Project
+### To start the CRA Project
 
 Install dependencies with `npm i`
-Start the application with `npm run dev`
+Start the application with `npm start`
 
 ### Developer Workflow
 
