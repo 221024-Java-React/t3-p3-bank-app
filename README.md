@@ -2,6 +2,8 @@
 
 This will be a banking application written using React w/ Typescript and Java Spring Boot. Business Analyst team will be collaborating with a Development team to create the project using Agile Scrum methodology.
 
+[Tech Stack Diagram](https://docs.google.com/drawings/d/1wvP-Bj_BG0tvGTpS8vzAytTrb7zjpj1JeiU4IXNwv9M/edit)
+
 ### To start the Vite Project
 Install dependencies with ```npm i```
 Start the application with ```npm run dev```
