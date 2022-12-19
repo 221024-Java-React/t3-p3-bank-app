@@ -23,5 +23,3 @@ Start the application with `npm run dev`
 #### Notes
 
 Currently all merges to main require a pull request and that pull request has to be reviewed/approved by two other people on the devs team before it can be merged. If you make a pull request while you have a previous pull request pending, the most recent PR (when approved and merged) will absorb the previous PR. If conversations are opened on a particular PR they must be resolved before that PR can be merged into main.
-
-Hello
