@@ -1,4 +1,4 @@
-package com.banking.app.Controllers;
+package com.banking.Controllers;
 
 import java.util.LinkedHashMap;
 import java.util.Random;
@@ -11,7 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.banking.app.models.User;
+import com.banking.models.User;
+import com.banking.services.UserService;
 
 import lombok.AllArgsConstructor;
 
