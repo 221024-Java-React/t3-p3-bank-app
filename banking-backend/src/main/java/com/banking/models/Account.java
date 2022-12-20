@@ -1,5 +1,6 @@
 package com.banking.models;
 
+<<<<<<< HEAD
 import com.banking.utils.IdGenerator;
 
 import jakarta.persistence.Column;
@@ -15,6 +16,11 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+=======
+//import java.util.List;
+
+import jakarta.persistence.Entity;
+>>>>>>> main
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -27,6 +33,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Account {
 	
+<<<<<<< HEAD
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="account_number")
@@ -49,4 +56,10 @@ public class Account {
 		this.userId = userId;
 		this.balance = amount;
 	}
+=======
+	private String accountId;
+	private User user;
+	private AccountType type;
+	private Integer balance;
+>>>>>>> main
 }

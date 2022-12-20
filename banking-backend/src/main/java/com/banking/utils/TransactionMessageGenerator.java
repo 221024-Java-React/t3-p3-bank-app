@@ -1,6 +1,7 @@
 package com.banking.utils;
 
 public class TransactionMessageGenerator {
+<<<<<<< HEAD
 	
 	public static String generateMessage(String type, Double amount) {
 		String utype = type.toUpperCase();
@@ -22,4 +23,7 @@ public class TransactionMessageGenerator {
 		}
 		return message;
 	}
+=======
+
+>>>>>>> main
 }
