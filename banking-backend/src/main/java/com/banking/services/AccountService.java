@@ -70,7 +70,7 @@ public class AccountService {
 		LocalDateTime time = LocalDateTime.now();
 		
 		TransactionData tFrom = new TransactionData();
-		tFrom.setAccount(from);
+		tFrom.setAccount(fromAccountId);
 		tFrom.setAmount(amount);
 		//tFrom.setType(TransactionType.Withdraw);
 		tFrom.setDatetime(time);
