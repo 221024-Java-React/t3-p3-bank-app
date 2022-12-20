@@ -1,4 +1,5 @@
 export interface User {
+    userId: string;
     firstName: string;
     lastName: string;
     email: string;
@@ -12,4 +13,6 @@ export interface UserContextState {
     loggedIn: boolean;
     registerUser: (user: User) => void;
     loginUser: (user: User) => void;
+    updateCurrentUser: (user: User) => void;
+    logoutUser: () => void;
 }
