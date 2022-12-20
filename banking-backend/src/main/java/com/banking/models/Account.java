@@ -1,6 +1,5 @@
 package com.banking.models;
 
-<<<<<<< HEAD
 import com.banking.utils.IdGenerator;
 
 import jakarta.persistence.Column;
@@ -16,50 +15,38 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-=======
-//import java.util.List;
-
-import jakarta.persistence.Entity;
->>>>>>> main
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name="accounts")
+@Table(name = "accounts")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class Account {
-	
-<<<<<<< HEAD
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="account_number")
-	private String accountId;
-	
-	@Enumerated(EnumType.STRING)
-	@Column(name="account_type")
-	private AccountType type;
-	
-	@ManyToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="user_Id")
-	private String userId;
-	
-	private Double balance;
-	
-	public Account(String type, String userId, Double amount){
-		String utype = type.toUpperCase();
-		this.accountId = IdGenerator.generateID(utype);
-		this.type = AccountType.valueOf(utype);
-		this.userId = userId;
-		this.balance = amount;
-	}
-=======
-	private String accountId;
-	private User user;
-	private AccountType type;
-	private Integer balance;
->>>>>>> main
+
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "account_number")
+  private String accountId;
+
+  @Enumerated(EnumType.STRING)
+  @Column(name = "account_type")
+  private AccountType type;
+
+  @ManyToOne(fetch = FetchType.EAGER)
+  @JoinColumn(name = "user_Id")
+  private String userId;
+
+  private Double balance;
+
+  public Account(String type, String userId, Double amount) {
+    String utype = type.toUpperCase();
+    this.accountId = IdGenerator.generateID(utype);
+    this.type = AccountType.valueOf(utype);
+    this.userId = userId;
+    this.balance = amount;
+  }
 }
