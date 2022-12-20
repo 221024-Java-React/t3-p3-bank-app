@@ -1,4 +1,4 @@
-package com.banking.app.models;
+package com.banking.models;
 
 public enum AccountType {
 	CHECKING, SAVINGS, INVESTMENT, CD
