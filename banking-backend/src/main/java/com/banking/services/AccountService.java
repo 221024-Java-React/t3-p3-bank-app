@@ -1,6 +1,6 @@
 package com.banking.services;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 /*
 import java.time.LocalDate;
@@ -67,19 +67,19 @@ public class AccountService {
 		to.setBalance(toA);
 		cRepo.save(from);
 		cRepo.save(to);
-		LocalDate time = LocalDate.now();
+		LocalDateTime time = LocalDateTime.now();
 		
 		TransactionData tFrom = new TransactionData();
-		tFrom.setAccountId(from.getAccountId());
+		tFrom.setAccount(fromAccountId);
 		tFrom.setAmount(amount);
 		//tFrom.setType(TransactionType.Withdraw);
-		tFrom.setDate(time);
+		tFrom.setDatetime(time);
 		
 		TransactionData tTo = new TransactionData();
-		tTo.setAccountId(to.getAccountId());
+		tTo.setAccount(to);
 		tTo.setAmount(amount);
 		//tFrom.setType(TransactionType.DEPOSIT);
-		tFrom.setDate(time);
+		tFrom.setDatetime(time);
 		
 		tRepo.save(tTo);
 		tRepo.save(tFrom);
