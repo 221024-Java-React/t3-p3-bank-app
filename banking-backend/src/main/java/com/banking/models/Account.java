@@ -1,4 +1,4 @@
-package com.banking.app.models;
+package com.banking.models;
 
 
 import jakarta.persistence.Entity;
@@ -17,5 +17,5 @@ public class Account {
 	private String accountId;
 	private User user;
 	private AccountType type;
-	private Integer balance;
+	private Double balance;
 }

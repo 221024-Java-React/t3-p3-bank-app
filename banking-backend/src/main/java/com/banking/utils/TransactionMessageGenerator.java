@@ -1,4 +1,4 @@
-package com.banking.app.utils;
+package com.banking.utils;
 
 public class TransactionMessageGenerator {
 
