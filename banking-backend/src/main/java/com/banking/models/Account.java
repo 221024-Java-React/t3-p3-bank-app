@@ -4,8 +4,6 @@ import com.banking.utils.IdGenerator;
 
 import jakarta.persistence.Column;
 
-//import java.util.List;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
