@@ -18,5 +18,5 @@ public class Account {
 	private String accountId;
 	private User user;
 	private AccountType type;
-	private Integer balance;
+	private Double balance;
 }
