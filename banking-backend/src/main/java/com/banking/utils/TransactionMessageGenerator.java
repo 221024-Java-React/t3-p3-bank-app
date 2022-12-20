@@ -1,7 +1,6 @@
 package com.banking.utils;
 
 public class TransactionMessageGenerator {
-
 	
 	public static String generateMessage(String type, Double amount) {
 		String utype = type.toUpperCase();

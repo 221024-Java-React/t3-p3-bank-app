@@ -1,7 +1,8 @@
 package com.banking.models;
 
-
 import java.time.LocalDate;
+
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -23,6 +24,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class TransactionData {
+	
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -47,5 +49,4 @@ public class TransactionData {
 	private LocalDate date;
 	
 	//public TransactionData(String type, String accountId,  Double amount) {}
-
 }

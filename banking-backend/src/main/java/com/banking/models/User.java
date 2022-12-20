@@ -4,7 +4,6 @@ package com.banking.models;
 
 import java.util.List;
 
-
 import com.banking.utils.IdGenerator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -18,7 +17,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
-
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -71,5 +69,4 @@ public class User {
 		this.phoneNumber = phoneNumber;
 		this.password = password;
 	}
-
 }
