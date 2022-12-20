@@ -31,8 +31,6 @@ const UserProvider: React.FC<ProviderProps> = ({ children }) => {
             phoneNumber: user.phoneNumber,
             password: user.password,
         }
-
-        setUsers([...users, newUser]);
     }
 
     const updateCurrentUser = (user: User) => {

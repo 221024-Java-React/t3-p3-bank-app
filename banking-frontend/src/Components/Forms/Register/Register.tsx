@@ -7,12 +7,17 @@ import { User, UserContextState } from '../../../Types/User'
 const Container = styled.div`
 `
 const Form = styled.form`
+    display: flex;
+    flex-direction: column;
 `
 const Label = styled.label`
+    margin: 3px;
 `
 const Input = styled.input`
+    margin: 10px;
 `
 const SubmitButton = styled.input`
+    margin: 10px;
 `
 
 const Register: React.FC = () => {
@@ -37,7 +42,13 @@ const Register: React.FC = () => {
         e.preventDefault();
         console.log(inputs);
         handleRegister();
-        setInputs(values => ({ ...values, [name]: '' }))
+        setInputs({
+            firstName: '',
+            lastName: '',
+            email: '',
+            phoneNumber: '',
+            address: '',
+        });
     }
 
     const handleRegister = async () => {
@@ -57,13 +68,13 @@ const Register: React.FC = () => {
                 <Label>First Name:</Label>
                 <Input type='text' name='firstName' value={inputs.firstName || ""} onChange={handleChange}></Input>
                 <Label>Last Name:</Label>
-                <Input type='text' name='lastName' onChange={handleChange}></Input>
+                <Input type='text' name='lastName' value={inputs.lastName || ""} onChange={handleChange}></Input>
                 <Label>Email:</Label>
-                <Input type='text' name='email' onChange={handleChange}></Input>
+                <Input type='text' name='email' value={inputs.email || ""} onChange={handleChange}></Input>
                 <Label>Phone Number:</Label>
-                <Input type='text' name='phoneNumber' onChange={handleChange}></Input>
+                <Input type='text' name='phoneNumber' value={inputs.phoneNumber || ""} onChange={handleChange}></Input>
                 <Label>Address:</Label>
-                <Input type='text' name='address' onChange={handleChange}></Input>
+                <Input type='text' name='address' value={inputs.address || ""} onChange={handleChange}></Input>
                 <SubmitButton type='submit' value='Register Member' />
             </Form>
         </Container>
