@@ -1,6 +1,5 @@
 package com.banking.app.models;
 
-//import java.util.List;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
