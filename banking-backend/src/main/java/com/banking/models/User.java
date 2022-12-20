@@ -2,7 +2,6 @@ package com.banking.models;
 
 import java.util.List;
 
-<<<<<<< HEAD
 import com.banking.utils.IdGenerator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -16,9 +15,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
-=======
-import jakarta.persistence.Entity;
->>>>>>> main
+
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -31,7 +28,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class User {
 	
-<<<<<<< HEAD
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="user_id")
@@ -72,15 +68,4 @@ public class User {
 		this.phoneNumber = phoneNumber;
 		this.password = password;
 	}
-=======
-	private String userId;
-	private String firstName;
-	private String lastName;
-	private String email;
-	private String password;
-	private String address;
-	private String phoneNumber;
-	private UserType type;
-	private List<Account> accounts;
->>>>>>> main
 }
