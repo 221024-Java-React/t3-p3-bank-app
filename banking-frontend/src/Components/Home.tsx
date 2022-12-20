@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styled, { ThemeProvider } from 'styled-components'
 import { lightTheme, darkTheme } from './Theme'
 
@@ -21,8 +21,18 @@ const Home: React.FC = () => {
     const [theme, setTheme] = useState('light');
 
     const themeToggler = () => {
-        theme === 'light' ? setTheme('dark') : setTheme('light');
+        if (localStorage.getItem('theme') === 'light') {
+            setTheme('dark');
+            localStorage.setItem('theme', 'dark')
+        } else {
+            setTheme('light');
+            localStorage.setItem('theme', 'light')
+        }
     }
+
+    useEffect(() => {
+        themeToggler();
+    }, [])
 
     return (
         <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
