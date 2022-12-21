@@ -29,7 +29,7 @@ public class TransactionDataService {
 		return tRepo.getTransactionDatasByAccount(a);
 	}
 	
-	public List<TransactionData> getTransactionDatasByUser(User u) {
+	public List<TransactionData> getTransactionDataByUser(User u) {
 		return tRepo.getTransactionDatasByUser(u);
 	}
 	

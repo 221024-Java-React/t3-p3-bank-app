@@ -2,6 +2,7 @@ package com.banking.app.services;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,8 +36,8 @@ public class AccountService {
 		return cRepo.save(a);
 	}
 	
-	public List<Account> getAccounts(int accountId) {
-		User u = uRepo.findById(accountId).get();
+	public List<Account> getAccounts(UUID accountId) {
+		User u = uRepo.findById(accountId);
 		
 		return cRepo.getAccountsBySubmitter(u);
 	}
@@ -67,14 +68,14 @@ public class AccountService {
 		tFrom.setAmount(amount);
 		tFrom.setType(TransactionType.WIDTHDRAW);
 		tFrom.setDate(time);
-		tFrom.setMessage(message);
+		//tFrom.setMessage(message);
 		
 		TransactionData tTo = new TransactionData();
 		tTo.setAccount(to);
 		tTo.setAmount(amount);
 		tFrom.setType(TransactionType.DEPOSIT);
 		tTo.setDate(time);
-		tTo.setMessage(message);
+		//tTo.setMessage(message);
 	
 		tRepo.save(tTo);
 		tRepo.save(tFrom);
