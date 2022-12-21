@@ -1,8 +1,9 @@
-package com.banking.models;
+package com.banking.app.models;
 
 import java.util.List;
+import java.util.UUID;
 
-import com.banking.utils.IdGenerator;
+//import com.banking.app.utils.IdGenerator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -28,9 +29,9 @@ import lombok.NoArgsConstructor;
 public class User {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @GeneratedValue(strategy = GenerationType.UUID)
   @Column(name = "user_id")
-  private String userId;
+  private UUID userId;
 
   @Enumerated(EnumType.STRING)
   @Column(name = "user_type")
@@ -51,14 +52,13 @@ public class User {
   private String address;
   private String phoneNumber;
 
-  @OneToMany(mappedBy = "userId", cascade = CascadeType.ALL)
+  @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
   @JsonIgnore
   private List<Account> accounts;
 
   // Register Constructor
   // Basic Register constructor
   public User(String firstName, String lastName, String email, String address, String phoneNumber, String password) {
-    this.userId = IdGenerator.generateId(firstName, lastName);
     this.firstName = firstName;
     this.lastName = lastName;
     this.email = email;
