@@ -1,4 +1,4 @@
-package com.banking.Controllers;
+package com.banking.app.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -10,7 +10,7 @@ import lombok.AllArgsConstructor;
 @RestController
 @RequestMapping("transactions")
 @CrossOrigin("*")
-@AllArgsConstructor(onConstructor=@__(@Autowired))
+@AllArgsConstructor(onConstructor = @__(@Autowired))
 public class TransactionController {
 
 }

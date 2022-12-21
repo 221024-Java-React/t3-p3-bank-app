@@ -1,4 +1,4 @@
-package com.banking.services;
+package com.banking.app.services;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -7,15 +7,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.banking.models.Account;
-import com.banking.models.User;
-import com.banking.models.UserType;
+import com.banking.app.models.Account;
+import com.banking.app.models.User;
+import com.banking.app.models.UserType;
 
-import com.banking.repositories.UserRepository;
+import com.banking.app.repositories.UserRepository;
 
-import com.banking.exceptions.CannotUpdateUserException;
-import com.banking.exceptions.EmailAlreadyExistsException;
-import com.banking.exceptions.InvalidCredentialsException;
+import com.banking.app.exceptions.CannotUpdateUserException;
+import com.banking.app.exceptions.EmailAlreadyExistsException;
+import com.banking.app.exceptions.InvalidCredentialsException;
 
 import lombok.AllArgsConstructor;
 

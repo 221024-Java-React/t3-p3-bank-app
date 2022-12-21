@@ -1,6 +1,6 @@
-package com.banking.models;
+package com.banking.app.models;
 
-import com.banking.utils.IdGenerator;
+import com.banking.app.utils.IdGenerator;
 
 import jakarta.persistence.Column;
 
