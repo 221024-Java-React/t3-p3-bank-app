@@ -13,6 +13,5 @@ export const darkTheme = {
     background: '#555555',
     border: '#222',
     altColor: '#888',
-    random: 'red',
     gradient: 'background: linear-gradient(#333, #fff)'
 }
