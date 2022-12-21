@@ -2,10 +2,7 @@ package com.banking.services;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-/*
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-*/
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,15 +68,15 @@ public class AccountService {
 		
 		TransactionData tFrom = new TransactionData();
 		tFrom.setAccountId(from.getAccountId());
-		tFrom.setAmount(amount);
+		tFrom.setBalance(fromA);
 		//tFrom.setType(TransactionType.Withdraw);
 		tFrom.setDate(time);
 		
 		TransactionData tTo = new TransactionData();
 		tTo.setAccountId(to.getAccountId());
-		tTo.setAmount(amount);
+		tTo.setBalance(toA);
 		//tFrom.setType(TransactionType.DEPOSIT);
-		tFrom.setDate(time);
+		tTo.setDate(time);
 		
 		tRepo.save(tTo);
 		tRepo.save(tFrom);
