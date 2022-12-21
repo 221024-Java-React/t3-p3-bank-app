@@ -3,7 +3,7 @@ package com.banking.app.models;
 import java.util.List;
 import java.util.UUID;
 
-//import com.banking.app.utils.IdGenerator;
+import com.banking.app.utils.IdGenerator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
