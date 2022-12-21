@@ -1,25 +1,22 @@
 package com.banking.app.utils;
 
+import com.banking.app.models.TransactionType;
+
 public class TransactionMessageGenerator {
 
-  public static String generateMessage(String type, Double amount) {
-    String utype = type.toUpperCase();
-    String message = "Unidentified Transaction.";
-    final String type1 = "WIDTHDRAW";
-    final String type2 = "DEPOSIT";
-    final String type3 = "TRANSFER";
-
-    switch (utype) {
-      case type1:
-        message = "A widthdrawal of $" + amount + " was made.";
-        break;
-      case type2:
-        message = "A deposit of $" + amount + " was made.";
-        break;
-      case type3:
-        message = "A transfer of $" + amount + " was made.";
-        break;
-    }
-    return message;
+  public static String generateMessage(TransactionType type, Double amount) {
+	  String message = "Unidentified Transaction.";
+	  switch(type) {
+	  	case WIDTHDRAW :
+		  message = "A widthdrawal of $" + amount + " was made.";
+		  break;
+	  	case DEPOSIT :
+	  		message = "A deposit of $" + amount + " was made.";
+	        break;
+	  	case TRANSFER :
+	  		message = "A transfer of $" + amount + " was made.";
+	        break;
+	  }
+	  return message;
   }
 }

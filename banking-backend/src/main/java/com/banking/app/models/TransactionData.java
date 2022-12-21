@@ -2,8 +2,6 @@ package com.banking.app.models;
 
 import java.time.LocalDate;
 
-import com.banking.app.utils.TransactionMessageGenerator;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -44,18 +42,6 @@ public class TransactionData {
 
   private Double amount;
 
-  @Column(name = "date_time")
+  @Column(name = "date")
   private LocalDate date;
-
-   public TransactionData(String type, String accountId, Double amount) {
-	   String utype = type.toUpperCase();
-	   this.type = TransactionType.valueOf(utype);
-	   this.message = TransactionMessageGenerator.generateMessage(utype, amount);
-	   this.amount = amount;
-   }
-   
-   public void setMessage(String type, Double amount) {
-	   String utype = type.toUpperCase();
-	   this.message = TransactionMessageGenerator.generateMessage(utype, amount);
-   }
 }
