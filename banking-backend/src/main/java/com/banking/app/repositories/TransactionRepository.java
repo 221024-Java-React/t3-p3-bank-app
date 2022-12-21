@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.banking.app.models.TransactionData;
 import com.banking.app.models.TransactionType;
 import com.banking.app.models.Account;
-import com.banking.app.models.AccountType;
 import com.banking.app.models.User;
 
 public interface TransactionRepository extends JpaRepository<TransactionData, Integer> {
