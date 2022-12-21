@@ -36,5 +36,4 @@ public class AccountController {
 
     return aServ.transferBetweenAccounts(accountIdFrom, accountIdTo, amount);
   }
-
 }

@@ -35,7 +35,7 @@ public class TransactionData {
 
   @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "account_number")
-  private String accountId;
+  private Account account;
 
   @Column(name = "details")
   private String message;

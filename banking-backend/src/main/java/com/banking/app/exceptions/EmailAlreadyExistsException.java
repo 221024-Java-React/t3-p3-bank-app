@@ -10,5 +10,4 @@ public class EmailAlreadyExistsException extends RuntimeException {
   public EmailAlreadyExistsException() {
     super("This email address is not available. Please log in or register with a different email address.");
   }
-
 }
