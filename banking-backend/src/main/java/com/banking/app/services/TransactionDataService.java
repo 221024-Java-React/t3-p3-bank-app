@@ -24,7 +24,7 @@ public class TransactionDataService {
 		return tRepo.save(t);
 	}
 	
-	public List<TransactionData> getTransactionsByAccountId(String accountId) {
+	/*public List<TransactionData> getTransactionsByAccountId(String accountId) {
 		Account a = aRepo.getAccountByAccountId(accountId);
 		return tRepo.getTransactionDatasByAccount(a);
 	}
@@ -35,5 +35,5 @@ public class TransactionDataService {
 	
 	public TransactionData getTransactionById(int id) {
 		return tRepo.getTransactionDataByTransactionDataId(id);
-	}
+	}*/
 }

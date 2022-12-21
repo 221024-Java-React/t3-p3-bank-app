@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.banking.app.services.AccountService;
 import com.banking.app.models.Account;
 import com.banking.app.models.TransactionData;
-import com.banking.app.services.AccountService;
 
 import lombok.AllArgsConstructor;
 

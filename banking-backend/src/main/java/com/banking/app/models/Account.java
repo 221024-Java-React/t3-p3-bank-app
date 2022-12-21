@@ -1,8 +1,12 @@
 package com.banking.app.models;
 
-import com.banking.app.utils.IdGenerator;
 
 import jakarta.persistence.Column;
+
+import java.util.UUID;
+
+
+//import java.util.List;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -24,27 +28,26 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Account {
-
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "account_number")
-  private String accountId;
-
-  @Enumerated(EnumType.STRING)
-  @Column(name = "account_type")
-  private AccountType type;
-
-  @ManyToOne(fetch = FetchType.EAGER)
-  @JoinColumn(name = "user_Id")
-  private String userId;
-
-  private Double balance;
-
-  public Account(String type, String userId, Double amount) {
-    String utype = type.toUpperCase();
-    this.accountId = IdGenerator.generateID(utype);
-    this.type = AccountType.valueOf(utype);
-    this.userId = userId;
-    this.balance = amount;
-  }
+	
+	@Id
+	@GeneratedValue(strategy=GenerationType.UUID)
+	@Column(name="account_number")
+	private UUID accountId;
+	
+	@Enumerated(EnumType.STRING)
+	@Column(name="account_type")
+	private AccountType type;
+	
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="user_Id")
+	private User user;
+	
+	private Double balance;
+	
+	public Account(String type, User user, Double amount){
+		String utype = type.toUpperCase();
+		this.type = AccountType.valueOf(utype);
+		this.user = user;
+		this.balance = amount;
+	}
 }
