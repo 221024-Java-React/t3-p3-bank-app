@@ -15,7 +15,7 @@ import com.banking.app.repositories.TransactionRepository;
 import lombok.AllArgsConstructor;
 
 @Service
-@AllArgsConstructor(onConstructor=@__(@Autowired))
+@AllArgsConstructor(onConstructor = @__(@Autowired))
 public class TransactionDataService {
 	private AccountRepository aRepo;
 	private TransactionRepository tRepo;
