@@ -1,6 +1,6 @@
-package com.banking.Controllers;
+//package com.banking.app.controllers;
 
-import java.util.LinkedHashMap;
+/*import java.util.LinkedHashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -9,17 +9,17 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.banking.app.services.AccountService;
 import com.banking.models.Account;
 import com.banking.models.TransactionData;
-import com.banking.services.AccountService;
 
-import lombok.AllArgsConstructor;
+import lombok.AllArgsConstructor;*/
 
-@RestController
-@RequestMapping("accounts")
-@CrossOrigin("*")
-@AllArgsConstructor(onConstructor=@__(@Autowired))
-public class AccountController {
+//@RestController
+//@RequestMapping("accounts")
+//@CrossOrigin("*")
+//@AllArgsConstructor(onConstructor=@__(@Autowired))
+/*public class AccountController {
 	
 	private AccountService aServ;
 	
@@ -37,4 +37,4 @@ public class AccountController {
 		return aServ.transferBetweenAccounts(accountIdFrom, accountIdTo, amount);
 	}
 
-}
+}*/

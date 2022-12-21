@@ -1,4 +1,4 @@
-package com.banking.utils;
+package com.banking.app.utils;
 
 public class IdGenerator {
 	
