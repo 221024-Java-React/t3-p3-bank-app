@@ -60,13 +60,12 @@ public class UserService {
 
   }
 
-  public User updateUser(String firstName, String lastName, String email, String password) {
+  public User updateUser(String firstName, String lastName, String email) {
 
     User u = uRepo.getByEmail(email).orElseThrow(InvalidCredentialsException::new);
 
     u.setFirstName(firstName);
     u.setLastName(lastName);
-    u.setPassword(password);
 
     try {
       User ret = uRepo.save(u);
