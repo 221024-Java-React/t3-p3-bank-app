@@ -1,6 +1,7 @@
 package com.banking.app.services;
 
 import java.time.LocalDate;
+
 import java.util.List;
 import java.util.UUID;
 
@@ -51,7 +52,7 @@ public class AccountService {
 		return cRepo.getAccountsByType(s);
 	}
 	
-	public TransactionData transferBetweenAccounts(String accountIdFrom, String accountIdTo, Double amount, String message) {
+	public TransactionData transferBetweenAccounts(String accountIdFrom, String accountIdTo, Double amount) {
 		Account from = cRepo.getAccountByAccountId(accountIdFrom);
 		Account to = cRepo.getAccountByAccountId(accountIdTo);
 		
@@ -77,6 +78,7 @@ public class AccountService {
 		tTo.setDate(time);
 		//tTo.setMessage(message);
 	
+
 		tRepo.save(tTo);
 		tRepo.save(tFrom);
 		
