@@ -11,12 +11,12 @@ import com.banking.app.models.TransactionType;
 import com.banking.app.models.User;
 
 public interface TransactionRepository extends JpaRepository<TransactionData, Integer> {
-	List<TransactionData> getTransactionDatasByUser(User u);
-	List<TransactionData> getTransactionDatasByAccount(Account a);
+	List<TransactionData> getTransactionDataByUser(User u);
+	List<TransactionData> getTransactionDataByAccount(Account a);
 		
 	/*List<Ticket> getTicketsBySubmitterAndType(Employee e, TicketType t);
 	List<Ticket> getTicketsBySubmitterAndStatus(Employee e, TicketStatus s);*/
 	
-	List<TransactionData> getTransactionDatasByType(TransactionType s);
+	List<TransactionData> getTransactionDataByType(TransactionType s);
 	TransactionData getTransactionDataByTransactionDataId(int id);
 }
