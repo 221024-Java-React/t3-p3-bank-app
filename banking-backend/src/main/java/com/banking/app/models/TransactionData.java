@@ -1,11 +1,8 @@
-package com.banking.models;
+package com.banking.app.models;
 
-import com.banking.utils.IdGenerator;
+import java.time.LocalDate;
 
 import jakarta.persistence.Column;
-
-//import java.util.List;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -21,32 +18,32 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "accounts")
+@Table(name = "transactions")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Account {
+public class TransactionData {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "account_number")
-  private String accountId;
+  @Column(name = "transaction_Id")
+  private Integer transactionId;
 
   @Enumerated(EnumType.STRING)
-  @Column(name = "account_type")
-  private AccountType type;
+  @Column(name = "transaction_type")
+  private TransactionType type;
 
   @ManyToOne(fetch = FetchType.EAGER)
-  @JoinColumn(name = "user_Id")
-  private String userId;
+  @JoinColumn(name = "account_number")
+  private Account account;
 
-  private Double balance;
+  @Column(name = "details")
+  private String message;
 
-  public Account(String type, String userId, Double amount) {
-    String utype = type.toUpperCase();
-    this.accountId = IdGenerator.generateID(utype);
-    this.type = AccountType.valueOf(utype);
-    this.userId = userId;
-    this.balance = amount;
-  }
+  private Double amount;
+
+  @Column(name = "date_time")
+  private LocalDate date;
+
+  // public TransactionData(String type, String accountId, Double amount) {}
 }

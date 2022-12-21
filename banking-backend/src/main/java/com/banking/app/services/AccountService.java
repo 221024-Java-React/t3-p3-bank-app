@@ -1,4 +1,4 @@
-package com.banking.services;
+package com.banking.app.services;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -11,16 +11,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.banking.repositories.AccountRepository;
-import com.banking.repositories.UserRepository;
-import com.banking.repositories.TransactionRepository;
-//import com.banking.exceptions.ClaimAlreadyProcessedException;
-//import com.banking.exceptions.NotAnEmployeeException;
-
-import com.banking.models.Account;
-import com.banking.models.AccountType;
-import com.banking.models.User;
-import com.banking.models.TransactionData;
+import com.banking.app.models.Account;
+import com.banking.app.models.AccountType;
+import com.banking.app.models.TransactionData;
+import com.banking.app.models.User;
+import com.banking.app.repositories.AccountRepository;
+import com.banking.app.repositories.TransactionRepository;
+import com.banking.app.repositories.UserRepository;
 
 import lombok.AllArgsConstructor;
 
