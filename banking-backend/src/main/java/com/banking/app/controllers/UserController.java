@@ -1,7 +1,7 @@
 package com.banking.app.controllers;
 
-
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,8 +54,32 @@ public class UserController {
   }
 
   @PutMapping("/update")
-  public User update(@RequestBody User user) {
-    return uServ.updateUser(user);
+  public User updateUser(@RequestBody LinkedHashMap<String, String> body) {
+    String firstName = body.get("firstName");
+    String lastName = body.get("lastName");
+    String email = body.get("email");
+
+    return uServ.updateUser(firstName, lastName, email);
   }
+
+  @PutMapping("/update_password")
+  public User updatePassword(@RequestBody LinkedHashMap<String, String> body) {
+    String email = body.get("email");
+    String password = body.get("password");
+
+    return uServ.updatePassword(email, password);
+  }
+
+  @PostMapping("/user")
+  public User userByEmail(@RequestBody LinkedHashMap<String, String> body) {
+    String email = body.get("email");
+
+    return uServ.getUserByEmail(email);
+  }
+
+  // @PostMapping("/members")
+  // public List<User> allUsers() {
+  // return uServ.getAllUsers();
+  // }
 
 }

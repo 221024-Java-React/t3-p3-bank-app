@@ -14,26 +14,28 @@ import com.banking.app.repositories.TransactionRepository;
 import lombok.AllArgsConstructor;
 
 @Service
-@AllArgsConstructor(onConstructor=@__(@Autowired))
+@AllArgsConstructor(onConstructor = @__(@Autowired))
 public class TransactionDataService {
-	private AccountRepository aRepo;
-	//private UserRepository uRepo;
-	private TransactionRepository tRepo;
-	
-	public TransactionData createTransaction(TransactionData t) {
-		return tRepo.save(t);
-	}
-	
-	/*public List<TransactionData> getTransactionsByAccountId(String accountId) {
-		Account a = aRepo.getAccountByAccountId(accountId);
-		return tRepo.getTransactionDatasByAccount(a);
-	}
-	
-	public List<TransactionData> getTransactionDataByUser(User u) {
-		return tRepo.getTransactionDatasByUser(u);
-	}
-	
-	public TransactionData getTransactionById(int id) {
-		return tRepo.getTransactionDataByTransactionDataId(id);
-	}*/
+  private AccountRepository aRepo;
+  // private UserRepository uRepo;
+  private TransactionRepository tRepo;
+
+  public TransactionData createTransaction(TransactionData t) {
+    return tRepo.save(t);
+  }
+
+  /*
+   * public List<TransactionData> getTransactionsByAccountId(String accountId) {
+   * Account a = aRepo.getAccountByAccountId(accountId);
+   * return tRepo.getTransactionDatasByAccount(a);
+   * }
+   * 
+   * public List<TransactionData> getTransactionDataByUser(User u) {
+   * return tRepo.getTransactionDatasByUser(u);
+   * }
+   * 
+   * public TransactionData getTransactionById(int id) {
+   * return tRepo.getTransactionDataByTransactionDataId(id);
+   * }
+   */
 }

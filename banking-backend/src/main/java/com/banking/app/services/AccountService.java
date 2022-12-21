@@ -20,68 +20,70 @@ import com.banking.app.repositories.UserRepository;
 import lombok.AllArgsConstructor;
 
 @Service
-@AllArgsConstructor(onConstructor=@__(@Autowired))
+@AllArgsConstructor(onConstructor = @__(@Autowired))
 public class AccountService {
-	private AccountRepository cRepo;
-	private UserRepository uRepo;
-	private TransactionRepository tRepo;
-	
-	/*public Account createAccount(String email, String accountId, User user, AccountType type, Integer balance) {
-		User u = uRepo.getByEmail(email).get();
-		Account acc = new Account(accountId, u, type, balance);
-		return cRepo.save(acc);
-	}*/
-	public Account createAccount(Account a) {
-		//User u = uRepo.getByEmail(email).get();
-		//Account acc = new Account(accountId, u, type, balance);
-		return cRepo.save(a);
-	}
-	
-	public List<Account> getAccounts(UUID accountId) {
-		User u = uRepo.findById(accountId);
-		
-		return cRepo.getAccountsBySubmitter(u);
-	}
-	
-	public Account getAccountById(UUID id) {
-		return cRepo.getAccountByAccountId(id);
-	}
+  private AccountRepository cRepo;
+  private UserRepository uRepo;
+  private TransactionRepository tRepo;
 
-	public List<Account> getAccountsByType(AccountType s) {
-		
-		return cRepo.getAccountsByType(s);
-	}
-	
-	public TransactionData transferBetweenAccounts(UUID accountIdFrom, UUID accountIdTo, Double amount) {
-		Account from = cRepo.getAccountByAccountId(accountIdFrom);
-		Account to = cRepo.getAccountByAccountId(accountIdTo);
-		
-		double fromA = from.getBalance()-amount;
-		from.setBalance(fromA);
-		double toA = to.getBalance()+amount;
-		to.setBalance(toA);
-		cRepo.save(from);
-		cRepo.save(to);
-		LocalDate time = LocalDate.now();
-		
-		TransactionData tFrom = new TransactionData();
-		tFrom.setAccount(from);
-		tFrom.setAmount(amount);
-		tFrom.setType(TransactionType.WIDTHDRAW);
-		tFrom.setDate(time);
-		//tFrom.setMessage(message);
-		
-		TransactionData tTo = new TransactionData();
-		tTo.setAccount(to);
-		tTo.setAmount(amount);
-		tFrom.setType(TransactionType.DEPOSIT);
-		tTo.setDate(time);
-		//tTo.setMessage(message);
-	
+  /*
+   * public Account createAccount(String email, String accountId, User user,
+   * AccountType type, Integer balance) {
+   * User u = uRepo.getByEmail(email).get();
+   * Account acc = new Account(accountId, u, type, balance);
+   * return cRepo.save(acc);
+   * }
+   */
+  public Account createAccount(Account a) {
+    // User u = uRepo.getByEmail(email).get();
+    // Account acc = new Account(accountId, u, type, balance);
+    return cRepo.save(a);
+  }
 
-		tRepo.save(tTo);
-		tRepo.save(tFrom);
-		
-		return tFrom;
-	}
+  public List<Account> getAccounts(UUID accountId) {
+    User u = uRepo.findById(accountId);
+
+    return cRepo.getAccountsBySubmitter(u);
+  }
+
+  public Account getAccountById(UUID id) {
+    return cRepo.getAccountByAccountId(id);
+  }
+
+  public List<Account> getAccountsByType(AccountType s) {
+
+    return cRepo.getAccountsByType(s);
+  }
+
+  public TransactionData transferBetweenAccounts(UUID accountIdFrom, UUID accountIdTo, Double amount) {
+    Account from = cRepo.getAccountByAccountId(accountIdFrom);
+    Account to = cRepo.getAccountByAccountId(accountIdTo);
+
+    double fromA = from.getBalance() - amount;
+    from.setBalance(fromA);
+    double toA = to.getBalance() + amount;
+    to.setBalance(toA);
+    cRepo.save(from);
+    cRepo.save(to);
+    LocalDate time = LocalDate.now();
+
+    TransactionData tFrom = new TransactionData();
+    tFrom.setAccount(from);
+    tFrom.setAmount(amount);
+    tFrom.setType(TransactionType.WIDTHDRAW);
+    tFrom.setDate(time);
+    // tFrom.setMessage(message);
+
+    TransactionData tTo = new TransactionData();
+    tTo.setAccount(to);
+    tTo.setAmount(amount);
+    tFrom.setType(TransactionType.DEPOSIT);
+    tTo.setDate(time);
+    // tTo.setMessage(message);
+
+    tRepo.save(tTo);
+    tRepo.save(tFrom);
+
+    return tFrom;
+  }
 }

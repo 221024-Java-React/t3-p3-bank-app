@@ -7,13 +7,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.banking.app.exceptions.CannotUpdateUserException;
-import com.banking.app.exceptions.EmailAlreadyExistsException;
-import com.banking.app.exceptions.InvalidCredentialsException;
 import com.banking.app.models.Account;
 import com.banking.app.models.User;
 import com.banking.app.models.UserType;
+
 import com.banking.app.repositories.UserRepository;
+
+import com.banking.app.exceptions.CannotUpdateUserException;
+import com.banking.app.exceptions.EmailAlreadyExistsException;
+import com.banking.app.exceptions.InvalidCredentialsException;
 
 import lombok.AllArgsConstructor;
 
@@ -58,13 +60,12 @@ public class UserService {
 
   }
 
-  public User updateUser(String firstName, String lastName, String email, String password) {
+  public User updateUser(String firstName, String lastName, String email) {
 
     User u = uRepo.getByEmail(email).orElseThrow(InvalidCredentialsException::new);
 
     u.setFirstName(firstName);
     u.setLastName(lastName);
-    u.setPassword(password);
 
     try {
       User ret = uRepo.save(u);

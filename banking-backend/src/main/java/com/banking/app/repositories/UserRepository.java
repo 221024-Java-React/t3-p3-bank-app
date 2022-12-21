@@ -9,7 +9,8 @@ import org.springframework.stereotype.Repository;
 import com.banking.app.models.User;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Integer>{
-	Optional<User> getByEmail(String email);
-	User findById(UUID accountId);
+public interface UserRepository extends JpaRepository<User, Integer> {
+  Optional<User> getByEmail(String email);
+
+  User findById(UUID accountId);
 }

@@ -10,7 +10,7 @@ import lombok.AllArgsConstructor;
 @RestController
 @RequestMapping("transactions")
 @CrossOrigin("*")
-@AllArgsConstructor(onConstructor=@__(@Autowired))
+@AllArgsConstructor(onConstructor = @__(@Autowired))
 public class TransactionController {
 
 }
