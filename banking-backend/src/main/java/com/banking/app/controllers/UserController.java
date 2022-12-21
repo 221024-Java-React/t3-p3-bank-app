@@ -1,4 +1,4 @@
-/*package com.banking.app.controllers;
+package com.banking.app.controllers;
 
 import java.util.LinkedHashMap;
 import java.util.Random;
@@ -57,4 +57,4 @@ public class UserController {
     return uServ.updateUser(user);
   }
 
-}*/
+}

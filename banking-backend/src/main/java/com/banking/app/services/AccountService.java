@@ -39,7 +39,7 @@ public class AccountService {
 		return cRepo.save(a);
 	}
 	
-	/*public List<Account> getAccounts(int accountId) {
+	public List<Account> getAccounts(int accountId) {
 		User u = uRepo.findById(accountId).get();
 		
 		return cRepo.getAccountsBySubmitter(u);
@@ -52,9 +52,9 @@ public class AccountService {
 	public List<Account> getAccountsByType(AccountType s) {
 		
 		return cRepo.getAccountsByType(s);
-	}*/
+	}
 	
-	/*public TransactionData transferBetweenAccounts(String accountIdFrom, String accountIdTo, Double amount) {
+	public TransactionData transferBetweenAccounts(String accountIdFrom, String accountIdTo, Double amount) {
 		Account from = cRepo.getAccountByAccountId(accountIdFrom);
 		Account to = cRepo.getAccountByAccountId(accountIdTo);
 		
@@ -82,5 +82,5 @@ public class AccountService {
 		tRepo.save(tFrom);
 		
 		return tFrom;
-	}*/
+	}
 }
