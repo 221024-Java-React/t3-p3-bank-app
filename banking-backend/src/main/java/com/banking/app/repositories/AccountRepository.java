@@ -1,13 +1,13 @@
-package com.banking.repositories;
+package com.banking.app.repositories;
 
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.banking.models.User;
-import com.banking.models.Account;
-import com.banking.models.AccountType;
+import com.banking.app.models.Account;
+import com.banking.app.models.AccountType;
+import com.banking.app.models.User;
 
 @Repository
 public interface AccountRepository extends JpaRepository<Account, Integer>{
