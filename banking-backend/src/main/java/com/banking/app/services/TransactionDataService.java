@@ -1,6 +1,7 @@
 package com.banking.app.services;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,23 +18,22 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor(onConstructor=@__(@Autowired))
 public class TransactionDataService {
 	private AccountRepository aRepo;
-	//private UserRepository uRepo;
 	private TransactionRepository tRepo;
 	
 	public TransactionData createTransaction(TransactionData t) {
 		return tRepo.save(t);
 	}
 	
-	/*public List<TransactionData> getTransactionsByAccountId(String accountId) {
+	public List<TransactionData> getTransactionsByAccountId(UUID accountId) {
 		Account a = aRepo.getAccountByAccountId(accountId);
-		return tRepo.getTransactionDatasByAccount(a);
+		return tRepo.getTransactionDataByAccount(a);
 	}
 	
-	public List<TransactionData> getTransactionDatasByUser(User u) {
-		return tRepo.getTransactionDatasByUser(u);
+	public List<TransactionData> getTransactionDataByUser(User u) {
+		return tRepo.getTransactionDataByUser(u);
 	}
 	
 	public TransactionData getTransactionById(int id) {
 		return tRepo.getTransactionDataByTransactionDataId(id);
-	}*/
+	}
 }
