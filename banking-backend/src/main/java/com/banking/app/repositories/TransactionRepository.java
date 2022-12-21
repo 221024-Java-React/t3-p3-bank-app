@@ -23,3 +23,4 @@ public interface TransactionRepository extends JpaRepository<TransactionData, In
 
   TransactionData getTransactionDataByTransactionDataId(int id);
 }
+
