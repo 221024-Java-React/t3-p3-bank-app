@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import styled, { ThemeProvider } from 'styled-components'
 import Login from './Components/Forms/Login/Login'
 import Register from './Components/Forms/Register/Register'
+import Navbar from './Components/Navbar/Navbar'
 import { lightTheme, darkTheme } from './Components/Theme'
 
 const Container = styled.div`
@@ -47,6 +48,7 @@ function App() {
                 }
             </ThemeButton>
             <Container>
+                <Navbar />
                 Home
                 <Register />
                 <Login />
