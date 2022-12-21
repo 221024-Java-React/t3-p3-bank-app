@@ -1,6 +1,7 @@
 package com.banking.app.services;
 
 import java.time.LocalDate;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,7 +51,7 @@ public class AccountService {
 		return cRepo.getAccountsByType(s);
 	}
 	
-	public TransactionData transferBetweenAccounts(String accountIdFrom, String accountIdTo, Double amount, String message) {
+	public TransactionData transferBetweenAccounts(String accountIdFrom, String accountIdTo, Double amount) {
 		Account from = cRepo.getAccountByAccountId(accountIdFrom);
 		Account to = cRepo.getAccountByAccountId(accountIdTo);
 		
@@ -67,15 +68,17 @@ public class AccountService {
 		tFrom.setAmount(amount);
 		tFrom.setType(TransactionType.WIDTHDRAW);
 		tFrom.setDate(time);
-		tFrom.setMessage(message);
+		//tFrom.setMessage(message);
+
 		
 		TransactionData tTo = new TransactionData();
 		tTo.setAccount(to);
 		tTo.setAmount(amount);
 		tFrom.setType(TransactionType.DEPOSIT);
 		tTo.setDate(time);
-		tTo.setMessage(message);
+		//tTo.setMessage(message);
 	
+
 		tRepo.save(tTo);
 		tRepo.save(tFrom);
 		
