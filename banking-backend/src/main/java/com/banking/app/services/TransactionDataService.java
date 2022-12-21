@@ -31,6 +31,7 @@ public class TransactionDataService {
 	
 	public List<TransactionData> getTransactionDataByUser(User u) {
 		return tRepo.getTransactionDataByUser(u);
+
 	}
 	
 	public TransactionData getTransactionById(int id) {

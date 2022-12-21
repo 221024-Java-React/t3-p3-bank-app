@@ -37,8 +37,8 @@ public class AccountService {
 		return cRepo.save(a);
 	}
 	
-	public List<Account> getAccounts(int accountId) {
-		User u = uRepo.findById(accountId).get();
+	public List<Account> getAccounts(UUID accountId) {
+		User u = uRepo.findById(accountId);
 		
 		return cRepo.getAccountsBySubmitter(u);
 	}
@@ -70,7 +70,6 @@ public class AccountService {
 		tFrom.setType(TransactionType.WIDTHDRAW);
 		tFrom.setDate(time);
 		//tFrom.setMessage(message);
-
 		
 		TransactionData tTo = new TransactionData();
 		tTo.setAccount(to);
