@@ -1,11 +1,7 @@
 package com.banking.app.services;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-/*
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-*/
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.banking.app.models.Account;
 import com.banking.app.models.AccountType;
 import com.banking.app.models.TransactionData;
+import com.banking.app.models.TransactionType;
 import com.banking.app.models.User;
 import com.banking.app.repositories.AccountRepository;
 import com.banking.app.repositories.TransactionRepository;
@@ -64,20 +61,24 @@ public class AccountService {
 		to.setBalance(toA);
 		cRepo.save(from);
 		cRepo.save(to);
-		LocalDateTime time = LocalDateTime.now();
+		LocalDate time = LocalDate.now();
 		
 		TransactionData tFrom = new TransactionData();
-		tFrom.setAccount(fromAccountId);
+		tFrom.setAccount(from);
 		tFrom.setAmount(amount);
-		//tFrom.setType(TransactionType.Withdraw);
-		tFrom.setDatetime(time);
+		tFrom.setType(TransactionType.WIDTHDRAW);
+		tFrom.setDate(time);
+		//tFrom.setMessage(message);
+
 		
 		TransactionData tTo = new TransactionData();
 		tTo.setAccount(to);
 		tTo.setAmount(amount);
-		//tFrom.setType(TransactionType.DEPOSIT);
-		tFrom.setDatetime(time);
-		
+		tFrom.setType(TransactionType.DEPOSIT);
+		tTo.setDate(time);
+		//tTo.setMessage(message);
+	
+
 		tRepo.save(tTo);
 		tRepo.save(tFrom);
 		
