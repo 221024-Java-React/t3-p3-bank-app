@@ -1,26 +1,19 @@
-package com.banking.services;
+package com.banking.app.services;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-/*
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-*/
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.banking.repositories.AccountRepository;
-import com.banking.repositories.UserRepository;
-import com.banking.repositories.TransactionRepository;
-//import com.banking.exceptions.ClaimAlreadyProcessedException;
-//import com.banking.exceptions.NotAnEmployeeException;
-
-import com.banking.models.Account;
-import com.banking.models.AccountType;
-import com.banking.models.User;
-import com.banking.models.TransactionData;
+import com.banking.app.models.Account;
+import com.banking.app.models.AccountType;
+import com.banking.app.models.TransactionData;
+import com.banking.app.models.TransactionType;
+import com.banking.app.models.User;
+import com.banking.app.repositories.AccountRepository;
+import com.banking.app.repositories.TransactionRepository;
+import com.banking.app.repositories.UserRepository;
 
 import lombok.AllArgsConstructor;
 
@@ -57,7 +50,7 @@ public class AccountService {
 		return cRepo.getAccountsByType(s);
 	}
 	
-	public TransactionData transferBetweenAccounts(String accountIdFrom, String accountIdTo, Double amount) {
+	public TransactionData transferBetweenAccounts(String accountIdFrom, String accountIdTo, Double amount, String message) {
 		Account from = cRepo.getAccountByAccountId(accountIdFrom);
 		Account to = cRepo.getAccountByAccountId(accountIdTo);
 		
@@ -70,16 +63,18 @@ public class AccountService {
 		LocalDate time = LocalDate.now();
 		
 		TransactionData tFrom = new TransactionData();
-		tFrom.setAccountId(from.getAccountId());
+		tFrom.setAccount(from);
 		tFrom.setAmount(amount);
-		//tFrom.setType(TransactionType.Withdraw);
+		tFrom.setType(TransactionType.WIDTHDRAW);
 		tFrom.setDate(time);
+		tFrom.setMessage(message);
 		
 		TransactionData tTo = new TransactionData();
-		tTo.setAccountId(to.getAccountId());
+		tTo.setAccount(to);
 		tTo.setAmount(amount);
-		//tFrom.setType(TransactionType.DEPOSIT);
-		tFrom.setDate(time);
+		tFrom.setType(TransactionType.DEPOSIT);
+		tTo.setDate(time);
+		tTo.setMessage(message);
 		
 		tRepo.save(tTo);
 		tRepo.save(tFrom);

@@ -1,17 +1,15 @@
-package com.banking.services;
+package com.banking.app.services;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.banking.models.Account;
-//import com.banking.models.AccountType;
-import com.banking.models.TransactionData;
-import com.banking.models.User;
-import com.banking.repositories.AccountRepository;
-//import com.banking.repositories.UserRepository;
-import com.banking.repositories.TransactionRepository;
+import com.banking.app.models.Account;
+import com.banking.app.models.TransactionData;
+import com.banking.app.models.User;
+import com.banking.app.repositories.AccountRepository;
+import com.banking.app.repositories.TransactionRepository;
 
 import lombok.AllArgsConstructor;
 
@@ -26,7 +24,7 @@ public class TransactionDataService {
 		return tRepo.save(t);
 	}
 	
-	public List<TransactionData> getTransactionsByAccountId(String accountId) {
+	/*public List<TransactionData> getTransactionsByAccountId(String accountId) {
 		Account a = aRepo.getAccountByAccountId(accountId);
 		return tRepo.getTransactionDatasByAccount(a);
 	}
@@ -37,5 +35,5 @@ public class TransactionDataService {
 	
 	public TransactionData getTransactionById(int id) {
 		return tRepo.getTransactionDataByTransactionDataId(id);
-	}
+	}*/
 }

@@ -1,4 +1,4 @@
-package com.banking.exceptions;
+package com.banking.app.exceptions;
 
 public class NotAnEmployeeException extends RuntimeException {
 
