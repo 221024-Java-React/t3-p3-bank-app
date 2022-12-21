@@ -1,6 +1,7 @@
 package com.banking.app.controllers;
 
 import java.util.LinkedHashMap;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -20,20 +21,21 @@ import lombok.AllArgsConstructor;
 @CrossOrigin("*")
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 public class AccountController {
+	
+	private AccountService aServ;
+	
+	@PostMapping("/create")
+	public Account createAccount(@RequestBody Account a) {
+		return aServ.createAccount(a);
+	}
+	
+	@PostMapping("/transfer")
+	public <T> TransactionData transferFunds(@RequestBody LinkedHashMap<String, T> body) {
+		UUID accountIdFrom = (UUID) body.get("accountIdFrom");
+		UUID accountIdTo = (UUID) body.get("accountIdTo");
+		Double amount = (Double) body.get("amount");
+		
+		return aServ.transferBetweenAccounts(accountIdFrom, accountIdTo, amount);
+	}
 
-  private AccountService aServ;
-
-  @PostMapping("/create")
-  public Account createAccount(@RequestBody Account a) {
-    return aServ.createAccount(a);
-  }
-
-  @PostMapping("/transfer")
-  public <T> TransactionData transferFunds(@RequestBody LinkedHashMap<String, T> body) {
-    String accountIdFrom = (String) body.get("accountIdFrom");
-    String accountIdTo = (String) body.get("accountIdTo");
-    Double amount = (Double) body.get("amount");
-
-    return aServ.transferBetweenAccounts(accountIdFrom, accountIdTo, amount);
-  }
 }
