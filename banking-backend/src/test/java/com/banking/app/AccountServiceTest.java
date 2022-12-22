@@ -14,8 +14,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.springframework.test.context.ActiveProfiles;
 import com.banking.app.exceptions.EmailAlreadyExistsException;
 import com.banking.app.exceptions.InvalidCredentialsException;
+import com.banking.app.models.Account;
 import com.banking.app.models.User;
+import com.banking.app.repositories.AccountRepository;
 import com.banking.app.repositories.UserRepository;
+import com.banking.app.services.AccountService;
 import com.banking.app.services.UserService;
 /*
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK, classes= AppApplication.class)
@@ -24,31 +27,32 @@ import com.banking.app.services.UserService;
 */
 @ExtendWith(MockitoExtension.class)
 @ActiveProfiles("test")
-public class UserServiceTest {
+public class AccountServiceTest {
 	@Mock
-	UserRepository uRepo;
+	AccountRepository aRepo;
 	
 	@InjectMocks
-	UserService uServ;
+	AccountService aServ;
 	
 	//We want to be sure our database is clear after each test, so lets setup a @BeforeEach method to clear the database
 	@BeforeEach
 	public void resetDatabase() {
 		//System.out.println("Run before each test");
-		uRepo.deleteAll();
+		aRepo.deleteAll();
 	}
 	
 	@Test
-	public void testSuccessfulRegistration() throws Exception {
+	public void testSuccessfulAccountCreate() throws Exception {
 		//List<User> roles = new ArrayList<>();
 		User emp = new User("First", "Last", "test@email.com", "1234 Test Rd.", "555-555-5555", "password");
+		Account a = new Account("CHECKING", emp, 102.23);
 		//Optional<User> empty = Optional.empty();
 		//roles.add(emp);
-		uServ.registerUser(emp);
-		assertNotNull(uServ.getUserByEmail(emp.getEmail()));
-		assertEquals(uServ.getUserByEmail(emp.getEmail()),emp);
+		aServ.createAccount(a);
+		assertNotNull(aServ.getAccountById(a.getAccountId()));
+		assertEquals(aServ.getAccountById(a.getAccountId()),a);
 	}
-	
+	/*
 	@Test
 	public void testUnsuccessfulRegistration() throws Exception {
 		//List<User> roles = new ArrayList<>();
@@ -94,6 +98,7 @@ public class UserServiceTest {
 		assertEquals(emp,uServ.getUserByEmail("test@email.com"));
 		assertNull(uServ.getUserByEmail("wrong@email.com"));
 	}
+	*/
 	/*
 	@Test
 	void test() {
