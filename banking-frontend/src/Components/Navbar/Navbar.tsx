@@ -1,8 +1,9 @@
 import React from 'react'
+import { useNavigate } from 'react-router'
 import styled from 'styled-components'
 
 const Container = styled.div`
-    height: 60px;
+    height: 80px;
     background-color: ${(props) => props.theme.body};
     color: ${(props) => props.theme.text};
     position: sticky;
@@ -12,9 +13,11 @@ const Container = styled.div`
     border-bottom: 1px solid ${(props) => props.theme.border};
 `
 const Wrapper = styled.div`
+    height: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 20px;
 `
 const Left = styled.div`
     flex: 1;
@@ -35,20 +38,31 @@ const Right = styled.div`
     padding-right: 20px;
 `
 const MenuItem = styled.div`
-    font-size: 14px;
     cursor: pointer;
     margin-left: 24px;
+    height: 100%;
 `
 
 const Navbar: React.FC = () => {
+
+    const navigate = useNavigate();
+
+    const navigateHome = () => {
+        navigate('/')
+    }
+
+    const navigateLogin = () => {
+        navigate('/login')
+    }
+
     return (
         <Container>
             <Wrapper>
                 <Left>BANK NAME</Left>
                 <Center>Center</Center>
                 <Right>
-                    <MenuItem>Home</MenuItem>
-                    <MenuItem>Log In</MenuItem>
+                    <MenuItem onClick={navigateHome}>Home</MenuItem>
+                    <MenuItem onClick={navigateLogin}>Log In</MenuItem>
                 </Right>
             </Wrapper>
         </Container>
