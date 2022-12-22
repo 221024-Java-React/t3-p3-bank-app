@@ -1,12 +1,12 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
 import { AccountContextState } from "../../Interfaces/Account";
-import { Context } from "../../Context/AccountContext";
+import { AccountContext } from "../../Context/AccountContext";
 
 const Container = styled.div``;
 
 const AccountPage: React.FC = () => {
-  const { currentAccount } = useContext(Context) as AccountContextState;
+  const { currentAccount } = useContext(AccountContext) as AccountContextState;
 
   return (
     <Container>

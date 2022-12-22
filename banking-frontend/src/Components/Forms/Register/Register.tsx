@@ -2,7 +2,7 @@ import axios from 'axios'
 import React, { useContext, useState } from 'react'
 import styled from 'styled-components'
 import { UserContext } from '../../../Context/UserContext'
-import { User, UserContextState } from '../../../Types/User'
+import { User, UserContextState } from '../../../../src/Interfaces/User'
 
 const Container = styled.div`
     display: grid;
@@ -25,7 +25,7 @@ const SubmitButton = styled.input`
 
 const Register: React.FC = () => {
 
-    const { registerUser } = useContext(UserContext) as UserContextState;
+  // const { registerUser } = useContext(UserContext) as UserContextState;
 
   const [inputs, setInputs] = useState({
     firstName: "",
@@ -54,17 +54,32 @@ const Register: React.FC = () => {
     });
   };
 
-  const handleRegister = async () => {
-    let register = inputs;
+    const handleRegister = async () => {
+      // const {firstName, lastName, email, phoneNumber, address} = inputs;
 
     try {
       const res = await axios.post(
-        "http://localhost:8000/users/register",
-        register
+        "http://localhost:8000/users/register", {
+          inputs,
+          accountType: accountType,
+          balance: balance
+        }
       );
       const user = await res.data;
     } catch (e) {}
   };
+
+  // const handleRegister = async () => {
+  //   let register = inputs;
+
+  //   try {
+  //     const res = await axios.post(
+  //       "http://localhost:8000/users/register",
+  //       register
+  //     );
+  //     const user = await res.data;
+  //   } catch (e) {}
+  // };
 
   return (
     <Container>
