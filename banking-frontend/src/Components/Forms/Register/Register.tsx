@@ -33,11 +33,12 @@ const Register: React.FC = () => {
         email: '',
         phoneNumber: '',
         address: '',
+        accountType: '',
     });
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const name = e.target.name;
-        const value = e.target.value;
+        const value = e.target.value.toLowerCase();
         setInputs(values => ({ ...values, [name]: value }))
     }
 
@@ -51,6 +52,7 @@ const Register: React.FC = () => {
             email: '',
             phoneNumber: '',
             address: '',
+            accountType: '',
         });
     }
 
@@ -58,7 +60,7 @@ const Register: React.FC = () => {
         let register = inputs;
 
         try {
-            const res = await axios.post('http://localhost:8000/users/register', register);
+            const res = await axios.post('http://34.229.147.87:8000/users/register', register);
             const user = await res.data;
         } catch (e) {
         }
@@ -78,6 +80,8 @@ const Register: React.FC = () => {
                 <Input type='text' name='phoneNumber' value={inputs.phoneNumber || ""} onChange={handleChange}></Input>
                 <Label>Address:</Label>
                 <Input type='text' name='address' value={inputs.address || ""} onChange={handleChange}></Input>
+                <Label>Checking, Savings, or Both:</Label>
+                <Input type='text' name='address' value={inputs.accountType || ""} onChange={handleChange}></Input>
                 <SubmitButton type='submit' value='Register Member' />
             </Form>
         </Container>
