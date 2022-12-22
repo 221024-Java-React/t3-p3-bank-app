@@ -42,8 +42,6 @@ public class TransactionData {
 
   private Double amount;
 
-  @Column(name = "date_time")
+  @Column(name = "date")
   private LocalDate date;
-
-  // public TransactionData(String type, String accountId, Double amount) {}
 }
