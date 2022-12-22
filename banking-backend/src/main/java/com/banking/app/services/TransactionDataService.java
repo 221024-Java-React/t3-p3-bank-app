@@ -28,13 +28,13 @@ public class TransactionDataService {
 		Account a = aRepo.getAccountByAccountId(accountId);
 		return tRepo.getTransactionDataByAccount(a);
 	}
-	
+	/*
 	public List<TransactionData> getTransactionDataByUser(User u) {
 		return tRepo.getTransactionDataByUser(u);
 
 	}
-	
+	*/
 	public TransactionData getTransactionById(int id) {
-		return tRepo.getTransactionDataByTransactionDataId(id);
+		return tRepo.getTransactionDataByTransactionId(id);
 	}
 }
