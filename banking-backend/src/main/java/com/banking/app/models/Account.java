@@ -42,10 +42,10 @@ public class Account {
 
   private Double balance;
 
-  public Account(String type, User user, Double amount) {
+  public Account(String type, User user, Double balance) {
     String utype = type.toUpperCase();
     this.type = AccountType.valueOf(utype);
     this.user = user;
-    this.balance = amount;
+    this.balance = balance;
   }
 }

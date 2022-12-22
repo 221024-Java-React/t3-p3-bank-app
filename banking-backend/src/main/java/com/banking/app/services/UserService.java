@@ -39,7 +39,9 @@ public class UserService {
    */
   public User registerUser(User u) {
     try {
+      //System.out.println("service1 "+ u);
       User ret = uRepo.save(u);
+      //System.out.println("service2 "+ ret);
       return ret;
     } catch (Exception ex) {
       throw new EmailAlreadyExistsException();

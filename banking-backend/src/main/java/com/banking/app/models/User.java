@@ -3,6 +3,7 @@ package com.banking.app.models;
 import java.util.List;
 import java.util.UUID;
 
+import com.banking.app.utils.RandomPasswordGenerator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -57,12 +58,13 @@ public class User {
 
   // Register Constructor
   // Basic Register constructor
-  public User(String firstName, String lastName, String email, String address, String phoneNumber, String password) {
-    this.firstName = firstName;
+  public User(String firstName, String lastName, String email, String address, String phoneNumber) {
+    this.type = UserType.MEMBER;
+	this.firstName = firstName;
     this.lastName = lastName;
     this.email = email;
     this.address = address;
     this.phoneNumber = phoneNumber;
-    this.password = password;
+    this.password = RandomPasswordGenerator.generatePassword();
   }
 }
