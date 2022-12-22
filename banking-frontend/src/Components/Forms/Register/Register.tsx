@@ -20,7 +20,7 @@ const SubmitButton = styled.input`
 `;
 
 const Register: React.FC = () => {
-  const { registerUser } = useContext(Context) as UserContextState;
+  // const { registerUser } = useContext(Context) as UserContextState;
 
   const [inputs, setInputs] = useState({
     firstName: "",

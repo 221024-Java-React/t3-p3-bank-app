@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import styled, { ThemeProvider } from 'styled-components'
 import Login from './Components/Forms/Login/Login'
 import Register from './Components/Forms/Register/Register'
-import { lightTheme, darkTheme } from './Components/Theme'
+import { lightTheme, darkTheme } from './Util/Theme'
 
 const Container = styled.div`
     background-color: ${(props) => props.theme.body};

@@ -3,7 +3,9 @@ import { Account, AccountContextState } from "../Interfaces/Account";
 import { ProviderProps } from "../Interfaces/ProviderProps";
 import { initUser } from "./UserContext";
 
-export const Context = React.createContext<AccountContextState | null>(null);
+export const AccountContext = React.createContext<AccountContextState | null>(
+  null
+);
 
 const initAccount = {
   accountId: "",
@@ -17,9 +19,9 @@ const AccountProvider: React.FC<ProviderProps> = ({ children }) => {
   const [currentAccount, setCurrentAccount] = useState<Account>(initAccount);
 
   return (
-    <Context.Provider value={{ currentAccount, setCurrentAccount }}>
+    <AccountContext.Provider value={{ currentAccount, setCurrentAccount }}>
       {children}
-    </Context.Provider>
+    </AccountContext.Provider>
   );
 };
 
