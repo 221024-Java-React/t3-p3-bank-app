@@ -16,6 +16,7 @@ import com.banking.app.models.User;
 import com.banking.app.repositories.AccountRepository;
 import com.banking.app.repositories.TransactionRepository;
 import com.banking.app.repositories.UserRepository;
+import com.banking.app.utils.TransactionMessageGenerator;
 
 import lombok.AllArgsConstructor;
 
@@ -72,14 +73,14 @@ public class AccountService {
     tFrom.setAmount(amount);
     tFrom.setType(TransactionType.WIDTHDRAW);
     tFrom.setDate(time);
-    // tFrom.setMessage(message);
+    tFrom.setMessage(TransactionMessageGenerator.generateMessage(TransactionType.WIDTHDRAW, amount));
 
     TransactionData tTo = new TransactionData();
     tTo.setAccount(to);
     tTo.setAmount(amount);
     tFrom.setType(TransactionType.DEPOSIT);
     tTo.setDate(time);
-    // tTo.setMessage(message);
+    tTo.setMessage(TransactionMessageGenerator.generateMessage(TransactionType.DEPOSIT, amount));
 
     tRepo.save(tTo);
     tRepo.save(tFrom);
