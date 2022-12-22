@@ -42,9 +42,9 @@ public class AccountService {
   }
 
   public List<Account> getAccounts(UUID accountId) {
-    User u = uRepo.findById(accountId);
+    User u = uRepo.findByUserId(accountId);
 
-    return cRepo.getAccountsBySubmitter(u);
+    return cRepo.getAccountsByUser(u);
   }
 
   public Account getAccountById(UUID id) {

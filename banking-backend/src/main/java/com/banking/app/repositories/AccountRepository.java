@@ -13,7 +13,7 @@ import com.banking.app.models.User;
 @Repository
 public interface AccountRepository extends JpaRepository<Account, Integer> {
 
-  List<Account> getAccountsBySubmitter(User u);
+  List<Account> getAccountsByUser(User u);
 
   /*
    * List<Ticket> getTicketsBySubmitterAndType(Employee e, TicketType t);
