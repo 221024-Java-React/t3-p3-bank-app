@@ -35,11 +35,10 @@ public class UserController {
     String email = body.get("email");
     String address = body.get("address");
     String phoneNumber = body.get("phoneNumber");
-    String password = "";
     String accountType = body.get("accountType");
     Double balance = 0.0;
 
-    User newUser = new User(firstName, lastName, email, address, phoneNumber, password);
+    User newUser = new User(firstName, lastName, email, address, phoneNumber);
     uServ.registerUser(newUser);
     User registeredUser = uServ.getUserByEmail(email);
     Account account = new Account(accountType, registeredUser, balance);
