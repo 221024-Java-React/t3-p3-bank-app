@@ -10,6 +10,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import com.banking.app.repositories.UserRepository;
 import com.banking.app.services.UserService;
+//import com.fasterxml.jackson.databind.ObjectMapper;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK, classes= AppApplication.class)
 @AutoConfigureMockMvc
@@ -24,8 +25,11 @@ class UserControllerTest {
 	@Autowired
 	UserRepository urepo;
 	
+	
+	
+	
 	@Test
-	void test() {
+	public void testRegister() throws Exception {
 		fail("Not yet implemented");
 	}
 
