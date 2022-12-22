@@ -1,8 +1,6 @@
-import axios from "axios";
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import { UserContext } from "../../../Context/UserContext";
-import { User, UserContextState } from "../../../Types/User";
+import { axInst } from "../../../Util/axInstance";
 
 const Container = styled.div`
     display: grid;
@@ -23,48 +21,35 @@ const SubmitButton = styled.input`
     margin: 10px;
 `;
 
+const initInputs = {
+    firstName: "",
+    lastName: "",
+    email: "",
+    phoneNumber: "",
+    address: "",
+    accountType: "",
+};
+
 const Register: React.FC = () => {
-    const { registerUser } = useContext(UserContext) as UserContextState;
+    const [inputs, setInputs] = useState(initInputs);
 
-    const [inputs, setInputs] = useState({
-        firstName: "",
-        lastName: "",
-        email: "",
-        phoneNumber: "",
-        address: "",
-        accountType: "",
-    });
-
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const name = e.target.name;
-        const value = e.target.value;
-        setInputs((values) => ({ ...values, [name]: value }));
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+        setInputs(prev => ({ ...prev, [name]: value }));
     };
 
-    const handleSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log(inputs);
-        handleRegister();
-        setInputs({
-            firstName: "",
-            lastName: "",
-            email: "",
-            phoneNumber: "",
-            address: "",
-            accountType: "",
-        });
-    };
-
-    const handleRegister = async () => {
-        let register = inputs;
 
         try {
-            const res = await axios.post(
-                "http://34.229.147.87:8000/users/register",
-                register
-            );
-            const user = await res.data;
-        } catch (e) { }
+            await axInst.post("/users/register", {
+                inputs,
+            });
+
+            setInputs(initInputs);
+        } catch (e) {
+            console.log(e);
+        }
     };
 
     return (
@@ -74,43 +59,43 @@ const Register: React.FC = () => {
                 <Input
                     type="text"
                     name="firstName"
-                    value={inputs.firstName || ""}
-                    onChange={handleChange}
+                    value={inputs.firstName}
+                    onChange={handleInputChange}
                 ></Input>
                 <Label>Last Name:</Label>
                 <Input
                     type="text"
                     name="lastName"
-                    value={inputs.lastName || ""}
-                    onChange={handleChange}
+                    value={inputs.lastName}
+                    onChange={handleInputChange}
                 ></Input>
                 <Label>Email:</Label>
                 <Input
                     type="text"
                     name="email"
-                    value={inputs.email || ""}
-                    onChange={handleChange}
+                    value={inputs.email}
+                    onChange={handleInputChange}
                 ></Input>
                 <Label>Phone Number:</Label>
                 <Input
                     type="text"
                     name="phoneNumber"
-                    value={inputs.phoneNumber || ""}
-                    onChange={handleChange}
+                    value={inputs.phoneNumber}
+                    onChange={handleInputChange}
                 ></Input>
                 <Label>Address:</Label>
                 <Input
                     type="text"
                     name="address"
-                    value={inputs.address || ""}
-                    onChange={handleChange}
+                    value={inputs.address}
+                    onChange={handleInputChange}
                 ></Input>
                 <Label>Checking, Savings, or Both:</Label>
                 <Input
                     type="text"
                     name="accountType"
                     value={inputs.accountType || ""}
-                    onChange={handleChange}
+                    onChange={handleInputChange}
                 ></Input>
                 <SubmitButton type="submit" value="Register Member" />
             </Form>
