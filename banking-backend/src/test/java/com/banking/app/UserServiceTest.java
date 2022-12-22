@@ -41,7 +41,7 @@ public class UserServiceTest {
 	@Test
 	public void testSuccessfulRegistration() throws Exception {
 		//List<User> roles = new ArrayList<>();
-		User emp = new User("First", "Last", "test@email.com", "1234 Test Rd.", "555-555-5555", "password");
+		User emp = new User("First", "Last", "test@email.com", "1234 Test Rd.", "555-555-5555");
 		//Optional<User> empty = Optional.empty();
 		//roles.add(emp);
 		uServ.registerUser(emp);
@@ -52,8 +52,8 @@ public class UserServiceTest {
 	@Test
 	public void testUnsuccessfulRegistration() throws Exception {
 		//List<User> roles = new ArrayList<>();
-		User emp = new User("First", "Last", "test@email.com", "1234 Test Rd.", "555-555-5555", "password");
-		User empCopy = new User("Copy", "Other", "test@email.com", "1234 Test Rd.", "555-555-5555", "password");
+		User emp = new User("First", "Last", "test@email.com", "1234 Test Rd.", "555-555-5555");
+		User empCopy = new User("Copy", "Other", "test@email.com", "1234 Test Rd.", "555-555-5555");
 		//Optional<User> empty = Optional.empty();
 		//roles.add(emp);
 		uServ.registerUser(emp);
@@ -65,7 +65,7 @@ public class UserServiceTest {
 	@Test
 	public void testSuccessfulLogin() throws Exception {
 		//List<User> roles = new ArrayList<>();
-		User emp = new User("First", "Last", "test@email.com", "1234 Test Rd.", "555-555-5555", "password");
+		User emp = new User("First", "Last", "test@email.com", "1234 Test Rd.", "555-555-5555");
 		uServ.registerUser(emp);
 		assertEquals(uServ.loginUser("test@email.com","password"),emp);
 	}
