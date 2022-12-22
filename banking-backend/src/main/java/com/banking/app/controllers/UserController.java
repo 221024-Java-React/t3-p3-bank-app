@@ -1,8 +1,7 @@
 package com.banking.app.controllers;
 
 import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Random;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -28,20 +27,6 @@ public class UserController {
   private UserService uServ;
   private AccountService aServ;
 
-  private static char randomChar() {
-    String alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-    Random r = new Random();
-    char c = alphabet.charAt(r.nextInt(alphabet.length()));
-    return c;
-  }
-
-  private static String generatePassword() {
-    String password = "";
-    for (int i = 0; i < 8; i++) {
-      password = password + randomChar();
-    }
-    return password;
-  }
 
   @PostMapping("/register")
   public User register(@RequestBody LinkedHashMap<String, String> body) {
@@ -50,11 +35,10 @@ public class UserController {
     String email = body.get("email");
     String address = body.get("address");
     String phoneNumber = body.get("phoneNumber");
-    String password = "";
     String accountType = body.get("accountType");
     Double balance = 0.0;
 
-    User newUser = new User(firstName, lastName, email, address, phoneNumber, password);
+    User newUser = new User(firstName, lastName, email, address, phoneNumber);
     uServ.registerUser(newUser);
     User registeredUser = uServ.getUserByEmail(email);
     Account account = new Account(accountType, registeredUser, balance);
