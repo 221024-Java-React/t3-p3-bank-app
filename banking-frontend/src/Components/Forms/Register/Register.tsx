@@ -38,7 +38,7 @@ const Register: React.FC = () => {
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const name = e.target.name;
-        const value = e.target.value.toLowerCase();
+        const value = e.target.value;
         setInputs(values => ({ ...values, [name]: value }))
     }
 
@@ -81,7 +81,7 @@ const Register: React.FC = () => {
                 <Label>Address:</Label>
                 <Input type='text' name='address' value={inputs.address || ""} onChange={handleChange}></Input>
                 <Label>Checking, Savings, or Both:</Label>
-                <Input type='text' name='address' value={inputs.accountType || ""} onChange={handleChange}></Input>
+                <Input type='text' name='accountType' value={inputs.accountType || ""} onChange={handleChange}></Input>
                 <SubmitButton type='submit' value='Register Member' />
             </Form>
         </Container>
