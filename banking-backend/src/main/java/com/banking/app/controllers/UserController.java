@@ -41,8 +41,16 @@ public class UserController {
     User newUser = new User(firstName, lastName, email, address, phoneNumber);
     uServ.registerUser(newUser);
     User registeredUser = uServ.getUserByEmail(email);
-    Account account = new Account(accountType, registeredUser, balance);
-    aServ.createAccount(account);
+
+    if (accountType == "both") {
+      Account accountChecking = new Account("checking", registeredUser, balance);
+      Account accountSavings = new Account("savings", registeredUser, balance);
+      aServ.createAccount(accountChecking);
+      aServ.createAccount(accountSavings);
+    } else {
+      Account account = new Account(accountType, registeredUser, balance);
+      aServ.createAccount(account);
+    }
 
     return registeredUser;
   }
