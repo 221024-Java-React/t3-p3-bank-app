@@ -51,37 +51,26 @@ const Login: React.FC = () => {
   const handleRegister = async () => {
     let register = inputs;
 
-    try {
-      const res = await axios.post(
-        "http://localhost:8000/users/login",
-        register
-      );
-      const user = await res.data;
-      loginUser(user);
-    } catch (e) {}
-  };
+        try {
+            const res = await axios.post('http://34.229.147.87:8000/users/login', register);
+            const user = await res.data;
+            loginUser(user);
+        } catch (e) {
+        }
 
-  return (
-    <Container>
-      <Form onSubmit={handleSubmit}>
-        <Label>Email:</Label>
-        <Input
-          type="text"
-          name="email"
-          value={inputs.email || ""}
-          onChange={handleChange}
-        ></Input>
-        <Label>Password:</Label>
-        <Input
-          type="password"
-          name="password"
-          value={inputs.password || ""}
-          onChange={handleChange}
-        ></Input>
-        <SubmitButton type="submit" value="Register Member" />
-      </Form>
-    </Container>
-  );
-};
+    };
+
+    return (
+        <Container>
+            <Form onSubmit={handleSubmit}>
+                <Label>Email:</Label>
+                <Input type='text' name='email' value={inputs.email || ""} onChange={handleChange}></Input>
+                <Label>Password:</Label>
+                <Input type='password' name='password' value={inputs.password || ""} onChange={handleChange}></Input>
+                <SubmitButton type='submit' value='Log In' />
+            </Form>
+        </Container>
+    )
+}
 
 export default Login;

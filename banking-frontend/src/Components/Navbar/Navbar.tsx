@@ -55,6 +55,10 @@ const Navbar: React.FC = () => {
         navigate('/login')
     }
 
+    const navigateRegister = () => {
+        navigate('/register')
+    }
+
     return (
         <Container>
             <Wrapper>
@@ -63,6 +67,7 @@ const Navbar: React.FC = () => {
                 <Right>
                     <MenuItem onClick={navigateHome}>Home</MenuItem>
                     <MenuItem onClick={navigateLogin}>Log In</MenuItem>
+                    <MenuItem onClick={navigateRegister}>Register</MenuItem>
                 </Right>
             </Wrapper>
         </Container>

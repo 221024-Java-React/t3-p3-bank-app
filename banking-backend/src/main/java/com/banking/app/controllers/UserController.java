@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.banking.app.models.Account;
 import com.banking.app.models.User;
+import com.banking.app.services.AccountService;
 import com.banking.app.services.UserService;
 
 import lombok.AllArgsConstructor;
@@ -24,6 +26,7 @@ import lombok.AllArgsConstructor;
 public class UserController {
 
   private UserService uServ;
+  private AccountService aServ;
 
   private static char randomChar() {
     String alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
@@ -41,8 +44,23 @@ public class UserController {
   }
 
   @PostMapping("/register")
-  public User register(@RequestBody User newUser) {
-    return uServ.registerUser(newUser);
+  public User register(@RequestBody LinkedHashMap<String, String> body) {
+    String firstName = body.get("firstName");
+    String lastName = body.get("lastName");
+    String email = body.get("email");
+    String address = body.get("address");
+    String phoneNumber = body.get("phoneNumber");
+    String password = "";
+    String accountType = body.get("accountType");
+    Double balance = 0.0;
+
+    User newUser = new User(firstName, lastName, email, address, phoneNumber, password);
+    uServ.registerUser(newUser);
+    User registeredUser = uServ.getUserByEmail(email);
+    Account account = new Account(accountType, registeredUser, balance);
+    aServ.createAccount(account);
+
+    return registeredUser;
   }
 
   @PostMapping("/login")
