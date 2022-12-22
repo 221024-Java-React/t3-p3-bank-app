@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { User, UserContextState } from "../Interfaces/User";
 import { ProviderProps } from "../Interfaces/ProviderProps";
 
-export const Context = React.createContext<UserContextState | null>(null);
+export const UserContext = React.createContext<UserContextState | null>(null);
 
 export const initUser = {
   userId: "",
@@ -46,11 +46,19 @@ const UserProvider: React.FC<ProviderProps> = ({ children }) => {
     setCurrentUser(initUser);
   };
 
-    return (
-        <UserContext.Provider value={{ registerUser, loginUser, currentUser, loggedIn, updateCurrentUser, logoutUser }}>
-            {children}
-        </UserContext.Provider>
-    )
-}
+  return (
+    <UserContext.Provider
+      value={{
+        loginUser,
+        currentUser,
+        loggedIn,
+        updateCurrentUser,
+        logoutUser,
+      }}
+    >
+      {children}
+    </UserContext.Provider>
+  );
+};
 
 export default UserProvider;
