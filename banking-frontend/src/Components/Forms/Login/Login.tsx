@@ -1,10 +1,14 @@
-import axios from "axios";
-import React, { useContext, useState } from "react";
-import styled from "styled-components";
-import { Context } from "../../../Context/UserContext";
-import { UserContextState } from "../../../Interfaces/User";
+import axios from 'axios'
+import React, { useContext, useState } from 'react'
+import styled from 'styled-components'
+import { UserContext } from '../../../Context/UserContext'
+import { UserContextState } from '../../../Types/User'
 
-const Container = styled.div``;
+const Container = styled.div`
+    display: grid;
+    place-items: center;
+    height: 100%;
+`
 const Form = styled.form`
   display: flex;
   flex-direction: column;
@@ -20,7 +24,9 @@ const SubmitButton = styled.input`
 `;
 
 const Login: React.FC = () => {
-  const { loginUser } = useContext(Context) as UserContextState;
+
+
+    const { loginUser } = useContext(UserContext) as UserContextState;
 
   const [inputs, setInputs] = useState({
     email: "",

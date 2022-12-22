@@ -46,20 +46,11 @@ const UserProvider: React.FC<ProviderProps> = ({ children }) => {
     setCurrentUser(initUser);
   };
 
-  return (
-    <Context.Provider
-      value={{
-        // registerUser,
-        loginUser,
-        currentUser,
-        loggedIn,
-        updateCurrentUser,
-        logoutUser,
-      }}
-    >
-      {children}
-    </Context.Provider>
-  );
-};
+    return (
+        <UserContext.Provider value={{ registerUser, loginUser, currentUser, loggedIn, updateCurrentUser, logoutUser }}>
+            {children}
+        </UserContext.Provider>
+    )
+}
 
 export default UserProvider;
