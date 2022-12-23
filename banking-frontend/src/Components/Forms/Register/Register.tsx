@@ -42,13 +42,14 @@ const Register: React.FC = () => {
         e.preventDefault();
 
         try {
-            await axInst.post("/users/register", {
-                inputs,
-            });
+            await axInst.post("/users/register",
+                inputs
+            );
 
             setInputs(initInputs);
+            console.log(inputs);
         } catch (e) {
-            console.log(e);
+            console.log(e, "this is the error");
         }
     };
 
