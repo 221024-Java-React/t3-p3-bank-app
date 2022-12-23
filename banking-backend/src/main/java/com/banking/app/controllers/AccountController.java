@@ -40,9 +40,9 @@ public class AccountController {
   }
 
   @PostMapping("/account")
-  public List<Account> getAccountsByUserId(@RequestBody LinkedHashMap<String, UUID> body) {
-    UUID userID = body.get("userId");
-    return aServ.getAccounts(userID);
+  public List<Account> getAccountsByUserId(@RequestBody LinkedHashMap<String, String> body) {
+    UUID userID = UUID.fromString(body.get("userId"));
+    return aServ.getAccountsByUserId(userID);
   }
 
 }
