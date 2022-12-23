@@ -5,7 +5,8 @@ import { AccountContext } from "../../../Context/AccountContext";
 import { UserContext } from "../../../Context/UserContext";
 import { AccountContextState } from "../../../Interfaces/Account";
 import { UserContextState } from "../../../Interfaces/User";
-import CreateAccount from "../../Forms/CreateAccount";
+import CreateAccount from "../../AccountPage/CreateAccount";
+import TransferFunds from "../../AccountPage/TransferFunds";
 
 const Container = styled.div``;
 
@@ -15,6 +16,7 @@ const Home: React.FC = () => {
 
     return (
         <Container>
+            <CreateAccount />
             {currentUser?.accounts.map(a => {
                 return (
                     <Link to={`/${a.type}`} onClick={() => setCurrentAccount(a)}>
@@ -24,7 +26,7 @@ const Home: React.FC = () => {
                     </Link>
                 );
             })}
-            <CreateAccount />
+            <TransferFunds />
         </Container>
     );
 };

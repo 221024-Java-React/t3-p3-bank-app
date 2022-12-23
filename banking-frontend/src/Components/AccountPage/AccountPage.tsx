@@ -3,7 +3,11 @@ import styled from "styled-components";
 import { AccountContextState } from "../../Interfaces/Account";
 import { AccountContext } from "../../Context/AccountContext";
 
-const Container = styled.div``;
+const Container = styled.div`
+    display: grid;
+    place-items: center;
+    height: 100%;
+`;
 
 const AccountPage: React.FC = () => {
     const { currentAccount } = useContext(AccountContext) as AccountContextState;

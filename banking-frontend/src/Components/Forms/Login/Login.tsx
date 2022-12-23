@@ -32,18 +32,16 @@ const Login: React.FC = () => {
     const [inputs, setInputs] = useState(initInputs);
     const { loginUser } = useContext(UserContext) as UserContextState;
 
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         setInputs(prev => ({ ...prev, [name]: value }));
     };
 
-    const handleSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
+    const handleFormSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         try {
-            const { data } = await axInst.post("/users/login", {
-                inputs,
-            });
+            const { data } = await axInst.post("/users/login", inputs);
 
             loginUser(data);
             setInputs(initInputs);
@@ -54,20 +52,20 @@ const Login: React.FC = () => {
 
     return (
         <Container>
-            <Form onSubmit={handleSubmit}>
+            <Form onSubmit={handleFormSubmit}>
                 <Label>Email:</Label>
                 <Input
                     type="text"
                     name="email"
                     value={inputs.email}
-                    onChange={handleInputChange}
+                    onChange={handleFormChange}
                 ></Input>
                 <Label>Password:</Label>
                 <Input
                     type="password"
                     name="password"
                     value={inputs.password}
-                    onChange={handleInputChange}
+                    onChange={handleFormChange}
                 ></Input>
                 <SubmitButton type="submit" value="Log In" />
             </Form>
