@@ -22,10 +22,7 @@ const Home: React.FC = () => {
             console.log(currentUser.userId)
             const { data } = await axInst.post<Account[]>(
                 "/accounts/account",
-                {
-                    headers: { "Access-Control-Allow-Origin": "*" },
-                    params: { userId: currentUser.userId },
-                }
+                { userId: currentUser.userId },
             )
             // console.log(accounts, "accounts");
             // console.log(currentUser, "before setting currentuser account");
