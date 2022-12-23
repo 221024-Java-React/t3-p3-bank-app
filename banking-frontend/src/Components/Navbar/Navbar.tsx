@@ -1,6 +1,8 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { useNavigate } from 'react-router'
 import styled from 'styled-components'
+import { UserContext } from '../../Context/UserContext'
+import { UserContextState } from '../../Interfaces/User'
 
 const Container = styled.div`
     height: 80px;
@@ -45,6 +47,8 @@ const MenuItem = styled.div`
 
 const Navbar: React.FC = () => {
 
+    const { currentUser } = useContext(UserContext) as UserContextState;
+
     const navigate = useNavigate();
 
     const navigateHome = () => {
@@ -67,7 +71,10 @@ const Navbar: React.FC = () => {
                 <Right>
                     <MenuItem onClick={navigateHome}>Home</MenuItem>
                     <MenuItem onClick={navigateLogin}>Log In</MenuItem>
-                    <MenuItem onClick={navigateRegister}>Register</MenuItem>
+                    {
+                        currentUser.type === "REP" &&
+                        <MenuItem onClick={navigateRegister}>Register</MenuItem>
+                    }
                 </Right>
             </Wrapper>
         </Container>

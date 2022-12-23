@@ -1,8 +1,11 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import { UserContext } from "../../../Context/UserContext";
 import { UserContextState } from "../../../../src/Interfaces/User";
 import { axInst } from "../../../Util/axInstance";
+import { useNavigate } from "react-router";
+import { async } from "rxjs";
+import { Account } from "../../../Interfaces/Account";
 
 const Container = styled.div`
     display: grid;
@@ -30,11 +33,34 @@ const initInputs = {
 
 const Login: React.FC = () => {
     const [inputs, setInputs] = useState(initInputs);
-    const { loginUser } = useContext(UserContext) as UserContextState;
+    const { setCurrentUser, loginUser, updateCurrentUser, currentUser } =
+        useContext(UserContext) as UserContextState;
 
     const handleFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
-        setInputs(prev => ({ ...prev, [name]: value }));
+        setInputs((prev) => ({ ...prev, [name]: value }));
+    };
+
+    const navigate = useNavigate();
+
+    const getAccounts = async () => {
+        try {
+            const { data: accounts } = await axInst.post<Account[]>(
+                "/accounts/account",
+                {
+                    headers: { "Access-Control-Allow-Origin": "*" },
+                    params: { userId: currentUser.userId },
+                }
+            );
+            console.log(accounts, "accounts");
+            console.log(currentUser, "before setting currentuser account");
+            setCurrentUser({ ...currentUser, accounts: accounts });
+            console.log(currentUser, "after setting currentuser account");
+
+            console.log(currentUser);
+        } catch (e) {
+            console.log(e);
+        }
     };
 
     const handleFormSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
@@ -44,11 +70,19 @@ const Login: React.FC = () => {
             const { data } = await axInst.post("/users/login", inputs);
 
             loginUser(data);
+            console.log(data);
             setInputs(initInputs);
+            // navigate("/home")
         } catch (e) {
             console.log(e);
         }
     };
+
+    // useEffect(() => {
+    //     getAccounts();
+    // }, []);
+
+    // console.log(currentUser);
 
     return (
         <Container>
