@@ -41,6 +41,7 @@ const UserProvider: React.FC<ProviderProps> = ({ children }) => {
                 loggedIn,
                 updateCurrentUser,
                 logoutUser,
+                setCurrentUser
             }}
         >
             {children}

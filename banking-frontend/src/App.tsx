@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import styled, { ThemeProvider } from "styled-components";
 import Login from "./Components/Forms/Login/Login";
@@ -7,6 +7,8 @@ import Navbar from "./Components/Navbar/Navbar";
 import { lightTheme, darkTheme } from "../src/Util/Theme";
 import WelcomePage from "./Components/WelcomePage/WelcomePage";
 import Home from "./Components/Home/Home/Home";
+import { UserContext } from "./Context/UserContext";
+import { UserContextState } from "./Interfaces/User";
 
 const Container = styled.div`
     background-color: ${props => props.theme.body};
@@ -24,6 +26,7 @@ const ThemeButton = styled.button`
 
 function App() {
     const [theme, setTheme] = useState("light");
+    const { currentUser } = useContext(UserContext) as UserContextState;
 
     const themeToggler = () => {
         if (localStorage.getItem("theme") === "light") {
@@ -48,8 +51,12 @@ function App() {
                 <Navbar />
                 <Routes>
                     <Route path="/" element={<WelcomePage />} />
-                    <Route path="/register" element={<Register />} />
+                    {
+                        currentUser.type === "REP" &&
+                        <Route path="/register" element={<Register />} />
+                    }
                     <Route path="/login" element={<Login />} />
+                    <Route path="/home" element={<Home />} />
                     {/* <Route path='/checking' element={<AccountPage account={currentUser.accounts.checking}/>} />
                     <Route path='/savings' element={<AccountPage account={currentUser.accounts.savings} />} /> */}
 

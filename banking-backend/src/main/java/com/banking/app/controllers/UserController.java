@@ -2,7 +2,6 @@ package com.banking.app.controllers;
 
 import java.util.LinkedHashMap;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,7 +26,6 @@ public class UserController {
   private UserService uServ;
   private AccountService aServ;
 
-
   @PostMapping("/register")
   public User register(@RequestBody LinkedHashMap<String, String> body) {
     String firstName = body.get("firstName");
@@ -35,14 +33,14 @@ public class UserController {
     String email = body.get("email");
     String address = body.get("address");
     String phoneNumber = body.get("phoneNumber");
-    String accountType = body.get("accountType");
+    String accountType = body.get("accountType").toLowerCase();
     Double balance = 0.0;
 
     User newUser = new User(firstName, lastName, email, address, phoneNumber);
     uServ.registerUser(newUser);
     User registeredUser = uServ.getUserByEmail(email);
 
-    if (accountType == "both") {
+    if (accountType.equals("both")) {
       Account accountChecking = new Account("checking", registeredUser, balance);
       Account accountSavings = new Account("savings", registeredUser, balance);
       aServ.createAccount(accountChecking);

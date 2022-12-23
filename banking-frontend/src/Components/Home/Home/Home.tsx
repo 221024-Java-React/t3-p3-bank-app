@@ -15,7 +15,7 @@ const Home: React.FC = () => {
 
     return (
         <Container>
-            {currentUser?.accounts.map(a => {
+            {currentUser.accounts.map(a => {
                 return (
                     <Link to={`/${a.type}`} onClick={() => setCurrentAccount(a)}>
                         <div>{a.type}</div>

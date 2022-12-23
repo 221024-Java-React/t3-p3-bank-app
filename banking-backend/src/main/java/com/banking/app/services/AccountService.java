@@ -41,7 +41,7 @@ public class AccountService {
     return cRepo.save(a);
   }
 
-  public List<Account> getAccounts(UUID accountId) {
+  public List<Account> getAccountsByUserId(UUID accountId) {
     User u = uRepo.findByUserId(accountId);
 
     return cRepo.getAccountsByUser(u);
