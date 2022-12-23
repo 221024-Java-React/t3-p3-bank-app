@@ -56,6 +56,7 @@ function App() {
                         <Route path="/register" element={<Register />} />
                     }
                     <Route path="/login" element={<Login />} />
+                    <Route path="/home" element={<Home />} />
                     {/* <Route path='/checking' element={<AccountPage account={currentUser.accounts.checking}/>} />
                     <Route path='/savings' element={<AccountPage account={currentUser.accounts.savings} />} /> */}
 
