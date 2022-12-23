@@ -41,11 +41,12 @@ const Login: React.FC = () => {
         e.preventDefault();
 
         try {
-            const { data } = await axInst.post("/users/login", {
+            const { data } = await axInst.post("/users/login",
                 inputs,
-            });
+            );
 
             loginUser(data);
+            console.log(data);
             setInputs(initInputs);
         } catch (e) {
             console.log(e);
