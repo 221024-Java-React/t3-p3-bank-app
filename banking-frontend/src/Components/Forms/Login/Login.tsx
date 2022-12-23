@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { UserContext } from "../../../Context/UserContext";
 import { UserContextState } from "../../../../src/Interfaces/User";
 import { axInst } from "../../../Util/axInstance";
+import { useNavigate } from "react-router";
 
 const Container = styled.div`
     display: grid;
@@ -37,6 +38,8 @@ const Login: React.FC = () => {
         setInputs(prev => ({ ...prev, [name]: value }));
     };
 
+    const navigate = useNavigate();
+
     const handleSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
         e.preventDefault();
 
@@ -48,6 +51,7 @@ const Login: React.FC = () => {
             loginUser(data);
             console.log(data);
             setInputs(initInputs);
+            // navigate("/home")
         } catch (e) {
             console.log(e);
         }

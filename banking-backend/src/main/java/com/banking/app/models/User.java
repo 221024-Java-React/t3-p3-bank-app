@@ -60,7 +60,7 @@ public class User {
   // Basic Register constructor
   public User(String firstName, String lastName, String email, String address, String phoneNumber) {
     this.type = UserType.MEMBER;
-	this.firstName = firstName;
+    this.firstName = firstName;
     this.lastName = lastName;
     this.email = email;
     this.address = address;
