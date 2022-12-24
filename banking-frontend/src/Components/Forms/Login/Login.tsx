@@ -4,7 +4,6 @@ import { UserContext } from "../../../Context/UserContext";
 import { UserContextState } from "../../../../src/Interfaces/User";
 import { axInst } from "../../../Util/axInstance";
 import { useNavigate } from "react-router";
-import { async } from "rxjs";
 import { Account } from "../../../Interfaces/Account";
 
 const Container = styled.div`
@@ -72,7 +71,7 @@ const Login: React.FC = () => {
             loginUser(data);
             console.log(data);
             setInputs(initInputs);
-            // navigate("/home")
+            navigate("/home")
         } catch (e) {
             console.log(e);
         }
