@@ -67,7 +67,7 @@ const Login: React.FC = () => {
             loginUser(data);
             console.log(data);
             setInputs(initInputs);
-            // navigate("/home")
+            navigate("/home")
         } catch (e) {
             console.log(e);
         }
