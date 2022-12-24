@@ -20,10 +20,6 @@ const UserProvider: React.FC<ProviderProps> = ({ children }) => {
     const [currentUser, setCurrentUser] = useState<User>(initUser);
     const [loggedIn, setLoggedIn] = useState<boolean>(false);
 
-    const updateCurrentUser = (user: User) => {
-        setCurrentUser(user);
-    };
-
     const loginUser = (user: User) => {
         setLoggedIn(true);
         setCurrentUser(user);
@@ -36,12 +32,11 @@ const UserProvider: React.FC<ProviderProps> = ({ children }) => {
     return (
         <UserContext.Provider
             value={{
-                loginUser,
                 currentUser,
                 loggedIn,
-                updateCurrentUser,
+                setCurrentUser,
+                loginUser,
                 logoutUser,
-                setCurrentUser
             }}
         >
             {children}

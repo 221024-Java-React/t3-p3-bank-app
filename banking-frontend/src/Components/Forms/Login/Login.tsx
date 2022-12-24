@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import styled from "styled-components";
 import { UserContext } from "../../../Context/UserContext";
 import { UserContextState } from "../../../../src/Interfaces/User";
@@ -32,9 +32,7 @@ const initInputs = {
 
 const Login: React.FC = () => {
     const [inputs, setInputs] = useState(initInputs);
-    const { setCurrentUser, loginUser, updateCurrentUser, currentUser } = useContext(
-        UserContext
-    ) as UserContextState;
+    const { setCurrentUser, loginUser, currentUser } = useContext(UserContext) as UserContextState;
 
     const handleFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;

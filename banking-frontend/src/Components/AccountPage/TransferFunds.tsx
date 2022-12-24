@@ -50,8 +50,9 @@ const TransferFunds = () => {
                     <option>Checking</option>
                     <option>Savings</option>
                 </select>
-                <label htmlFor="amount">Amoung:</label>
+                <label htmlFor="amount">Amount:</label>
                 <input type="number" step="0.01" onChange={handleFormChange} />
+                <button type="submit">Transfer</button>
             </form>
         </Container>
     );
