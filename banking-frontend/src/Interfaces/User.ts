@@ -14,7 +14,6 @@ export interface User {
 
 export interface UserContextState {
     currentUser: User;
-    loggedIn: boolean;
     setCurrentUser: (user: User) => void;
     loginUser: (user: User) => void;
     logoutUser: () => void;
