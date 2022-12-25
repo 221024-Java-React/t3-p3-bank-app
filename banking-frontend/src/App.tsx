@@ -3,66 +3,71 @@ import { Route, Routes } from "react-router-dom";
 import styled, { ThemeProvider } from "styled-components";
 import Login from "./Components/Forms/Login/Login";
 import Register from "./Components/Forms/Register/Register";
-import Navbar from "./Components/Navbar/Navbar";
-import { lightTheme, darkTheme } from "../src/Util/Theme";
+import Navbar from "./Components/Navigation/Navbar";
+import { lightTheme, darkTheme } from "./Util/Themes";
 import WelcomePage from "./Components/WelcomePage/WelcomePage";
-import Home from "./Components/Home/Home/Home";
+import MemberHome from "./Components/Homepages/MemberHome";
 import { UserContext } from "./Context/UserContext";
 import { UserContextState } from "./Interfaces/User";
+import RepHome from "./Components/Homepages/RepHome";
+import Footer from "./Components/Navigation/Footer";
 
-const Container = styled.div`
+const DarkModeProvider = styled.div`
     background-color: ${props => props.theme.body};
     color: ${props => props.theme.text};
-    height: 100vh;
-    width: 100vw;
-    display: flex;
-    flex-direction: column;
 `;
-const ThemeButton = styled.button`
+const DarkModeButton = styled.button`
     position: absolute;
-    bottom: 20px;
-    right: 15px;
+    bottom: 1.5rem;
+    right: 1rem;
 `;
 
 function App() {
-    const [theme, setTheme] = useState("light");
+    const [theme, setTheme] = useState<String>("Light");
     const { currentUser } = useContext(UserContext) as UserContextState;
 
-    const themeToggler = () => {
-        if (localStorage.getItem("theme") === "light") {
-            setTheme("dark");
-            localStorage.setItem("theme", "dark");
+    const toggleTheme = () => {
+        if (localStorage.getItem("theme") === "Light") {
+            setTheme("Dark");
+            localStorage.setItem("theme", "Dark");
         } else {
-            setTheme("light");
-            localStorage.setItem("theme", "light");
+            setTheme("Light");
+            localStorage.setItem("theme", "Light");
         }
     };
 
     useEffect(() => {
-        themeToggler();
+        toggleTheme();
     }, []);
 
     return (
-        <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
-            <ThemeButton onClick={themeToggler}>
-                {theme === "light" ? <div>Light</div> : <div>Dark</div>}
-            </ThemeButton>
-            <Container>
+        <ThemeProvider theme={theme === "Light" ? lightTheme : darkTheme}>
+            <DarkModeButton onClick={toggleTheme}>{theme}</DarkModeButton>
+            <DarkModeProvider>
                 <Navbar />
-                <Routes>
-                    <Route path="/" element={<WelcomePage />} />
-                    {
-                        currentUser.type === "REP" &&
+                {currentUser.type === "REP" && (
+                    <Routes>
+                        <Route path="/" element={<RepHome />} />
                         <Route path="/register" element={<Register />} />
-                    }
-                    <Route path="/login" element={<Login />} />
-                    <Route path="/home" element={<Home />} />
-                    {/* <Route path='/checking' element={<AccountPage account={currentUser.accounts.checking}/>} />
+                    </Routes>
+                )}
+                {currentUser.type === "MEMBER" && (
+                    <Routes>
+                        {/* <Route path="/" element={<MemberHome />} /> */}
+                        {/* <Route path='/checking' element={<AccountPage account={currentUser.accounts.checking}/>} />
                     <Route path='/savings' element={<AccountPage account={currentUser.accounts.savings} />} /> */}
+                    </Routes>
+                )}
+                {currentUser.type === "" && (
+                    <Routes>
+                        <Route path="/" element={<WelcomePage />} />
+                        {/* <Route path="/" element={<MemberHome />} /> */}
 
-                    <Route path="/home" element={<Home />} />
-                </Routes>
-            </Container>
+                        <Route path="/login" element={<Login />} />
+                    </Routes>
+                )}
+                <Footer />
+            </DarkModeProvider>
         </ThemeProvider>
     );
 }
