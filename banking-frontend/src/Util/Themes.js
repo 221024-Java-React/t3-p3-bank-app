@@ -6,16 +6,16 @@ export const vars = {
 
 export const lightTheme = {
     body: "white",
-    text: "black",
-    background: "#eeeeee",
-    border: "#ccc",
+    color: "black",
+    background: "white",
+    border: vars.primaryDark,
     altColor: "#333",
     gradient: "background: linear-gradient(#fff, #888)",
 };
 
 export const darkTheme = {
     body: "#333",
-    text: "white",
+    color: "white",
     background: "#555555",
     border: "#222",
     altColor: "#888",
