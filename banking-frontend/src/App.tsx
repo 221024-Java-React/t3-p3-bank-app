@@ -1,10 +1,10 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import styled, { ThemeProvider } from "styled-components";
 import Login from "./Components/Forms/Login/Login";
 import Register from "./Components/Forms/Register/Register";
 import Navbar from "./Components/Navigation/Navbar";
-import { lightTheme, darkTheme } from "./Util/Themes";
+import { vars, lightTheme, darkTheme } from "./Util/Themes";
 import WelcomePage from "./Components/WelcomePage/WelcomePage";
 import MemberHome from "./Components/Homepages/MemberHome";
 import { UserContext } from "./Context/UserContext";
@@ -36,38 +36,36 @@ function App() {
         }
     };
 
-    useEffect(() => {
-        toggleTheme();
-    }, []);
-
     return (
         <ThemeProvider theme={theme === "Light" ? lightTheme : darkTheme}>
-            <DarkModeButton onClick={toggleTheme}>{theme}</DarkModeButton>
-            <DarkModeProvider>
-                <Navbar />
-                {currentUser.type === "REP" && (
-                    <Routes>
-                        <Route path="/" element={<RepHome />} />
-                        <Route path="/register" element={<Register />} />
-                    </Routes>
-                )}
-                {currentUser.type === "MEMBER" && (
-                    <Routes>
-                        {/* <Route path="/" element={<MemberHome />} /> */}
-                        {/* <Route path='/checking' element={<AccountPage account={currentUser.accounts.checking}/>} />
+            <ThemeProvider theme={vars}>
+                {/* <DarkModeButton onClick={toggleTheme}>{theme}</DarkModeButton> */}
+                <DarkModeProvider>
+                    <Navbar />
+                    {currentUser.type === "REP" && (
+                        <Routes>
+                            <Route path="/" element={<RepHome />} />
+                            <Route path="/register" element={<Register />} />
+                        </Routes>
+                    )}
+                    {currentUser.type === "MEMBER" && (
+                        <Routes>
+                            {/* <Route path="/" element={<MemberHome />} /> */}
+                            {/* <Route path='/checking' element={<AccountPage account={currentUser.accounts.checking}/>} />
                     <Route path='/savings' element={<AccountPage account={currentUser.accounts.savings} />} /> */}
-                    </Routes>
-                )}
-                {currentUser.type === "" && (
-                    <Routes>
-                        <Route path="/" element={<WelcomePage />} />
-                        {/* <Route path="/" element={<MemberHome />} /> */}
+                        </Routes>
+                    )}
+                    {currentUser.type === "" && (
+                        <Routes>
+                            <Route path="/" element={<WelcomePage />} />
+                            {/* <Route path="/" element={<MemberHome />} /> */}
 
-                        <Route path="/login" element={<Login />} />
-                    </Routes>
-                )}
-                <Footer />
-            </DarkModeProvider>
+                            <Route path="/login" element={<Login />} />
+                        </Routes>
+                    )}
+                    <Footer />
+                </DarkModeProvider>
+            </ThemeProvider>
         </ThemeProvider>
     );
 }
