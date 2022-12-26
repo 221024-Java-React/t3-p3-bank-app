@@ -8,7 +8,7 @@ const Container = styled.div`
     display: flex;
     justify-content: space-evenly;
     border: 2px solid ${props => props.theme.border};
-    border-radius: 5px;
+    border-radius: ${props => props.theme.borderRadius};
     background: ${props => props.theme.background};
     box-shadow: 0 -20px 0px ${props => props.theme.background};
 `;

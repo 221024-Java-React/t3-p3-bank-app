@@ -1,7 +1,14 @@
 export const vars = {
     primaryDark: "#154481",
     primaryMed: "#577DBE",
-    primaryLight: "C8D5F5",
+    primaryLight: "#83a3d6",
+    primaryLightest: "#C8D5F5",
+    bodyWidth: "80vw",
+    borderRadius: "5px",
+    fontSize: {
+        h1: "1.4rem",
+        h2: "1.1rem",
+    },
 };
 
 export const lightTheme = {

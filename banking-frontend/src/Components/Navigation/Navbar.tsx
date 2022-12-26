@@ -15,7 +15,6 @@ const Menu = styled.div`
     justify-content: flex-end;
     padding: 0.5rem;
     padding-right: 1rem;
-    border-bottom: 1px solid ${props => props.theme.border};
 `;
 
 const MenuItem = styled.div`
@@ -28,7 +27,8 @@ const MenuItem = styled.div`
 const Banner = styled.div`
     background: ${props => props.theme.primaryDark};
     box-shadow: 0 10px 5px ${props => props.theme.background};
-    margin-bottom: 0.5rem;
+    margin-bottom: 1.5rem;
+    border-radius: 3px
 `;
 const Logo = styled.img`
     width: 8rem;

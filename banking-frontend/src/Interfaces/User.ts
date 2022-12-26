@@ -17,4 +17,5 @@ export interface UserContextState {
     setCurrentUser: (user: User) => void;
     loginUser: (user: User) => void;
     logoutUser: () => void;
+    getBankAccounts: () => Promise<Account[] | undefined>;
 }

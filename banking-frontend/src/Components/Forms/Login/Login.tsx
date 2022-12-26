@@ -33,30 +33,29 @@ const initInputs = {
 const Login: React.FC = () => {
     const [inputs, setInputs] = useState(initInputs);
     const { setCurrentUser, loginUser, currentUser } = useContext(UserContext) as UserContextState;
+    const navigate = useNavigate();
 
     const handleFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         setInputs(prev => ({ ...prev, [name]: value }));
     };
 
-    const navigate = useNavigate();
+    // const getAccounts = async () => {
+    //     try {
+    //         const { data: accounts } = await axInst.post<Account[]>("/accounts/account", {
+    //             headers: { "Access-Control-Allow-Origin": "*" },
+    //             params: { userId: currentUser.userId },
+    //         });
+    //         console.log(accounts, "accounts");
+    //         console.log(currentUser, "before setting currentuser account");
+    //         setCurrentUser({ ...currentUser, accounts: accounts });
+    //         console.log(currentUser, "after setting currentuser account");
 
-    const getAccounts = async () => {
-        try {
-            const { data: accounts } = await axInst.post<Account[]>("/accounts/account", {
-                headers: { "Access-Control-Allow-Origin": "*" },
-                params: { userId: currentUser.userId },
-            });
-            console.log(accounts, "accounts");
-            console.log(currentUser, "before setting currentuser account");
-            setCurrentUser({ ...currentUser, accounts: accounts });
-            console.log(currentUser, "after setting currentuser account");
-
-            console.log(currentUser);
-        } catch (e) {
-            console.log(e);
-        }
-    };
+    //         console.log(currentUser);
+    //     } catch (e) {
+    //         console.log(e);
+    //     }
+    // };
 
     const handleFormSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -67,7 +66,7 @@ const Login: React.FC = () => {
             loginUser(data);
             console.log(data);
             setInputs(initInputs);
-            navigate("/home")
+            navigate("/home");
         } catch (e) {
             console.log(e);
         }
