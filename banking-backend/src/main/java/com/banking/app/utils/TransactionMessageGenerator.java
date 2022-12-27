@@ -16,6 +16,8 @@ public class TransactionMessageGenerator {
 	  	case TRANSFER :
 	  		message = "A transfer of $" + amount + " was made.";
 	        break;
+	  	case PAY :
+	  		message = "A payment of $" + amount + " was made.";
 	  }
 	  return message;
   }
