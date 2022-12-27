@@ -1,68 +1,87 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import styled, { ThemeProvider } from "styled-components";
-import Login from "./Components/Forms/Login/Login";
-import Register from "./Components/Forms/Register/Register";
-import Navbar from "./Components/Navbar/Navbar";
-import { lightTheme, darkTheme } from "../src/Util/Theme";
+import Login from "./Components/Forms/Login";
+import Register from "./Components/Forms/Register";
+import Navbar from "./Components/Navigation/Navbar";
+import { vars, lightTheme, darkTheme } from "./Util/Themes";
 import WelcomePage from "./Components/WelcomePage/WelcomePage";
-import Home from "./Components/Home/Home/Home";
+import MemberHome from "./Components/Homepages/MemberHome";
 import { UserContext } from "./Context/UserContext";
 import { UserContextState } from "./Interfaces/User";
+import RepHome from "./Components/Homepages/RepHome";
+import Footer from "./Components/Navigation/Footer";
+import AccountSummary from "./Components/AccountPage/AccountSummary";
+import AccountHistory from "./Components/AccountPage/AccountHistory";
+import CreditCardApplication from "./Components/Forms/CreditCardApplication";
+import TransferFunds from "./Components/AccountPage/TransferFunds";
 
-const Container = styled.div`
+const DarkModeProvider = styled.div`
     background-color: ${props => props.theme.body};
     color: ${props => props.theme.text};
-    height: 100vh;
-    width: 100vw;
-    display: flex;
-    flex-direction: column;
 `;
-const ThemeButton = styled.button`
+const Body = styled.div`
+    width: ${props => props.theme.bodyWidth};
+    min-height: 100vh;
+    margin: 0 auto;
+`;
+const DarkModeButton = styled.button`
     position: absolute;
-    bottom: 20px;
-    right: 15px;
+    bottom: 1.5rem;
+    right: 1rem;
 `;
 
 function App() {
-    const [theme, setTheme] = useState("light");
+    const [theme, setTheme] = useState<String>("Light");
     const { currentUser } = useContext(UserContext) as UserContextState;
 
-    const themeToggler = () => {
-        if (localStorage.getItem("theme") === "light") {
-            setTheme("dark");
-            localStorage.setItem("theme", "dark");
+    const toggleTheme = () => {
+        if (localStorage.getItem("theme") === "Light") {
+            setTheme("Dark");
+            localStorage.setItem("theme", "Dark");
         } else {
-            setTheme("light");
-            localStorage.setItem("theme", "light");
+            setTheme("Light");
+            localStorage.setItem("theme", "Light");
         }
     };
 
-    useEffect(() => {
-        themeToggler();
-    }, []);
-
     return (
-        <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
-            <ThemeButton onClick={themeToggler}>
-                {theme === "light" ? <div>Light</div> : <div>Dark</div>}
-            </ThemeButton>
-            <Container>
-                <Navbar />
-                <Routes>
-                    <Route path="/" element={<WelcomePage />} />
-                    {
-                        currentUser.type === "REP" &&
-                        <Route path="/register" element={<Register />} />
-                    }
-                    <Route path="/login" element={<Login />} />
-                    <Route path="/home" element={<Home />} />
-                    {/* <Route path='/checking' element={<AccountPage account={currentUser.accounts.checking}/>} />
-                    <Route path='/savings' element={<AccountPage account={currentUser.accounts.savings} />} /> */}
-
-                    <Route path="/home" element={<Home />} />
-                </Routes>
-            </Container>
+        <ThemeProvider theme={theme === "Light" ? lightTheme : darkTheme}>
+            <ThemeProvider theme={vars}>
+                {/* <DarkModeButton onClick={toggleTheme}>{theme}</DarkModeButton> */}
+                <DarkModeProvider>
+                    <Navbar />
+                    <Body>
+                        {currentUser.type === "REP" && (
+                            <Routes>
+                                <Route path="/" element={<RepHome />} />
+                                <Route path="/register" element={<Register />} />
+                            </Routes>
+                        )}
+                        {currentUser.type === "MEMBER" && (
+                            <Routes>
+                                <Route path="/" element={<MemberHome />} />
+                                <Route path="accounts/summary" element={<AccountSummary />} />
+                                <Route path="/accounts/checking" element={<AccountHistory />} />
+                                <Route path="/accounts/savings" element={<AccountHistory />} />
+                                <Route path="/accounts/credit" element={<AccountHistory />} />
+                                <Route path="/accounts/transfer" element={<TransferFunds />} />
+                                <Route
+                                    path="/credit-card-application"
+                                    element={<CreditCardApplication />}
+                                />
+                            </Routes>
+                        )}
+                        {currentUser.type === "" && (
+                            <Routes>
+                                <Route path="/" element={<WelcomePage />} />
+                                <Route path="/login" element={<Login />} />
+                            </Routes>
+                        )}
+                    </Body>
+                    <Footer />
+                </DarkModeProvider>
+            </ThemeProvider>
         </ThemeProvider>
     );
 }
