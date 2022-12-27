@@ -55,6 +55,9 @@ public class User {
   @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
   @JsonIgnore
   private List<Account> accounts;
+  
+  @Column(name = "first_Login")
+  private Boolean firstLogin;
 
   // Register Constructor
   // Basic Register constructor
@@ -66,5 +69,6 @@ public class User {
     this.address = address;
     this.phoneNumber = phoneNumber;
     this.password = RandomPasswordGenerator.generatePassword();
+    this.firstLogin = false;
   }
 }

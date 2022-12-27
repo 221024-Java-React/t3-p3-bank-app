@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import com.banking.app.models.Account;
 import com.banking.app.models.TransactionData;
-import com.banking.app.models.User;
 import com.banking.app.repositories.AccountRepository;
 import com.banking.app.repositories.TransactionRepository;
 

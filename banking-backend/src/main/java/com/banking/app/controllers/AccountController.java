@@ -42,7 +42,7 @@ public class AccountController {
   @PostMapping("/account")
   public List<Account> getAccountsByUserId(@RequestBody LinkedHashMap<String, UUID> body) {
     UUID userID = body.get("userId");
-    return aServ.getAccounts(userID);
+    return aServ.getAccountsByUserId(userID);
   }
 
 }
