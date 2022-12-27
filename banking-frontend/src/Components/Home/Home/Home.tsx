@@ -5,7 +5,7 @@ import { AccountContext } from "../../../Context/AccountContext";
 import { UserContext } from "../../../Context/UserContext";
 import { Account, AccountContextState } from "../../../Interfaces/Account";
 import { UserContextState } from "../../../Interfaces/User";
-import CreateAccount from "../../Forms/CreateAccount";
+// import CreateAccount from "../../Forms/CreateAccount";
 import axios from "axios";
 import { axInst } from "../../../Util/axInstance";
 
@@ -58,7 +58,7 @@ const Home: React.FC = () => {
                     </Link>
                 );
             })}
-            <CreateAccount />
+            {/* <CreateAccount /> */}
         </Container>
     );
 };

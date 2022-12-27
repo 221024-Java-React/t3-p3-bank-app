@@ -65,7 +65,7 @@ const WelcomePage: React.FC = () => {
             <Wrapper>
                 <TopWrapper>
                     <WelcomeWrapper>
-                        <WelcomeTitle>Welcome to BANK NAME!</WelcomeTitle>
+                        <WelcomeTitle>Welcome to GoodBank!</WelcomeTitle>
                         <WelcomeParagraph>
                             We're more than just any other bank, we're family
                             helping families!
