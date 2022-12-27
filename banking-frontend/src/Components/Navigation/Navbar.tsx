@@ -28,7 +28,7 @@ const Banner = styled.div`
     background: ${props => props.theme.primaryDark};
     box-shadow: 0 10px 5px ${props => props.theme.background};
     margin-bottom: 1.5rem;
-    border-radius: 3px
+    border-radius: 3px;
 `;
 const Logo = styled.img`
     width: 8rem;
@@ -54,10 +54,10 @@ const Navbar: React.FC = () => {
                         <Link to="/about-us">About Us</Link>
                     </MenuItem>
                     <MenuItem>
-                        <Link to="/account/summary">Account Summary</Link>
+                        <Link to="/accounts/summary">Account Summary</Link>
                     </MenuItem>
                     <MenuItem>
-                        <Link to="/account/settings">Account Settings</Link>
+                        <Link to="/accounts/settings">Account Settings</Link>
                     </MenuItem>
                     <MenuItem>
                         <Link to="/logout">Log Out</Link>

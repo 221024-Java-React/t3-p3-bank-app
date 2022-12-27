@@ -12,6 +12,7 @@ import { UserContextState } from "./Interfaces/User";
 import RepHome from "./Components/Homepages/RepHome";
 import Footer from "./Components/Navigation/Footer";
 import AccountSummary from "./Components/AccountPage/AccountSummary";
+import AccountHistory from "./Components/AccountPage/AccountHistory";
 
 const DarkModeProvider = styled.div`
     background-color: ${props => props.theme.body};
@@ -57,9 +58,10 @@ function App() {
                         )}
                         {currentUser.type === "MEMBER" && (
                             <Routes>
-                                {/* <Route path="/" element={<MemberHome />} /> */}
-                                {/* <Route path='/checking' element={<AccountPage account={currentUser.accounts.checking}/>} />
-                    <Route path='/savings' element={<AccountPage account={currentUser.accounts.savings} />} /> */}
+                                <Route path="/" element={<MemberHome />} />
+                                <Route path="/accounts/checking" element={<AccountHistory />} />
+                                <Route path="/accounts/savings" element={<AccountHistory />} />
+                                <Route path="/accounts/credit" element={<AccountHistory />} />
                             </Routes>
                         )}
                         {currentUser.type === "" && (
@@ -69,6 +71,9 @@ function App() {
                                 <Route path="/login" element={<Login />} />
 
                                 <Route path="accounts/summary" element={<AccountSummary />} />
+                                <Route path="/accounts/checking" element={<AccountHistory />} />
+                                <Route path="/accounts/savings" element={<AccountHistory />} />
+                                <Route path="/accounts/credit" element={<AccountHistory />} />
                             </Routes>
                         )}
                     </Body>

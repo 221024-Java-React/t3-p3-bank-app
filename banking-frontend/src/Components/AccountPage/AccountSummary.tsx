@@ -10,6 +10,8 @@ const Container = styled.div`
     border: 2px solid ${props => props.theme.primaryMed};
     border-radius: ${props => props.theme.borderRadius};
     margin-top: 1.5rem;
+    padding: 1rem;
+    padding-top: 0;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -18,13 +20,28 @@ const Accounts = styled.div``;
 const SummaryFooter = styled.div`
     background: ${props => props.theme.primaryMed};
     border-radius: ${props => props.theme.borderRadius};
-    margin: 1rem;
 `;
 const FooterData = styled.h1`
     font-size: ${props => props.theme.fontSize.h1};
     color: white;
     padding: 0 1rem;
 `;
+
+// replace w/ bankAccounts array in TSX below
+const testArray = [
+    {
+        type: "Checking",
+        balance: 900,
+    },
+    {
+        type: "Savings",
+        balance: 750,
+    },
+    {
+        type: "Credit",
+        balance: 10000,
+    },
+];
 
 const AccountSummary = () => {
     const [bankAccounts, setBankAccounts] = useState<Account[]>([]);
@@ -37,21 +54,16 @@ const AccountSummary = () => {
         });
     }, []);
 
-    useMemo(
-        () => bankAccounts?.forEach(ba => setTotalBalance(prev => prev + ba.balance)),
-        [bankAccounts]
-    );
-
-    // replace w/ bankAccounts array in TSX below
-    const testArray = [
-        { type: "Checking", balance: 900 },
-        { type: "Savings", balance: 750 },
-        { type: "Credit Card", balance: 10000 },
-    ];
+    // change testArray to bankAccounts
+    useMemo(() => testArray?.forEach(ba => setTotalBalance(prev => prev + ba.balance)), []);
 
     return (
         <>
-            <AccountHeader title="Account Summary" btnTitle="Make a Transfer" btnLink="/transfer" />
+            <AccountHeader
+                title="Account Summary"
+                btnTitle="Make a Transfer"
+                btnLink="/accounts/transfer"
+            />
             <Container>
                 <Accounts>
                     {testArray?.map(ba => {
