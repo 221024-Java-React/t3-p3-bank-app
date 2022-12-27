@@ -1,13 +1,34 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { axInst } from "../../Util/axInstance";
+import AccountHeader from "./AccountHeader";
 
-const Container = styled.div`
-    display: grid;
-    place-items: center;
-    height: 100%;
+const TransferForm = styled.form``;
+const TransferContainer = styled.div`
+    border: 2px solid ${props => props.theme.primaryDark};
+    border-radius: ${props => props.theme.borderRadius};
+    margin: 1rem 0;
 `;
-const Title = styled.h1``;
+const Top = styled.div``;
+const AccountName = styled.p`
+    font-size: ${props => props.theme.fontSize.h1};
+    font-weight: bold;
+    margin: 0.25rem 1rem;
+    color: ${props => props.theme.primaryDark};
+`;
+const Bottom = styled.div`
+    display: flex;
+    justify-content: space-between;
+    background: ${props => props.theme.primaryLight};
+`;
+const Data = styled.p`
+    font-size: ${props => props.theme.fontSize.h2};
+    font-weight: bold;
+    margin-left: 1rem;
+    color: ${props => props.theme.primaryDark};
+    margin: 1rem 0 0.5rem 1rem;
+`;
+const Calendar = styled.div``;
 
 const initInputs = {
     fromAccount: "",
@@ -37,24 +58,38 @@ const TransferFunds = () => {
     };
 
     return (
-        <Container>
-            <Title>Transfer Funds</Title>
-            <form onSubmit={handleFormSubmit}>
-                <label htmlFor="fromAccount">From:</label>
-                <select name="fromAccount" id="fromAccount" onChange={handleFormChange}>
-                    <option>Checking</option>
-                    <option>Savings</option>
-                </select>
-                <label htmlFor="toAccount">To:</label>
-                <select name="toAccount" id="fromAccount" onChange={handleFormChange}>
-                    <option>Checking</option>
-                    <option>Savings</option>
-                </select>
-                <label htmlFor="amount">Amount:</label>
-                <input type="number" step="0.01" onChange={handleFormChange} />
-                <button type="submit">Transfer</button>
-            </form>
-        </Container>
+        <>
+            <AccountHeader
+                title="Make a Transfer"
+                btnTitle="Account Summary"
+                btnLink="/accounts/summary"
+            />
+            <TransferForm onSubmit={handleFormSubmit}>
+                <TransferContainer>
+                    <div>
+                        <TransferContainer>
+                            <Top>
+                                <AccountName>Source Account</AccountName>
+                            </Top>
+                            <Bottom>
+                                <select></select>
+                                {/* <Data>Balance: ${balance}</Data> */}
+                            </Bottom>
+                        </TransferContainer>
+                        <TransferContainer>
+                            <Top>
+                                <AccountName>Destination Account</AccountName>
+                            </Top>
+                            <Bottom>
+                                <select></select>
+                                {/* <Data>Balance: ${balance}</Data> */}
+                            </Bottom>
+                        </TransferContainer>
+                    </div>
+                    <Calendar />
+                </TransferContainer>
+            </TransferForm>
+        </>
     );
 };
 

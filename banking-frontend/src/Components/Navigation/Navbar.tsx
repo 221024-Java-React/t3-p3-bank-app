@@ -18,6 +18,7 @@ const Menu = styled.div`
 `;
 
 const MenuItem = styled.div`
+    margin-left: 1rem;
     & a {
         text-decoration: none;
         color: ${props => props.theme.color};
@@ -41,10 +42,10 @@ const Navbar: React.FC = () => {
 
     return (
         <Container>
-            {currentUser.type === "" && (
+            {currentUser.type === "REP" && (
                 <Menu>
                     <MenuItem>
-                        <Link to="/login">Log In</Link>
+                        <Link to="/register">Register A New User</Link>
                     </MenuItem>
                 </Menu>
             )}
@@ -64,10 +65,10 @@ const Navbar: React.FC = () => {
                     </MenuItem>
                 </Menu>
             )}
-            {currentUser.type === "REP" && (
+            {currentUser.type === "" && (
                 <Menu>
                     <MenuItem>
-                        <Link to="/register">Register A New User</Link>
+                        <Link to="/login">Log In</Link>
                     </MenuItem>
                 </Menu>
             )}

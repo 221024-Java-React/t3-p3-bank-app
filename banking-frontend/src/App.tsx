@@ -1,8 +1,8 @@
 import { useContext, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import styled, { ThemeProvider } from "styled-components";
-import Login from "./Components/Forms/Login/Login";
-import Register from "./Components/Forms/Register/Register";
+import Login from "./Components/Forms/Login";
+import Register from "./Components/Forms/Register";
 import Navbar from "./Components/Navigation/Navbar";
 import { vars, lightTheme, darkTheme } from "./Util/Themes";
 import WelcomePage from "./Components/WelcomePage/WelcomePage";
@@ -13,6 +13,8 @@ import RepHome from "./Components/Homepages/RepHome";
 import Footer from "./Components/Navigation/Footer";
 import AccountSummary from "./Components/AccountPage/AccountSummary";
 import AccountHistory from "./Components/AccountPage/AccountHistory";
+import CreditCardApplication from "./Components/Forms/CreditCardApplication";
+import TransferFunds from "./Components/AccountPage/TransferFunds";
 
 const DarkModeProvider = styled.div`
     background-color: ${props => props.theme.body};
@@ -59,21 +61,21 @@ function App() {
                         {currentUser.type === "MEMBER" && (
                             <Routes>
                                 <Route path="/" element={<MemberHome />} />
+                                <Route path="accounts/summary" element={<AccountSummary />} />
                                 <Route path="/accounts/checking" element={<AccountHistory />} />
                                 <Route path="/accounts/savings" element={<AccountHistory />} />
                                 <Route path="/accounts/credit" element={<AccountHistory />} />
+                                <Route path="/accounts/transfer" element={<TransferFunds />} />
+                                <Route
+                                    path="/credit-card-application"
+                                    element={<CreditCardApplication />}
+                                />
                             </Routes>
                         )}
                         {currentUser.type === "" && (
                             <Routes>
                                 <Route path="/" element={<WelcomePage />} />
-                                {/* <Route path="/" element={<MemberHome />} /> */}
                                 <Route path="/login" element={<Login />} />
-
-                                <Route path="accounts/summary" element={<AccountSummary />} />
-                                <Route path="/accounts/checking" element={<AccountHistory />} />
-                                <Route path="/accounts/savings" element={<AccountHistory />} />
-                                <Route path="/accounts/credit" element={<AccountHistory />} />
                             </Routes>
                         )}
                     </Body>

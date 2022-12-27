@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { axInst } from "../../../Util/axInstance";
+import { axInst } from "../../Util/axInstance";
 
 const Container = styled.div`
     display: grid;

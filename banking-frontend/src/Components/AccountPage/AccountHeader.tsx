@@ -26,17 +26,19 @@ const Button = styled.button`
 
 type AccountHeaderPropTypes = {
     title: string;
-    btnTitle: string;
-    btnLink: string;
+    btnTitle: string | undefined;
+    btnLink: string | undefined;
 };
 
 const AccountHeader: React.FC<AccountHeaderPropTypes> = ({ title, btnTitle, btnLink }) => {
     return (
         <Container>
             <Title>{title}</Title>
-            <Link to={`${btnLink}`}>
-                <Button>{btnTitle}</Button>
-            </Link>
+            {btnTitle !== undefined && (
+                <Link to={`${btnLink}`}>
+                    <Button>{btnTitle}</Button>
+                </Link>
+            )}
         </Container>
     );
 };
