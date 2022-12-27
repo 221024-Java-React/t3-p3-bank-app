@@ -6,13 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.banking.app.models.User;
-
-import com.banking.app.repositories.UserRepository;
-
 import com.banking.app.exceptions.CannotUpdateUserException;
 import com.banking.app.exceptions.EmailAlreadyExistsException;
 import com.banking.app.exceptions.InvalidCredentialsException;
+import com.banking.app.models.User;
+import com.banking.app.repositories.UserRepository;
 
 import lombok.AllArgsConstructor;
 

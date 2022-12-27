@@ -1,25 +1,8 @@
 package com.banking.app;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import org.junit.jupiter.api.BeforeEach;
 import org.springframework.test.context.ActiveProfiles;
-import com.banking.app.exceptions.EmailAlreadyExistsException;
-import com.banking.app.exceptions.InvalidCredentialsException;
-import com.banking.app.models.Account;
-import com.banking.app.models.User;
-import com.banking.app.repositories.AccountRepository;
-import com.banking.app.repositories.UserRepository;
-import com.banking.app.services.AccountService;
-import com.banking.app.services.UserService;
 
 /*
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK, classes= AppApplication.class)
