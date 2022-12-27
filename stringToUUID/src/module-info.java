@@ -1,9 +1,0 @@
-/**
- * 
- */
-/**
- * @author Dtech
- *
- */
-module stringToUUID {
-}
