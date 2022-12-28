@@ -42,6 +42,7 @@ public class UserController {
     User newUser = new User(firstName, lastName, email, address, phoneNumber);
     uServ.registerUser(newUser);
     User registeredUser = uServ.getUserByEmail(email);
+    MessageSender.SendFirstPassword(registeredUser);
 
     if (accountType.equals("both")) {
       Account accountChecking = new Account("checking", registeredUser, balance);
@@ -61,7 +62,7 @@ public class UserController {
     String email = body.get("email");
     String password = body.get("password");
     /*
-     * Switch method to void, create frontend that goes to 
+     * create frontend that goes to 
      * separate login with Auth
      * then do this:
      */
