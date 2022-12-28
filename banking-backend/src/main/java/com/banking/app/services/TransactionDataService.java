@@ -23,10 +23,11 @@ public class TransactionDataService {
 		return tRepo.save(t);
 	}
 	
-	public List<TransactionData> getTransactionsByAccountId(UUID accountId) {
-		Account a = aRepo.getAccountByAccountId(accountId);
-		return tRepo.getTransactionDataByAccount(a);
-	}
+	
+	  public List<TransactionData> getTransactionsByAccountId(UUID accountId) {
+	  Account a = aRepo.getAccountByAccountId(accountId); return
+	  tRepo.getTransactionDataByAccount(a); }
+	 
 	/*
 	public List<TransactionData> getTransactionDataByUser(User u) {
 		return tRepo.getTransactionDataByUser(u);

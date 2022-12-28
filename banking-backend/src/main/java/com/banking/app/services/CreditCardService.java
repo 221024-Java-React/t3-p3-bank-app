@@ -31,13 +31,13 @@ public class CreditCardService {
 	}
 	
 	CreditCard getCreditCardByAccountId(UUID id) {
-	    return cRepo.getCreditCardByAccountId(id);
+	    return cRepo.getCreditCardByCardId(id);
 	}
 	
 	boolean addToCreditCardBalance(UUID id, double amount) {
-		CreditCard card = cRepo.getCreditCardByAccountId(id);
-		if((card.getBalanceOwed()+amount)>card.getCreditLimit()) {
-			card.setBalanceOwed(card.getBalanceOwed()+amount);
+		CreditCard card = cRepo.getCreditCardByCardId(id);
+		if((card.getBalance()+amount)>card.getCreditLimit()) {
+			card.setBalance(card.getBalance()+amount);
 			cRepo.save(card);
 			return true;
 		}
@@ -47,9 +47,9 @@ public class CreditCardService {
 	}
 	
 	double payCreditCardBalance(UUID id, double amount) {
-		CreditCard card = cRepo.getCreditCardByAccountId(id);
-		card.setBalanceOwed(card.getBalanceOwed()-amount);
+		CreditCard card = cRepo.getCreditCardByCardId(id);
+		card.setBalance(card.getBalance()-amount);
 		cRepo.save(card);
-		return card.getBalanceOwed();
+		return card.getBalance();
 	}
 }

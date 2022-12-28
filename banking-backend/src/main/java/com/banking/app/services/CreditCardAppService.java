@@ -12,7 +12,8 @@ import com.banking.app.models.User;
 import com.banking.app.repositories.UserRepository;
 import com.banking.app.models.CreditCard;
 import com.banking.app.models.CreditCardApp;
-import com.banking.app.models.CreditCardStatusType;
+import com.banking.app.models.CreditCardAppStatus;
+
 import com.banking.app.repositories.CreditCardRepository;
 import com.banking.app.repositories.CreditCardAppRepository;
 import com.banking.app.repositories.TransactionRepository;
@@ -30,11 +31,8 @@ public class CreditCardAppService {
 		return aRepo.save(c);
 	}
 	
-	List<CreditCardApp> getCreditCardAppByUser(User u){
-		return aRepo.getCreditCardAppsByUser(u);
-	}
 	
-	List<CreditCardApp> getCreditCardAppByStatus(StatusType s){
+	List<CreditCardApp> getCreditCardAppByStatus(CreditCardAppStatus s){
 		return aRepo.getCreditCardAppsByStatus(s);
 	}
 	
@@ -42,7 +40,7 @@ public class CreditCardAppService {
 		return aRepo.getCreditCardAppByApplicationId(id);
 	}
 	
-	CreditCardApp updateCreditCardApp(int id, StatusType s) {
+	CreditCardApp updateCreditCardApp(int id, CreditCardAppStatus s) {
 		CreditCardApp a=aRepo.getCreditCardAppByApplicationId(id);
 		a.setStatus(s);
 		return aRepo.save(a);

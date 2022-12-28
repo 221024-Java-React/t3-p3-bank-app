@@ -3,6 +3,8 @@ package com.banking.app.controllers;
 import java.util.LinkedHashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -14,6 +16,7 @@ import com.banking.app.models.Account;
 import com.banking.app.models.User;
 import com.banking.app.services.AccountService;
 import com.banking.app.services.UserService;
+import com.banking.app.utils.MessageSender;
 
 import lombok.AllArgsConstructor;
 
@@ -57,8 +60,32 @@ public class UserController {
   public User login(@RequestBody LinkedHashMap<String, String> body) {
     String email = body.get("email");
     String password = body.get("password");
-
+    /*
+     * Switch method to void, create frontend that goes to 
+     * separate login with Auth
+     * then do this:
+     */
+     User u = uServ.loginUser(email, password); 
+     MessageSender.SendMessage(u); //call message sender with this
+     
+    
     return uServ.loginUser(email, password);
+  }
+  
+  @PostMapping("/login_Auth")
+  public User loginAuth(@RequestBody LinkedHashMap<String, Object> body) {
+	  String email = (String) body.get("email");
+	  String password = (String) body.get("password");
+	  Integer authToken = (Integer) body.get("token");
+	  
+	  return  uServ.loginUser(email, password, authToken);
+  }
+  
+  @PutMapping("/logout")
+  public ResponseEntity<String> logout(@RequestBody LinkedHashMap<String, String> body){
+	  String email = body.get("email");
+	  uServ.logout(email);
+	  return new ResponseEntity<>("Logged out Successfully", HttpStatus.OK);
   }
 
   @PutMapping("/update")

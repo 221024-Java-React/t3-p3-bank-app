@@ -54,7 +54,30 @@ public class UserService {
     }
 
     return u;
-
+  }
+  
+  public User loginUser(String email, String password, Integer authToken) {
+	    User u = uRepo.getByEmail(email).orElseThrow(InvalidCredentialsException::new);
+	    
+	    if (!u.getAuthToken().equals(authToken)) {
+		      throw new InvalidCredentialsException();
+	    }
+	    
+	    if (!u.getPassword().equals(password)) {
+	      throw new InvalidCredentialsException();
+	    }
+	    
+	    return u;
+	  }
+  
+  public void logout(String email) {
+	  User u = uRepo.getByEmail(email).orElseThrow(InvalidCredentialsException::new);
+	  u.setAuthToken(null);
+	    try {
+	        uRepo.save(u);
+	      } catch (Exception ex) {
+	        throw new CannotUpdateUserException();
+	      }
   }
 
   public User updateUser(String firstName, String lastName, String email) {

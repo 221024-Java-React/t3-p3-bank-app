@@ -22,8 +22,8 @@ public class TransactionController {
 	
 	private TransactionDataService tdServ;
 	
-	@GetMapping("/")
-	public List<TransactionData> getTransactionsByAccountId(UUID accountId) {
-		return tdServ.getTransactionsByAccountId(accountId);
-	}
+	
+	  @GetMapping("/") public List<TransactionData> getTransactionsByAccountId(UUID
+	  accountId) { return tdServ.getTransactionsByAccountId(accountId); }
+	 
 }
