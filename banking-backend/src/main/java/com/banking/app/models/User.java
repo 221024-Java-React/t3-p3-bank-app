@@ -78,6 +78,6 @@ public class User {
     this.address = address;
     this.phoneNumber = phoneNumber;
     this.password = RandomPasswordGenerator.generatePassword();
-    this.firstLogin = false;
+    this.firstLogin = true;
   }
 }
