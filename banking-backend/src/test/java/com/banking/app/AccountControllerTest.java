@@ -1,6 +1,6 @@
 package com.banking.app;
 
-import static org.junit.Assert.assertEquals;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
@@ -86,8 +86,8 @@ private ObjectMapper om = new ObjectMapper();
 		
 		Account a2 = om.readValue(res2.getResponse().getContentAsString(), Account.class);
 		assertEquals(500.00, a2.getBalance());
-//		assertEquals(AccountType.SAVINGS, a2.getType());
-//		assertEquals(u.getUserId(), a2.getUser().getUserId());
+		assertEquals(AccountType.SAVINGS, a2.getType());
+		assertEquals(u.getUserId(), a2.getUser().getUserId());
 	}
 	
 	/*
