@@ -15,7 +15,9 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -56,6 +58,13 @@ public class User {
   @JsonIgnore
   private List<Account> accounts;
   
+  @OneToOne(cascade = CascadeType.ALL, mappedBy = "user" )
+  @JoinColumn(name = "credit_Card")
+  private CreditCard creditCard;
+  
+  @Column(name = "Auth_token")
+  private Integer AuthToken;
+  
   @Column(name = "first_Login")
   private Boolean firstLogin;
 
@@ -69,6 +78,6 @@ public class User {
     this.address = address;
     this.phoneNumber = phoneNumber;
     this.password = RandomPasswordGenerator.generatePassword();
-    this.firstLogin = false;
+    this.firstLogin = true;
   }
 }
