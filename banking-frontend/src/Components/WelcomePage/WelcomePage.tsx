@@ -67,15 +67,19 @@ const WelcomePage: React.FC = () => {
                     <WelcomeWrapper>
                         <WelcomeTitle>Welcome to GoodBank!</WelcomeTitle>
                         <WelcomeParagraph>
-                            We're more than just any other bank, we're family helping families!
+                            We're more than just any other bank, we're family
+                            helping families!
                         </WelcomeParagraph>
                         <WelcomeParagraph>
-                            We are glad you are here. At GoodBank, we pride ourselves on offering
-                            top-quality financial services to our customers. Whether you are looking
-                            for a checking account, a credit card, a loan, or investment
-                            opportunities, we have something for everyone. Our team of dedicated
-                            professionals is here to help you achieve your financial goals. Thank
-                            you for choosing GoodBank. We look forward to serving you.
+                            We are glad you are here. At GoodBank, we pride
+                            ourselves on offering top-quality financial services
+                            to our customers. Whether you are looking for a
+                            checking account, a credit card, a loan, or
+                            investment opportunities, we have something for
+                            everyone. Our team of dedicated professionals is
+                            here to help you achieve your financial goals. Thank
+                            you for choosing GoodBank. We look forward to
+                            serving you.
                         </WelcomeParagraph>
                     </WelcomeWrapper>
                     <ImageWrapper>
