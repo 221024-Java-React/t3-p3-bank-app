@@ -15,7 +15,6 @@ import AccountSummary from "./Components/AccountPage/AccountSummary";
 import AccountHistory from "./Components/AccountPage/AccountHistory";
 import CreditCardApplication from "./Components/Forms/CreditCardApplication";
 import TransferFunds from "./Components/AccountPage/TransferFunds";
-import Home from "./Components/Home/Home/Home";
 
 const DarkModeProvider = styled.div`
     background-color: ${props => props.theme.body};
