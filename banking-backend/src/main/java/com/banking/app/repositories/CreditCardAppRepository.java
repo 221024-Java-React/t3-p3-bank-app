@@ -11,13 +11,13 @@ import com.banking.app.models.User;
 import com.banking.app.models.Account;
 import com.banking.app.models.CreditCard;
 import com.banking.app.models.CreditCardApp;
-import com.banking.app.models.CreditCardStatusType;
+import com.banking.app.models.CreditCardAppStatus;
 import com.banking.app.models.TransactionData;
 import com.banking.app.models.TransactionType;
 
 @Repository
-public class CreditCardAppRepository  extends JpaRepository<CreditCardApp, Integer> {
+public interface CreditCardAppRepository  extends JpaRepository<CreditCardApp, Integer> {
 	List<CreditCardApp> getCreditCardAppsByUser(User u);
-	List<CreditCardApp> getCreditCardAppsByStatus(StatusType s);
+	List<CreditCardApp> getCreditCardAppsByStatus(CreditCardAppStatus s);
 	CreditCardApp getCreditCardAppByApplicationId(int id);
 }

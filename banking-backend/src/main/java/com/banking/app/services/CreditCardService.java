@@ -36,8 +36,8 @@ public class CreditCardService {
 	
 	boolean addToCreditCardBalance(UUID id, double amount) {
 		CreditCard card = cRepo.getCreditCardByAccountId(id);
-		if((card.getBalanceOwed()+amount)>card.getCreditLimit()) {
-			card.setBalanceOwed(card.getBalanceOwed()+amount);
+		if((card.getBalance()+amount)>card.getCreditLimit()) {
+			card.setBalance(card.getBalance()+amount);
 			cRepo.save(card);
 			return true;
 		}
