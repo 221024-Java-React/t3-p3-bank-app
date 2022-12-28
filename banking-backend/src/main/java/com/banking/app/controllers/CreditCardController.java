@@ -40,23 +40,23 @@ public class CreditCardController {
   }
   
   @PostMapping("/cardId")
-  public CreditCard getCardById(@RequestBody LinkedHashMap<String, String> body) {
-	  System.out.println(body.get("userId") instanceof String);
-	  System.out.println(body);
-	  UUID cardId = UUID.fromString(body.get("userId"));
+  public CreditCard getCardById(@RequestBody LinkedHashMap<String, Long> body) {
+	  Long cardId = body.get("userId");
 	  return cServ.getCreditCardByAccountId(cardId);
   }
   
   @PostMapping("/buy")
   public <T> boolean payWithCard(@RequestBody LinkedHashMap<String, T> body) {
-	  UUID id = (UUID) body.get("card");
+	  //UUID id = (UUID) body.get("card");
+	  Long id = (Long) body.get("userId");
 	  Double amount = (Double) body.get("amount");
 	  return cServ.addToCreditCardBalance(id, amount);
   }
   
   @PostMapping("/buy")
   public <T> double payOffCard(@RequestBody LinkedHashMap<String, T> body) {
-	  UUID id = (UUID) body.get("card");
+	  //UUID id = (UUID) body.get("card");
+	  Long id = (Long) body.get("userId");
 	  Double amount = (Double) body.get("amount");
 	  return cServ.payCreditCardBalance(id, amount);
   }

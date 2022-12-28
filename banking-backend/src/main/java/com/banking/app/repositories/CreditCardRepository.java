@@ -11,6 +11,6 @@ import com.banking.app.models.CreditCard;
 @Repository
 public interface CreditCardRepository  extends JpaRepository<CreditCard, Integer> {
 	CreditCard getCreditCardByUser(User u);
-	CreditCard getCreditCardByCardId(UUID id);
+	CreditCard getCreditCardByCardId(Long id);
 	//List<CreditCard> getCreditCards();
 }
