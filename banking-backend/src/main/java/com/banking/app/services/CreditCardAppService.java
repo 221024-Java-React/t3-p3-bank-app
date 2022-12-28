@@ -20,6 +20,7 @@ public class CreditCardAppService {
 	}
 	
 	public List<CreditCardApp> getCreditCardAppByStatus(CreditCardAppStatus s){
+
 		return aRepo.getCreditCardAppsByStatus(s);
 	}
 	

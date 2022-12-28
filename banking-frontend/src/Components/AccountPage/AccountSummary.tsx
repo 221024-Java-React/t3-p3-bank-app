@@ -3,8 +3,10 @@ import styled from "styled-components";
 import AccountHeader from "./AccountHeader";
 import AccountBox from "./AccountBox";
 import { UserContext } from "../../Context/UserContext";
+import { AccountContext } from "../../Context/AccountContext";
 import { UserContextState } from "../../Interfaces/User";
-import { Account } from "../../Interfaces/Account";
+import { Account, AccountContextState } from "../../Interfaces/Account";
+import { axInst } from "../../Util/axInstance";
 
 const Container = styled.div`
     border: 2px solid ${props => props.theme.primaryMed};
@@ -44,19 +46,47 @@ const testArray = [
 ];
 
 const AccountSummary = () => {
-    const [bankAccounts, setBankAccounts] = useState<Account[]>([]);
-    const [totalBalance, setTotalBalance] = useState<number>(0);
-    const { getBankAccounts } = useContext(UserContext) as UserContextState;
+    // const [bankAccounts, setBankAccounts] = useState<Account[]>([]);
+    // const [totalBalance, setTotalBalance] = useState<number>(0);
+    // const { getBankAccounts } = useContext(UserContext) as UserContextState;
+
+    // useEffect(() => {
+    //     getBankAccounts().then(accounts => {
+    //         accounts ? setBankAccounts(accounts) : setBankAccounts([]);
+    //     });
+    // }, []);
+
+    // // change testArray to bankAccounts
+    // useMemo(() => testArray?.forEach(ba => setTotalBalance(prev => prev + ba.balance)), []);
+
+    const { setCurrentUser, currentUser } = useContext(
+        UserContext
+    ) as UserContextState;
+
+    const [loading, setLoading] = useState<boolean>(true);
+
+    const getAccounts = async () => {
+        try {
+            console.log(currentUser.userId);
+            const { data } = await axInst.post<Account[]>("/accounts/account", {
+                userId: currentUser.userId,
+            });
+            // console.log(accounts, "accounts");
+            // console.log(currentUser, "before setting currentuser account");
+            setCurrentUser({ ...currentUser, accounts: data });
+            console.log(currentUser, "after setting currentuser account");
+            setLoading(false);
+            return;
+        } catch (e) { }
+    };
 
     useEffect(() => {
-        getBankAccounts().then(accounts => {
-            accounts ? setBankAccounts(accounts) : setBankAccounts([]);
-        });
+        getAccounts();
     }, []);
 
-    // change testArray to bankAccounts
-    useMemo(() => testArray?.forEach(ba => setTotalBalance(prev => prev + ba.balance)), []);
-
+    if (loading) {
+        return <Container />;
+    }
     return (
         <>
             <AccountHeader
@@ -66,12 +96,12 @@ const AccountSummary = () => {
             />
             <Container>
                 <Accounts>
-                    {testArray?.map(ba => {
+                    {currentUser.accounts?.map(ba => {
                         return <AccountBox key={ba.type} name={ba.type} balance={ba.balance} />;
                     })}
                 </Accounts>
                 <SummaryFooter>
-                    <FooterData>Balance Total: {totalBalance}</FooterData>
+                    {/* <FooterData>Balance Total: {totalBalance}</FooterData> */}
                 </SummaryFooter>
             </Container>
             ;
