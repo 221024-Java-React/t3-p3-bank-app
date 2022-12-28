@@ -1,8 +1,12 @@
 package com.banking.app.models;
 
 
+import java.util.List;
 import java.util.UUID;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -13,20 +17,19 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.experimental.SuperBuilder;
 
-@MappedSuperclass
+
+
 @Entity
 @Table(name = "accounts")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@SuperBuilder
 public class Account {
 
   @Id
@@ -43,6 +46,10 @@ public class Account {
   private User user;
 
   private Double balance;
+  
+  @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
+  @JsonIgnore
+  List<TransactionData> transaction;
 
   public Account(String type, User user, Double balance) {
     String utype = type.toUpperCase();

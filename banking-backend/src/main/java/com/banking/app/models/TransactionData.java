@@ -36,6 +36,10 @@ public class TransactionData {
   @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "account_number")
   private Account account;
+  
+  @ManyToOne(fetch = FetchType.EAGER)
+  @JoinColumn(name = "card_number")
+  private CreditCard card;
 
   @Column(name = "details")
   private String message;
