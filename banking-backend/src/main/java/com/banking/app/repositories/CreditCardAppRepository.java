@@ -17,7 +17,6 @@ import com.banking.app.models.TransactionType;
 
 @Repository
 public interface CreditCardAppRepository  extends JpaRepository<CreditCardApp, Integer> {
-	List<CreditCardApp> getCreditCardAppsByUser(User u);
 	List<CreditCardApp> getCreditCardAppsByStatus(CreditCardAppStatus s);
 	CreditCardApp getCreditCardAppByApplicationId(int id);
 }

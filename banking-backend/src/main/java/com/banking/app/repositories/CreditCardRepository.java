@@ -14,8 +14,8 @@ import com.banking.app.models.TransactionData;
 import com.banking.app.models.TransactionType;
 
 @Repository
-public interface CreditCardRepository extends JpaRepository<CreditCard, Integer> {
+public interface CreditCardRepository  extends JpaRepository<CreditCard, Integer> {
 	CreditCard getCreditCardByUser(User u);
-	CreditCard getCreditCardByAccountId(UUID id);
+	CreditCard getCreditCardByCardId(UUID id);
 	//List<CreditCard> getCreditCards();
 }
