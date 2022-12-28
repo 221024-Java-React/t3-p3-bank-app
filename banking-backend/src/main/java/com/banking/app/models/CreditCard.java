@@ -31,9 +31,9 @@ import lombok.NoArgsConstructor;
 public class CreditCard {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.UUID)
-	@Column(name = "account_number")
-	private UUID cardId;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "card_number")
+	private Long cardId;
 	
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_Id")

@@ -23,6 +23,8 @@ public class CreditCardService {
 	private CreditCardRepository cRepo;
 	
 	CreditCard createCreditCard(CreditCard c) {
+		Long randLogId = (long) ((Math.random()*(9999999999999999l - 1111111111111111l))+ 1111111111111111l);
+		c.setCardId(randLogId);
 		return cRepo.save(c);
 	}
 	

@@ -75,10 +75,9 @@ public class UserController {
   @PostMapping("/login_Auth")
   public User loginAuth(@RequestBody LinkedHashMap<String, Object> body) {
 	  String email = (String) body.get("email");
-	  String password = (String) body.get("password");
 	  Integer authToken = (Integer) body.get("token");
 	  
-	  return  uServ.loginUser(email, password, authToken);
+	  return  uServ.loginUser(email, authToken);
   }
   
   @PutMapping("/logout")

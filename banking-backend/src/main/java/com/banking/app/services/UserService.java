@@ -56,15 +56,11 @@ public class UserService {
     return u;
   }
   
-  public User loginUser(String email, String password, Integer authToken) {
+  public User loginUser(String email, Integer authToken) {
 	    User u = uRepo.getByEmail(email).orElseThrow(InvalidCredentialsException::new);
 	    
 	    if (!u.getAuthToken().equals(authToken)) {
 		      throw new InvalidCredentialsException();
-	    }
-	    
-	    if (!u.getPassword().equals(password)) {
-	      throw new InvalidCredentialsException();
 	    }
 	    
 	    return u;
