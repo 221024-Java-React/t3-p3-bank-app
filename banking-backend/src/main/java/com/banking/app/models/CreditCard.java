@@ -2,8 +2,6 @@ package com.banking.app.models;
 
 
 import java.util.List;
-import java.util.UUID;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
