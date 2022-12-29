@@ -57,14 +57,14 @@ public class User {
   @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
   @JsonIgnore
   private List<Account> accounts;
-  
-  @OneToOne(cascade = CascadeType.ALL, mappedBy = "user" )
+
+  @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
   @JoinColumn(name = "credit_Card")
   private CreditCard creditCard;
-  
+
   @Column(name = "Auth_token")
   private Integer AuthToken;
-  
+
   @Column(name = "first_Login")
   private Boolean firstLogin;
 
