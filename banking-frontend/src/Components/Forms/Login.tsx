@@ -4,7 +4,6 @@ import { UserContext } from "../../Context/UserContext";
 import { UserContextState } from "../../Interfaces/User";
 import { axInst } from "../../Util/axInstance";
 import { useNavigate } from "react-router";
-import { Account } from "../../Interfaces/Account";
 
 const Container = styled.div`
     display: grid;
@@ -25,78 +24,111 @@ const SubmitButton = styled.input`
     margin: 10px;
 `;
 
-const initInputs = {
+const initLoginInputs = {
     email: "",
     password: "",
 };
 
+const initLoginAuthInputs = {
+    email: "",
+    passcode: 0,
+};
+
 const Login: React.FC = () => {
-    const [inputs, setInputs] = useState(initInputs);
+    const [loginAuth, setLoginAuth] = useState<boolean>(false);
+    const [loginInputs, setLoginInputs] = useState(initLoginInputs);
+    const [loginAuthInputs, setLoginAuthInputs] = useState(initLoginAuthInputs);
+
     const { setCurrentUser, loginUser, currentUser } = useContext(UserContext) as UserContextState;
     const navigate = useNavigate();
 
-    const handleFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleLoginFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
-        setInputs(prev => ({ ...prev, [name]: value }));
+        setLoginInputs(prev => ({ ...prev, [name]: value }));
     };
 
-    // const getAccounts = async () => {
-    //     try {
-    //         const { data: accounts } = await axInst.post<Account[]>("/accounts/account", {
-    //             headers: { "Access-Control-Allow-Origin": "*" },
-    //             params: { userId: currentUser.userId },
-    //         });
-    //         console.log(accounts, "accounts");
-    //         console.log(currentUser, "before setting currentuser account");
-    //         setCurrentUser({ ...currentUser, accounts: accounts });
-    //         console.log(currentUser, "after setting currentuser account");
-
-    //         console.log(currentUser);
-    //     } catch (e) {
-    //         console.log(e);
-    //     }
-    // };
-
-    const handleFormSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
+    const handleLoginFormSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         try {
-            const { data } = await axInst.post("/users/login", inputs);
+            const { data: thisUser } = await axInst.post("/users/login", loginInputs);
 
-            loginUser(data);
-            console.log(data);
-            setInputs(initInputs);
-            navigate("/home");
+            loginUser(thisUser);
+            setLoginInputs(initLoginInputs);
+            return setLoginAuth(true);
         } catch (e) {
             console.log(e);
         }
     };
 
-    // useEffect(() => {
-    //     getAccounts();
-    // }, []);
+    const handleLoginAuthFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+        setLoginAuthInputs(prev => ({ ...prev, [name]: value }));
+    };
 
-    // console.log(currentUser);
+    const handleLoginAuthFormSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
+        e.preventDefault();
+
+        try {
+            const { email, passcode } = loginAuthInputs;
+
+            const { data: thisUser } = await axInst.post("/login_Auth", {
+                email,
+                passcode,
+            });
+
+            if (thisUser) {
+                setCurrentUser(thisUser);
+                return navigate("/home");
+            }
+        } catch (e) {
+            console.log(e);
+        }
+    };
 
     return (
         <Container>
-            <Form onSubmit={handleFormSubmit}>
-                <Label>Email:</Label>
-                <Input
-                    type="text"
-                    name="email"
-                    value={inputs.email}
-                    onChange={handleFormChange}
-                ></Input>
-                <Label>Password:</Label>
-                <Input
-                    type="password"
-                    name="password"
-                    value={inputs.password}
-                    onChange={handleFormChange}
-                ></Input>
-                <SubmitButton type="submit" value="Log In" />
-            </Form>
+            {!loginAuth && (
+                <Form onSubmit={handleLoginFormSubmit}>
+                    <Label htmlFor="email_login">Email</Label>
+                    <Input
+                        type="text"
+                        name="email_login"
+                        id="email_login"
+                        value={loginInputs.email}
+                        onChange={handleLoginFormChange}
+                    />
+                    <Label htmlFor="password_login">Password</Label>
+                    <Input
+                        type="password"
+                        name="password_login"
+                        id="password_login"
+                        value={loginInputs.password}
+                        onChange={handleLoginFormChange}
+                    />
+                    <SubmitButton type="submit" value="Log In" />
+                </Form>
+            )}
+            {loginAuth && (
+                <Form onSubmit={handleLoginAuthFormSubmit}>
+                    <Label htmlFor="email_loginAuth">Email</Label>
+                    <Input
+                        type="text"
+                        name="email_loginAuth"
+                        id="email_loginAuth"
+                        value={loginInputs.email}
+                        onChange={handleLoginAuthFormChange}
+                    />
+                    <Label htmlFor="passcode_loginAuth">Enter Temporary Passcode</Label>
+                    <Input
+                        type="number"
+                        name="passcode_loginAuth"
+                        id="passcode_loginAuth"
+                        value={loginAuthInputs.passcode}
+                        onChange={handleLoginAuthFormChange}
+                    />
+                </Form>
+            )}
         </Container>
     );
 };
