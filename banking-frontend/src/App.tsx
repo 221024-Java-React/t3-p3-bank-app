@@ -89,6 +89,7 @@ function App() {
                                 </>
                             )}
                             <Route path="*" element={<PageNotFound />} />
+                            <Route path="/cc" element={<CreditCardApplication />} />
                         </Routes>
                     </Body>
                     <Footer />

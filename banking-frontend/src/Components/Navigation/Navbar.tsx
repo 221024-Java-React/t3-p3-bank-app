@@ -40,9 +40,8 @@ const MenuItem = styled.div`
 `;
 const Banner = styled.div`
     background: ${(props) => props.theme.primaryDark};
-    box-shadow: 0 10px 5px ${(props) => props.theme.background};
     margin-bottom: 1.5rem;
-    border-radius: 3px;
+    border-radius: 0 0 3px 3px;
 `;
 const Logo = styled.img`
     width: 8rem;
