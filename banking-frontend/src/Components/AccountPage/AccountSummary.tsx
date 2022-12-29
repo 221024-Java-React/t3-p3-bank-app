@@ -57,7 +57,7 @@ const AccountSummary = () => {
     }, []);
 
     // change testArray to bankAccounts here and in JSX
-    useMemo(() => testArray?.forEach(ba => setTotalBalance(prev => prev + ba.balance)), []);
+    useMemo(() => bankAccounts?.forEach(ba => setTotalBalance(prev => prev + ba.balance)), []);
 
     return (
         <>
@@ -68,7 +68,7 @@ const AccountSummary = () => {
             />
             <Container>
                 <Accounts>
-                    {testArray.map(ba => {
+                    {bankAccounts.map(ba => {
                         return <AccountBox key={ba.type} name={ba.type} balance={ba.balance} />;
                     })}
                 </Accounts>
