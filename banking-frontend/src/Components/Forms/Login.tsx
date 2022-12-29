@@ -4,7 +4,6 @@ import { UserContext } from "../../Context/UserContext";
 import { UserContextState } from "../../Interfaces/User";
 import { axInst } from "../../Util/axInstance";
 import { useNavigate } from "react-router";
-import { Account } from "../../Interfaces/Account";
 
 const Container = styled.div`
     display: grid;
@@ -31,6 +30,7 @@ const initLoginInputs = {
 };
 
 const initLoginAuthInputs = {
+    email: "",
     passcode: 0,
 };
 
@@ -56,7 +56,6 @@ const Login: React.FC = () => {
             loginUser(thisUser);
             setLoginInputs(initLoginInputs);
             return setLoginAuth(true);
-            // navigate("/home");
         } catch (e) {
             console.log(e);
         }
@@ -71,9 +70,17 @@ const Login: React.FC = () => {
         e.preventDefault();
 
         try {
-            // axios call with currentUser.email & passcode as payload
-            //
-            //
+            const { email, passcode } = loginAuthInputs;
+
+            const { data: thisUser } = await axInst.post("/login_Auth", {
+                email,
+                passcode,
+            });
+
+            if (thisUser) {
+                setCurrentUser(thisUser);
+                return navigate("/home");
+            }
         } catch (e) {
             console.log(e);
         }
@@ -81,37 +88,45 @@ const Login: React.FC = () => {
 
     return (
         <Container>
-            {loginAuth && (
-                <Form onSubmit={handleLoginAuthFormSubmit}>
-                    <Label htmlFor="passcode">Enter Temporary Passcode</Label>
-                    <Input
-                        type="number"
-                        name="passcode"
-                        id="passcode"
-                        value={loginAuthInputs.passcode}
-                        onChange={handleLoginAuthFormChange}
-                    />
-                </Form>
-            )}
             {!loginAuth && (
                 <Form onSubmit={handleLoginFormSubmit}>
-                    <Label htmlFor="email">Email:</Label>
+                    <Label htmlFor="email_login">Email</Label>
                     <Input
                         type="text"
-                        name="email"
-                        id="email"
+                        name="email_login"
+                        id="email_login"
                         value={loginInputs.email}
                         onChange={handleLoginFormChange}
                     />
-                    <Label htmlFor="password">Password:</Label>
+                    <Label htmlFor="password_login">Password</Label>
                     <Input
                         type="password"
-                        name="password"
-                        id="password"
+                        name="password_login"
+                        id="password_login"
                         value={loginInputs.password}
                         onChange={handleLoginFormChange}
                     />
                     <SubmitButton type="submit" value="Log In" />
+                </Form>
+            )}
+            {loginAuth && (
+                <Form onSubmit={handleLoginAuthFormSubmit}>
+                    <Label htmlFor="email_loginAuth">Email</Label>
+                    <Input
+                        type="text"
+                        name="email_loginAuth"
+                        id="email_loginAuth"
+                        value={loginInputs.email}
+                        onChange={handleLoginAuthFormChange}
+                    />
+                    <Label htmlFor="passcode_loginAuth">Enter Temporary Passcode</Label>
+                    <Input
+                        type="number"
+                        name="passcode_loginAuth"
+                        id="passcode_loginAuth"
+                        value={loginAuthInputs.passcode}
+                        onChange={handleLoginAuthFormChange}
+                    />
                 </Form>
             )}
         </Container>
