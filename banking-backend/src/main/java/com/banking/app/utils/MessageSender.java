@@ -8,7 +8,7 @@ import com.banking.app.models.User;
 import com.banking.app.services.UserService;
 import com.twilio.Twilio;
 import com.twilio.rest.api.v2010.account.Message;
-//import com.twilio.type.PhoneNumber;
+import com.twilio.type.PhoneNumber;
 
 import jakarta.transaction.Transactional;
 
