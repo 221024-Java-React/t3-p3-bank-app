@@ -37,8 +37,11 @@ public class CreditCardApp {
 	@Column(name = "credit_score")
 	private Integer creditScore;
 	
-	@Column(name = "yearly_income")
-	private Double totalIncome;
+	@Column(name = "monthly_income")
+	private Double monthlyIncome;
+	
+	@Column(name = "net_worht")
+	private Double netWorth;
 	
 	@Column(name = "Estimated_debt")
 	private Double totalDebt;
