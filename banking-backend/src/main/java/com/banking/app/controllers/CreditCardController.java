@@ -53,7 +53,7 @@ public class CreditCardController {
 	  return cServ.addToCreditCardBalance(id, amount);
   }
   
-  @PostMapping("/buy")
+  @PostMapping("/pay")
   public <T> double payOffCard(@RequestBody LinkedHashMap<String, T> body) {
 	  //UUID id = (UUID) body.get("card");
 	  Long id = (Long) body.get("userId");

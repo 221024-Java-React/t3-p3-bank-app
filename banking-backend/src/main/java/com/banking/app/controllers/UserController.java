@@ -28,6 +28,7 @@ public class UserController {
 
   private UserService uServ;
   private AccountService aServ;
+  private MessageSender mSend;
 
   @PostMapping("/register")
   public User register(@RequestBody LinkedHashMap<String, String> body) {
@@ -42,7 +43,7 @@ public class UserController {
     User newUser = new User(firstName, lastName, email, address, phoneNumber);
     uServ.registerUser(newUser);
     User registeredUser = uServ.getUserByEmail(email);
-    MessageSender.SendFirstPassword(registeredUser);
+    mSend.SendFirstPassword(registeredUser);
 
     if (accountType.equals("both")) {
       Account accountChecking = new Account("checking", registeredUser, balance);
@@ -67,7 +68,7 @@ public class UserController {
      * then do this:
      */
      User u = uServ.loginUser(email, password); 
-     MessageSender.SendMessage(u); //call message sender with this
+     mSend.SendMessage(u); //call message sender with this
      
     
     return uServ.loginUser(email, password);
