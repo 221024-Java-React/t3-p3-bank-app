@@ -13,8 +13,6 @@ import com.twilio.type.PhoneNumber;
 
 import jakarta.transaction.Transactional;
 
-import jakarta.transaction.Transactional;
-
 @Configuration
 @Transactional
 public class MessageSender {
