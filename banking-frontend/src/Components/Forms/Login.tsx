@@ -39,7 +39,7 @@ const Login: React.FC = () => {
     const [loginInputs, setLoginInputs] = useState(initLoginInputs);
     const [loginAuthInputs, setLoginAuthInputs] = useState(initLoginAuthInputs);
 
-    const { setCurrentUser, loginUser, currentUser } = useContext(UserContext) as UserContextState;
+    const { setCurrentUser, loginUser } = useContext(UserContext) as UserContextState;
     const navigate = useNavigate();
 
     const handleLoginFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
