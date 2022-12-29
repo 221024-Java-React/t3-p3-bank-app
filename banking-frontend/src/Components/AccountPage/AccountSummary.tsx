@@ -46,47 +46,19 @@ const testArray = [
 ];
 
 const AccountSummary = () => {
-    // const [bankAccounts, setBankAccounts] = useState<Account[]>([]);
-    // const [totalBalance, setTotalBalance] = useState<number>(0);
-    // const { getBankAccounts } = useContext(UserContext) as UserContextState;
-
-    // useEffect(() => {
-    //     getBankAccounts().then(accounts => {
-    //         accounts ? setBankAccounts(accounts) : setBankAccounts([]);
-    //     });
-    // }, []);
-
-    // // change testArray to bankAccounts
-    // useMemo(() => testArray?.forEach(ba => setTotalBalance(prev => prev + ba.balance)), []);
-
-    const { setCurrentUser, currentUser } = useContext(
-        UserContext
-    ) as UserContextState;
-
-    const [loading, setLoading] = useState<boolean>(true);
-
-    const getAccounts = async () => {
-        try {
-            console.log(currentUser.userId);
-            const { data } = await axInst.post<Account[]>("/accounts/account", {
-                userId: currentUser.userId,
-            });
-            // console.log(accounts, "accounts");
-            // console.log(currentUser, "before setting currentuser account");
-            setCurrentUser({ ...currentUser, accounts: data });
-            console.log(currentUser, "after setting currentuser account");
-            setLoading(false);
-            return;
-        } catch (e) { }
-    };
+    const [bankAccounts, setBankAccounts] = useState<Account[]>([]);
+    const [totalBalance, setTotalBalance] = useState<number>(0);
+    const { getBankAccounts } = useContext(UserContext) as UserContextState;
 
     useEffect(() => {
-        getAccounts();
+        getBankAccounts().then(accounts => {
+            accounts ? setBankAccounts(accounts) : setBankAccounts([]);
+        });
     }, []);
 
-    if (loading) {
-        return <Container />;
-    }
+    // change testArray to bankAccounts here and in JSX
+    useMemo(() => bankAccounts?.forEach(ba => setTotalBalance(prev => prev + ba.balance)), []);
+
     return (
         <>
             <AccountHeader
@@ -96,12 +68,12 @@ const AccountSummary = () => {
             />
             <Container>
                 <Accounts>
-                    {currentUser.accounts?.map(ba => {
+                    {bankAccounts.map(ba => {
                         return <AccountBox key={ba.type} name={ba.type} balance={ba.balance} />;
                     })}
                 </Accounts>
                 <SummaryFooter>
-                    {/* <FooterData>Balance Total: {totalBalance}</FooterData> */}
+                    <FooterData>Balance Total: {totalBalance}</FooterData>
                 </SummaryFooter>
             </Container>
             ;
