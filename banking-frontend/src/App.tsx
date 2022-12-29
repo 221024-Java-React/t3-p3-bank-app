@@ -20,13 +20,14 @@ import { DarkModeContextState } from "./Interfaces/DarkMode";
 import PageNotFound from "./Components/PageNotFound";
 
 const DarkModeProvider = styled.div`
-    background-color: ${props => props.theme.body};
-    color: ${props => props.theme.text};
+    background-color: ${(props) => props.theme.background};
+    color: ${(props) => props.theme.text};
 `;
 const Body = styled.div`
-    width: ${props => props.theme.bodyWidth};
+    width: ${(props) => props.theme.bodyWidth};
     min-height: 100vh;
     margin: 0 auto;
+    color: ${(props) => props.theme.color};
 `;
 
 function App() {
@@ -43,7 +44,10 @@ function App() {
                             {currentUser.type === "REP" && (
                                 <>
                                     <Route path="/" element={<RepHome />} />
-                                    <Route path="/register" element={<Register />} />
+                                    <Route
+                                        path="/register"
+                                        element={<Register />}
+                                    />
                                 </>
                             )}
                             {currentUser.type === "MEMBER" && (
