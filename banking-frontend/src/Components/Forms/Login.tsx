@@ -25,13 +25,12 @@ const SubmitButton = styled.input`
 `;
 
 const initLoginInputs = {
-    email: "",
-    password: "",
+    email_login: "",
+    password_login: "",
 };
 
 const initLoginAuthInputs = {
-    email: "",
-    passcode: 0,
+    passcode: "",
 };
 
 const Login: React.FC = () => {
@@ -39,7 +38,7 @@ const Login: React.FC = () => {
     const [loginInputs, setLoginInputs] = useState(initLoginInputs);
     const [loginAuthInputs, setLoginAuthInputs] = useState(initLoginAuthInputs);
 
-    const { setCurrentUser, loginUser } = useContext(UserContext) as UserContextState;
+    const { setCurrentUser, loginUser, currentUser } = useContext(UserContext) as UserContextState;
     const navigate = useNavigate();
 
     const handleLoginFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -51,11 +50,13 @@ const Login: React.FC = () => {
         e.preventDefault();
 
         try {
-            const { data: thisUser } = await axInst.post("/users/login", loginInputs);
+            const { email_login: email, password_login: password } = loginInputs;
 
-            loginUser(thisUser);
+            const { data: thisUser } = await axInst.post("/users/login", { email, password });
             setLoginInputs(initLoginInputs);
-            return setLoginAuth(true);
+            setCurrentUser(thisUser);
+
+            setLoginAuth(true);
         } catch (e) {
             console.log(e);
         }
@@ -70,17 +71,17 @@ const Login: React.FC = () => {
         e.preventDefault();
 
         try {
-            const { email, passcode } = loginAuthInputs;
+            const { passcode } = loginAuthInputs;
+            console.log(passcode);
 
-            const { data: thisUser } = await axInst.post("/login_Auth", {
-                email,
-                passcode,
+            const { data: thisUser } = await axInst.post("/users/login_Auth", {
+                email: currentUser.email,
+                token: passcode,
             });
 
-            if (thisUser) {
-                setCurrentUser(thisUser);
-                return navigate("/home");
-            }
+            loginUser(thisUser);
+            setLoginAuthInputs(initLoginAuthInputs);
+            navigate("/");
         } catch (e) {
             console.log(e);
         }
@@ -88,14 +89,13 @@ const Login: React.FC = () => {
 
     return (
         <Container>
-            {!loginAuth && (
+            {loginAuth === false && (
                 <Form onSubmit={handleLoginFormSubmit}>
                     <Label htmlFor="email_login">Email</Label>
                     <Input
                         type="text"
                         name="email_login"
                         id="email_login"
-                        value={loginInputs.email}
                         onChange={handleLoginFormChange}
                     />
                     <Label htmlFor="password_login">Password</Label>
@@ -103,30 +103,21 @@ const Login: React.FC = () => {
                         type="password"
                         name="password_login"
                         id="password_login"
-                        value={loginInputs.password}
                         onChange={handleLoginFormChange}
                     />
                     <SubmitButton type="submit" value="Log In" />
                 </Form>
             )}
-            {loginAuth && (
+            {loginAuth === true && (
                 <Form onSubmit={handleLoginAuthFormSubmit}>
-                    <Label htmlFor="email_loginAuth">Email</Label>
+                    <Label htmlFor="passcode">Enter Twilio Passcode</Label>
                     <Input
                         type="text"
-                        name="email_loginAuth"
-                        id="email_loginAuth"
-                        value={loginInputs.email}
+                        name="passcode"
+                        id="passcode"
                         onChange={handleLoginAuthFormChange}
                     />
-                    <Label htmlFor="passcode_loginAuth">Enter Temporary Passcode</Label>
-                    <Input
-                        type="number"
-                        name="passcode_loginAuth"
-                        id="passcode_loginAuth"
-                        value={loginAuthInputs.passcode}
-                        onChange={handleLoginAuthFormChange}
-                    />
+                    <SubmitButton type="submit" value="Submit Passcode" />
                 </Form>
             )}
         </Container>

@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useCallback } from "react";
 import styled from "styled-components";
+import { UserContext } from "../../Context/UserContext";
+import { UserContextState } from "../../Interfaces/User";
 import { axInst } from "../../Util/axInstance";
 import AccountHeader from "./AccountHeader";
 
@@ -38,6 +40,7 @@ const initInputs = {
 
 const TransferFunds = () => {
     const [inputs, setInputs] = useState(initInputs);
+    const { currentUser } = useContext(UserContext) as UserContextState;
 
     const handleFormChange = (e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -57,6 +60,13 @@ const TransferFunds = () => {
         }
     };
 
+    // ReactNode type not any
+    const accountOptions: any = useCallback(() => {
+        currentUser.accounts.map(a => {
+            return <option>{a.type}</option>;
+        });
+    }, []);
+
     return (
         <>
             <AccountHeader
@@ -72,7 +82,7 @@ const TransferFunds = () => {
                                 <AccountName>Source Account</AccountName>
                             </Top>
                             <Bottom>
-                                <select></select>
+                                <select>{accountOptions}</select>
                                 {/* <Data>Balance: ${balance}</Data> */}
                             </Bottom>
                         </TransferContainer>
