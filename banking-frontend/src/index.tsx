@@ -5,18 +5,19 @@ import App from "./App";
 import UserProvider from "./Context/UserContext";
 import { BrowserRouter } from "react-router-dom";
 import AccountProvider from "./Context/AccountContext";
+import DarkModeProvider from "./Context/DarkModeContext";
 
-const root = ReactDOM.createRoot(
-  document.getElementById("root") as HTMLElement
-);
+const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 root.render(
-  <React.StrictMode>
-    <UserProvider>
-      <AccountProvider>
+    <React.StrictMode>
         <BrowserRouter>
-          <App />
+            <DarkModeProvider>
+                <UserProvider>
+                    <AccountProvider>
+                        <App />
+                    </AccountProvider>
+                </UserProvider>
+            </DarkModeProvider>
         </BrowserRouter>
-      </AccountProvider>
-    </UserProvider>
-  </React.StrictMode>
+    </React.StrictMode>
 );

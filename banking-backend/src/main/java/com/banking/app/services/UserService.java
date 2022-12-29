@@ -37,9 +37,9 @@ public class UserService {
    */
   public User registerUser(User u) {
     try {
-      //System.out.println("service1 "+ u);
+      // System.out.println("service1 "+ u);
       User ret = uRepo.save(u);
-      //System.out.println("service2 "+ ret);
+      // System.out.println("service2 "+ ret);
       return ret;
     } catch (Exception ex) {
       throw new EmailAlreadyExistsException();
@@ -55,25 +55,25 @@ public class UserService {
 
     return u;
   }
-  
+
   public User loginUser(String email, Integer authToken) {
-	    User u = uRepo.getByEmail(email).orElseThrow(InvalidCredentialsException::new);
-	    
-	    if (!u.getAuthToken().equals(authToken)) {
-		      throw new InvalidCredentialsException();
-	    }
-	    
-	    return u;
-	  }
-  
+    User u = uRepo.getByEmail(email).orElseThrow(InvalidCredentialsException::new);
+
+    if (!u.getAuthToken().equals(authToken)) {
+      throw new InvalidCredentialsException();
+    }
+
+    return u;
+  }
+
   public void logout(String email) {
-	  User u = uRepo.getByEmail(email).orElseThrow(InvalidCredentialsException::new);
-	  u.setAuthToken(null);
-	    try {
-	        uRepo.save(u);
-	      } catch (Exception ex) {
-	        throw new CannotUpdateUserException();
-	      }
+    User u = uRepo.getByEmail(email).orElseThrow(InvalidCredentialsException::new);
+    u.setAuthToken(null);
+    try {
+      uRepo.save(u);
+    } catch (Exception ex) {
+      throw new CannotUpdateUserException();
+    }
   }
 
   public User updateUser(String firstName, String lastName, String email) {
@@ -89,6 +89,20 @@ public class UserService {
     } catch (Exception ex) {
       throw new CannotUpdateUserException();
     }
+  }
+
+  public User updateFullUser(User updateUser) {
+    User prevUser = uRepo.findByUserId(updateUser.getUserId());
+
+    prevUser.setFirstName(updateUser.getFirstName());
+    prevUser.setLastName(updateUser.getLastName());
+    prevUser.setEmail(updateUser.getEmail());
+    prevUser.setAddress(updateUser.getAddress());
+    prevUser.setPhoneNumber(updateUser.getPhoneNumber());
+    updateUser.setPassword(prevUser.getPassword());
+
+    return uRepo.save(updateUser);
+
   }
 
   public User updatePassword(String email, String password) {

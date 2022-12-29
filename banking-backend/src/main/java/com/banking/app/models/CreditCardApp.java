@@ -1,6 +1,8 @@
 package com.banking.app.models;
 
 
+//import com.banking.app.utils.LimitCalculator;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -21,6 +23,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CreditCardApp {
 	
+
+	//LimitCalculator limCal;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "application_Id")
@@ -33,5 +38,27 @@ public class CreditCardApp {
 	
 	@OneToOne(mappedBy = "appl")
 	private CreditCard card;
+	
+	@Column(name = "applicant_age")
+	private Integer age;
 
+	@Column(name = "credit_score")
+	private Integer creditScore;
+	
+	@Column(name = "monthly_income")
+	private Double monthlyIncome;
+	
+	@Column(name = "net_worth")
+	private Double netWorth;
+	
+	@Column(name = "Estimated_debt")
+	private Double estDebt;
+	
+	@Column(name = "approved_limit")
+	private Double approvedLimit;
+	
+	public void setApprovedLimit() {
+		//double dti = 
+		
+	}
 }

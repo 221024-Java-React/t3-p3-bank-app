@@ -31,34 +31,34 @@ public class CreditCardAppController {
 
   @PostMapping("/filter/{status}")
   public List<CreditCardApp> getCreditCardAppsByStatus(@PathVariable("status") Integer status) {
-	CreditCardAppStatus s;
-		
-	if (status.equals(0)) {
-		s = CreditCardAppStatus.APPROVED;
-	} else {
-		s = CreditCardAppStatus.DENIED;
-	}
-	
-	return aServ.getCreditCardAppByStatus(s);
+    CreditCardAppStatus s;
+
+    if (status.equals(0)) {
+      s = CreditCardAppStatus.APPROVED;
+    } else {
+      s = CreditCardAppStatus.DENIED;
+    }
+
+    return aServ.getCreditCardAppByStatus(s);
   }
-  
+
   @PostMapping("/id/{id}")
-  public CreditCardApp getAccountsByUserId(@PathVariable("id")int id) {
+  public CreditCardApp getAccountsByUserId(@PathVariable("id") int id) {
     return aServ.getCreditCardAppByApplicationID(id);
   }
-  
+
   @PostMapping("/update")
   public CreditCardApp getAccountsByUserId(@RequestBody LinkedHashMap<String, Integer> body) {
     System.out.println(body.get("id") instanceof Integer);
     System.out.println(body.get("status") instanceof Integer);
     System.out.println(body);
     CreditCardAppStatus s;
-	if (body.get("id").equals(0)) {
-		s = CreditCardAppStatus.APPROVED;
-	} else {
-		s = CreditCardAppStatus.DENIED;
-	}
-    return aServ.updateCreditCardApp(body.get("id"),s);
+    if (body.get("id").equals(0)) {
+      s = CreditCardAppStatus.APPROVED;
+    } else {
+      s = CreditCardAppStatus.DENIED;
+    }
+    return aServ.updateCreditCardApp(body.get("id"), s);
   }
 
 }

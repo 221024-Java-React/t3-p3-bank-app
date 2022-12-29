@@ -1,12 +1,10 @@
-import React, { useState, useContext, useMemo, useEffect } from "react";
+import { useState, useContext, useMemo, useEffect } from "react";
 import styled from "styled-components";
 import AccountHeader from "./AccountHeader";
 import AccountBox from "./AccountBox";
 import { UserContext } from "../../Context/UserContext";
-import { AccountContext } from "../../Context/AccountContext";
 import { UserContextState } from "../../Interfaces/User";
-import { Account, AccountContextState } from "../../Interfaces/Account";
-import { axInst } from "../../Util/axInstance";
+import { Account } from "../../Interfaces/Account";
 
 const Container = styled.div`
     border: 2px solid ${props => props.theme.primaryMed};
@@ -29,64 +27,19 @@ const FooterData = styled.h1`
     padding: 0 1rem;
 `;
 
-// replace w/ bankAccounts array in TSX below
-const testArray = [
-    {
-        type: "Checking",
-        balance: 900,
-    },
-    {
-        type: "Savings",
-        balance: 750,
-    },
-    {
-        type: "Credit",
-        balance: 10000,
-    },
-];
-
 const AccountSummary = () => {
-    // const [bankAccounts, setBankAccounts] = useState<Account[]>([]);
-    // const [totalBalance, setTotalBalance] = useState<number>(0);
-    // const { getBankAccounts } = useContext(UserContext) as UserContextState;
-
-    // useEffect(() => {
-    //     getBankAccounts().then(accounts => {
-    //         accounts ? setBankAccounts(accounts) : setBankAccounts([]);
-    //     });
-    // }, []);
-
-    // // change testArray to bankAccounts
-    // useMemo(() => testArray?.forEach(ba => setTotalBalance(prev => prev + ba.balance)), []);
-
-    const { setCurrentUser, currentUser } = useContext(
-        UserContext
-    ) as UserContextState;
-
-    const [loading, setLoading] = useState<boolean>(true);
-
-    const getAccounts = async () => {
-        try {
-            console.log(currentUser.userId);
-            const { data } = await axInst.post<Account[]>("/accounts/account", {
-                userId: currentUser.userId,
-            });
-            // console.log(accounts, "accounts");
-            // console.log(currentUser, "before setting currentuser account");
-            setCurrentUser({ ...currentUser, accounts: data });
-            console.log(currentUser, "after setting currentuser account");
-            setLoading(false);
-            return;
-        } catch (e) { }
-    };
+    const [bankAccounts, setBankAccounts] = useState<Account[]>([]);
+    const [totalBalance, setTotalBalance] = useState<number>(0);
+    const { getBankAccounts } = useContext(UserContext) as UserContextState;
 
     useEffect(() => {
-        getAccounts();
+        getBankAccounts().then(accounts => {
+            accounts ? setBankAccounts(accounts) : setBankAccounts([]);
+        });
     }, []);
 
-    if (loading) {
-        return <Container />;
-    }
+    useMemo(() => bankAccounts?.forEach(ba => setTotalBalance(prev => prev + ba.balance)), []);
+
     return (
         <>
             <AccountHeader
@@ -96,12 +49,12 @@ const AccountSummary = () => {
             />
             <Container>
                 <Accounts>
-                    {currentUser.accounts?.map(ba => {
+                    {bankAccounts.map(ba => {
                         return <AccountBox key={ba.type} name={ba.type} balance={ba.balance} />;
                     })}
                 </Accounts>
                 <SummaryFooter>
-                    {/* <FooterData>Balance Total: {totalBalance}</FooterData> */}
+                    <FooterData>Balance Total: {totalBalance}</FooterData>
                 </SummaryFooter>
             </Container>
             ;
