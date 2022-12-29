@@ -63,30 +63,31 @@ public class UserController {
     String email = body.get("email");
     String password = body.get("password");
     /*
-     * create frontend that goes to 
+     * Switch method to void, create frontend that goes to
      * separate login with Auth
      * then do this:
      */
-     User u = uServ.loginUser(email, password); 
-     mSend.SendMessage(u); //call message sender with this
-     
-    
+    User u = uServ.loginUser(email, password);
+    System.out.println("before message sender **************");
+    mSend.SendMessage(u); // call message sender with this
+    System.out.println("after message sender **************");
+
     return uServ.loginUser(email, password);
   }
-  
+
   @PostMapping("/login_Auth")
   public User loginAuth(@RequestBody LinkedHashMap<String, Object> body) {
-	  String email = (String) body.get("email");
-	  Integer authToken = (Integer) body.get("token");
-	  
-	  return  uServ.loginUser(email, authToken);
+    String email = (String) body.get("email");
+    Integer authToken = (Integer) body.get("token");
+
+    return uServ.loginUser(email, authToken);
   }
-  
+
   @PutMapping("/logout")
-  public ResponseEntity<String> logout(@RequestBody LinkedHashMap<String, String> body){
-	  String email = body.get("email");
-	  uServ.logout(email);
-	  return new ResponseEntity<>("Logged out Successfully", HttpStatus.OK);
+  public ResponseEntity<String> logout(@RequestBody LinkedHashMap<String, String> body) {
+    String email = body.get("email");
+    uServ.logout(email);
+    return new ResponseEntity<>("Logged out Successfully", HttpStatus.OK);
   }
 
   @PutMapping("/update")
