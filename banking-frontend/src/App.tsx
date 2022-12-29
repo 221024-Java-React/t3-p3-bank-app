@@ -58,6 +58,7 @@ function App() {
                                         path="/credit-card-application"
                                         element={<CreditCardApplication />}
                                     />
+                                    <Route path="/login" element={<Login />} />
                                 </>
                             )}
                             {currentUser.type === "" && (
@@ -65,6 +66,7 @@ function App() {
                                     <Route path="/" element={<WelcomePage />} />
                                     <Route path="/login" element={<Login />} />
                                     <Route path="/register" element={<Register />} />
+                                    <Route path="/accounts/transfer" element={<TransferFunds />} />
                                 </>
                             )}
                             <Route path="*" element={<PageNotFound />} />
