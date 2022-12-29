@@ -76,9 +76,9 @@ public class UserController {
   }
 
   @PostMapping("/login_Auth")
-  public User loginAuth(@RequestBody LinkedHashMap<String, Object> body) {
+  public User loginAuth(@RequestBody LinkedHashMap<String, String> body) {
     String email = (String) body.get("email");
-    Integer authToken = (Integer) body.get("token");
+    Integer authToken = Integer.parseInt(body.get("token"));
 
     return uServ.loginUser(email, authToken);
   }
