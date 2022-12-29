@@ -10,14 +10,14 @@ import DarkModeProvider from "./Context/DarkModeContext";
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 root.render(
     <React.StrictMode>
-        <DarkModeProvider>
-            <UserProvider>
-                <AccountProvider>
-                    <BrowserRouter>
+        <BrowserRouter>
+            <DarkModeProvider>
+                <UserProvider>
+                    <AccountProvider>
                         <App />
-                    </BrowserRouter>
-                </AccountProvider>
-            </UserProvider>
-        </DarkModeProvider>
+                    </AccountProvider>
+                </UserProvider>
+            </DarkModeProvider>
+        </BrowserRouter>
     </React.StrictMode>
 );

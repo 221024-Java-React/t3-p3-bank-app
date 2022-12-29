@@ -9,6 +9,7 @@ const Container = styled.div`
     display: grid;
     place-items: center;
     height: 100%;
+    color: ${(props) => props.theme.color};
 `;
 const Form = styled.form`
     display: flex;
@@ -19,14 +20,20 @@ const Label = styled.label`
 `;
 const Input = styled.input`
     margin: 10px;
+    background: transparent;
+    border: 1px solid ${(props) => props.theme.border};
+    color: ${(props) => props.theme.color};
+    padding: 5px;
+    outline: none;
+
 `;
 const SubmitButton = styled.input`
     margin: 10px;
 `;
 
 const initLoginInputs = {
-    email: "",
-    password: "",
+    email_login: "",
+    password_login: "",
 };
 
 const initLoginAuthInputs = {
@@ -39,34 +46,43 @@ const Login: React.FC = () => {
     const [loginInputs, setLoginInputs] = useState(initLoginInputs);
     const [loginAuthInputs, setLoginAuthInputs] = useState(initLoginAuthInputs);
 
-    const { setCurrentUser, loginUser, currentUser } = useContext(UserContext) as UserContextState;
+    const { setCurrentUser, loginUser, currentUser } = useContext(
+        UserContext
+    ) as UserContextState;
     const navigate = useNavigate();
 
     const handleLoginFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
-        setLoginInputs(prev => ({ ...prev, [name]: value }));
+        setLoginInputs((prev) => ({ ...prev, [name]: value }));
     };
 
-    const handleLoginFormSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
+    const handleLoginFormSubmit = async (
+        e: React.ChangeEvent<HTMLFormElement>
+    ) => {
         e.preventDefault();
 
         try {
-            const { data: thisUser } = await axInst.post("/users/login", loginInputs);
+            const { email_login: email, password_login: password } = loginInputs
+            const { data: thisUser } = await axInst.post("/users/login", { email, password });
 
+            setLoginAuth(true);
             loginUser(thisUser);
             setLoginInputs(initLoginInputs);
-            return setLoginAuth(true);
         } catch (e) {
             console.log(e);
         }
     };
 
-    const handleLoginAuthFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleLoginAuthFormChange = (
+        e: React.ChangeEvent<HTMLInputElement>
+    ) => {
         const { name, value } = e.target;
-        setLoginAuthInputs(prev => ({ ...prev, [name]: value }));
+        setLoginAuthInputs((prev) => ({ ...prev, [name]: value }));
     };
 
-    const handleLoginAuthFormSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
+    const handleLoginAuthFormSubmit = async (
+        e: React.ChangeEvent<HTMLFormElement>
+    ) => {
         e.preventDefault();
 
         try {
@@ -86,6 +102,7 @@ const Login: React.FC = () => {
         }
     };
 
+    console.log(loginAuth)
     return (
         <Container>
             {!loginAuth && (
@@ -95,7 +112,6 @@ const Login: React.FC = () => {
                         type="text"
                         name="email_login"
                         id="email_login"
-                        value={loginInputs.email}
                         onChange={handleLoginFormChange}
                     />
                     <Label htmlFor="password_login">Password</Label>
@@ -103,7 +119,6 @@ const Login: React.FC = () => {
                         type="password"
                         name="password_login"
                         id="password_login"
-                        value={loginInputs.password}
                         onChange={handleLoginFormChange}
                     />
                     <SubmitButton type="submit" value="Log In" />
@@ -116,10 +131,12 @@ const Login: React.FC = () => {
                         type="text"
                         name="email_loginAuth"
                         id="email_loginAuth"
-                        value={loginInputs.email}
+                        value={loginInputs.email_login}
                         onChange={handleLoginAuthFormChange}
                     />
-                    <Label htmlFor="passcode_loginAuth">Enter Temporary Passcode</Label>
+                    <Label htmlFor="passcode_loginAuth">
+                        Enter Temporary Passcode
+                    </Label>
                     <Input
                         type="number"
                         name="passcode_loginAuth"

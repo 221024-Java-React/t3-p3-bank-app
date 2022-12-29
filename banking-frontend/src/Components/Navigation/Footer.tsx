@@ -7,10 +7,11 @@ const Container = styled.div`
     bottom: 0;
     display: flex;
     justify-content: space-evenly;
-    border: 2px solid ${props => props.theme.border};
-    border-radius: ${props => props.theme.borderRadius};
-    background: ${props => props.theme.background};
-    box-shadow: 0 -20px 0px ${props => props.theme.background};
+    border: 1px solid ${(props) => props.theme.border};
+    border-radius: ${(props) => props.theme.borderRadius};
+    background: ${(props) => props.theme.body};
+    box-shadow: 0 -20px 0px ${(props) => props.theme.background};
+    color: ${(props) => props.theme.color};
 `;
 const Box = styled.div`
     display: flex;
@@ -35,7 +36,10 @@ const Footer = () => {
                 <Data>Silverlake, NJ</Data>
             </Box>
             <Link to="/">
-                <Logo src={GBLogo_Black} alt="Black GoodBank logo with mountains" />
+                <Logo
+                    src={GBLogo_Black}
+                    alt="Black GoodBank logo with mountains"
+                />
             </Link>
             <Box>
                 <Data>(###)-###-####</Data>
