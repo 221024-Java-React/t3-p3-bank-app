@@ -6,6 +6,7 @@ const Container = styled.div`
     display: grid;
     place-items: center;
     height: 100%;
+    color: ${(props) => props.theme.color};
 `;
 const Form = styled.form`
     display: flex;
@@ -16,6 +17,11 @@ const Label = styled.label`
 `;
 const Input = styled.input`
     margin: 10px;
+    background: transparent;
+    border: 1px solid ${(props) => props.theme.border};
+    color: ${(props) => props.theme.color};
+    padding: 5px;
+    outline: none;
 `;
 const SubmitButton = styled.input`
     margin: 10px;

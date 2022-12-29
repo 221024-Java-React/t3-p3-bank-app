@@ -20,13 +20,14 @@ import { DarkModeContextState } from "./Interfaces/DarkMode";
 import PageNotFound from "./Components/PageNotFound";
 
 const DarkModeProvider = styled.div`
-    background-color: ${props => props.theme.body};
-    color: ${props => props.theme.text};
+    background-color: ${(props) => props.theme.background};
+    color: ${(props) => props.theme.text};
 `;
 const Body = styled.div`
-    width: ${props => props.theme.bodyWidth};
+    width: ${(props) => props.theme.bodyWidth};
     min-height: 100vh;
     margin: 0 auto;
+    color: ${(props) => props.theme.color};
 `;
 
 function App() {
@@ -43,17 +44,35 @@ function App() {
                             {currentUser.type === "REP" && (
                                 <>
                                     <Route path="/" element={<RepHome />} />
-                                    <Route path="/register" element={<Register />} />
+                                    <Route
+                                        path="/register"
+                                        element={<Register />}
+                                    />
                                 </>
                             )}
                             {currentUser.type === "MEMBER" && (
                                 <>
                                     <Route path="/" element={<MemberHome />} />
-                                    <Route path="accounts/summary" element={<AccountSummary />} />
-                                    <Route path="/accounts/checking" element={<AccountHistory />} />
-                                    <Route path="/accounts/savings" element={<AccountHistory />} />
-                                    <Route path="/accounts/credit" element={<AccountHistory />} />
-                                    <Route path="/accounts/transfer" element={<TransferFunds />} />
+                                    <Route
+                                        path="accounts/summary"
+                                        element={<AccountSummary />}
+                                    />
+                                    <Route
+                                        path="/accounts/checking"
+                                        element={<AccountHistory />}
+                                    />
+                                    <Route
+                                        path="/accounts/savings"
+                                        element={<AccountHistory />}
+                                    />
+                                    <Route
+                                        path="/accounts/credit"
+                                        element={<AccountHistory />}
+                                    />
+                                    <Route
+                                        path="/accounts/transfer"
+                                        element={<TransferFunds />}
+                                    />
                                     <Route
                                         path="/credit-card-application"
                                         element={<CreditCardApplication />}

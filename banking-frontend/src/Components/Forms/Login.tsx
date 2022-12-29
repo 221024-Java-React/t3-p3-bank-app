@@ -9,6 +9,7 @@ const Container = styled.div`
     display: grid;
     place-items: center;
     height: 100%;
+    color: ${(props) => props.theme.color};
 `;
 const Form = styled.form`
     display: flex;
@@ -19,6 +20,12 @@ const Label = styled.label`
 `;
 const Input = styled.input`
     margin: 10px;
+    background: transparent;
+    border: 1px solid ${(props) => props.theme.border};
+    color: ${(props) => props.theme.color};
+    padding: 5px;
+    outline: none;
+
 `;
 const SubmitButton = styled.input`
     margin: 10px;
@@ -38,15 +45,19 @@ const Login: React.FC = () => {
     const [loginInputs, setLoginInputs] = useState(initLoginInputs);
     const [loginAuthInputs, setLoginAuthInputs] = useState(initLoginAuthInputs);
 
-    const { setCurrentUser, loginUser, currentUser } = useContext(UserContext) as UserContextState;
+    const { setCurrentUser, loginUser, currentUser } = useContext(
+        UserContext
+    ) as UserContextState;
     const navigate = useNavigate();
 
     const handleLoginFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
-        setLoginInputs(prev => ({ ...prev, [name]: value }));
+        setLoginInputs((prev) => ({ ...prev, [name]: value }));
     };
 
-    const handleLoginFormSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
+    const handleLoginFormSubmit = async (
+        e: React.ChangeEvent<HTMLFormElement>
+    ) => {
         e.preventDefault();
 
         try {
@@ -62,12 +73,16 @@ const Login: React.FC = () => {
         }
     };
 
-    const handleLoginAuthFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleLoginAuthFormChange = (
+        e: React.ChangeEvent<HTMLInputElement>
+    ) => {
         const { name, value } = e.target;
-        setLoginAuthInputs(prev => ({ ...prev, [name]: value }));
+        setLoginAuthInputs((prev) => ({ ...prev, [name]: value }));
     };
 
-    const handleLoginAuthFormSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
+    const handleLoginAuthFormSubmit = async (
+        e: React.ChangeEvent<HTMLFormElement>
+    ) => {
         e.preventDefault();
 
         try {
@@ -87,6 +102,7 @@ const Login: React.FC = () => {
         }
     };
 
+    console.log(loginAuth)
     return (
         <Container>
             {loginAuth === false && (

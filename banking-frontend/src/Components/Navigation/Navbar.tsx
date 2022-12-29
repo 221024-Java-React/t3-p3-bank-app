@@ -12,7 +12,7 @@ import MoonIcon from "../../Assets/moon-icon.png";
 const Container = styled.div`
     position: sticky;
     top: 0;
-    background: ${props => props.theme.background};
+    background: ${(props) => props.theme.body};
 `;
 const Menu = styled.div`
     display: flex;
@@ -34,13 +34,13 @@ const MenuItem = styled.div`
 
     & a {
         text-decoration: none;
-        color: ${props => props.theme.color};
+        color: ${(props) => props.theme.color};
         font-weight: bold;
     }
 `;
 const Banner = styled.div`
-    background: ${props => props.theme.primaryDark};
-    box-shadow: 0 10px 5px ${props => props.theme.background};
+    background: ${(props) => props.theme.primaryDark};
+    box-shadow: 0 10px 5px ${(props) => props.theme.background};
     margin-bottom: 1.5rem;
     border-radius: 3px;
 `;
@@ -57,7 +57,10 @@ const Navbar: React.FC = () => {
     return (
         <Container>
             <Menu>
-                <Icon src={mode === "Light" ? MoonIcon : SunIcon} onClick={toggleDarkMode} />
+                <Icon
+                    src={mode === "Light" ? MoonIcon : SunIcon}
+                    onClick={toggleDarkMode}
+                />
                 {currentUser.type === "REP" && (
                     <MenuItem>
                         <Link to="/register">Register A New User</Link>
@@ -72,7 +75,9 @@ const Navbar: React.FC = () => {
                             <Link to="/accounts/summary">Account Summary</Link>
                         </MenuItem>
                         <MenuItem>
-                            <Link to="/accounts/settings">Account Settings</Link>
+                            <Link to="/accounts/settings">
+                                Account Settings
+                            </Link>
                         </MenuItem>
                         <MenuItem onClick={logoutUser}>Log Out</MenuItem>
                     </>
@@ -88,7 +93,7 @@ const Navbar: React.FC = () => {
                     <Logo src={GBLogo_White} alt="White GoodBank logo with mountains" />
                 </Link>
             </Banner>
-        </Container>
+        </Container >
     );
 };
 
