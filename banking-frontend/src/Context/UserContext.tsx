@@ -1,9 +1,9 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router";
 import { User, UserContextState } from "../Interfaces/User";
 import { ProviderProps } from "../Interfaces/ProviderProps";
 import { axInst } from "../Util/axInstance";
 import { Account } from "../Interfaces/Account";
-import { useNavigate } from "react-router";
 
 export const UserContext = React.createContext<UserContextState | null>(null);
 
@@ -30,7 +30,7 @@ const UserProvider: React.FC<ProviderProps> = ({ children }) => {
     const logoutUser = async () => {
         setCurrentUser(initUser);
 
-        await axInst.put("/users/logout", { email: currentUser.email })
+        await axInst.put("/users/logout", { email: currentUser.email });
 
         navigate("/");
     };

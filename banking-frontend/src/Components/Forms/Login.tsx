@@ -37,8 +37,7 @@ const initLoginInputs = {
 };
 
 const initLoginAuthInputs = {
-    email: "",
-    passcode: 0,
+    passcode: "",
 };
 
 const Login: React.FC = () => {
@@ -62,12 +61,13 @@ const Login: React.FC = () => {
         e.preventDefault();
 
         try {
-            const { email_login: email, password_login: password } = loginInputs
+            const { email_login: email, password_login: password } = loginInputs;
+
             const { data: thisUser } = await axInst.post("/users/login", { email, password });
+            setLoginInputs(initLoginInputs);
+            setCurrentUser(thisUser);
 
             setLoginAuth(true);
-            loginUser(thisUser);
-            setLoginInputs(initLoginInputs);
         } catch (e) {
             console.log(e);
         }
@@ -86,17 +86,17 @@ const Login: React.FC = () => {
         e.preventDefault();
 
         try {
-            const { email, passcode } = loginAuthInputs;
+            const { passcode } = loginAuthInputs;
+            console.log(passcode);
 
-            const { data: thisUser } = await axInst.post("/login_Auth", {
-                email,
-                passcode,
+            const { data: thisUser } = await axInst.post("/users/login_Auth", {
+                email: currentUser.email,
+                token: passcode,
             });
 
-            if (thisUser) {
-                setCurrentUser(thisUser);
-                return navigate("/home");
-            }
+            loginUser(thisUser);
+            setLoginAuthInputs(initLoginAuthInputs);
+            navigate("/");
         } catch (e) {
             console.log(e);
         }
@@ -105,7 +105,7 @@ const Login: React.FC = () => {
     console.log(loginAuth)
     return (
         <Container>
-            {!loginAuth && (
+            {loginAuth === false && (
                 <Form onSubmit={handleLoginFormSubmit}>
                     <Label htmlFor="email_login">Email</Label>
                     <Input
@@ -124,26 +124,16 @@ const Login: React.FC = () => {
                     <SubmitButton type="submit" value="Log In" />
                 </Form>
             )}
-            {loginAuth && (
+            {loginAuth === true && (
                 <Form onSubmit={handleLoginAuthFormSubmit}>
-                    <Label htmlFor="email_loginAuth">Email</Label>
+                    <Label htmlFor="passcode">Enter Twilio Passcode</Label>
                     <Input
                         type="text"
-                        name="email_loginAuth"
-                        id="email_loginAuth"
-                        value={loginInputs.email_login}
+                        name="passcode"
+                        id="passcode"
                         onChange={handleLoginAuthFormChange}
                     />
-                    <Label htmlFor="passcode_loginAuth">
-                        Enter Temporary Passcode
-                    </Label>
-                    <Input
-                        type="number"
-                        name="passcode_loginAuth"
-                        id="passcode_loginAuth"
-                        value={loginAuthInputs.passcode}
-                        onChange={handleLoginAuthFormChange}
-                    />
+                    <SubmitButton type="submit" value="Submit Passcode" />
                 </Form>
             )}
         </Container>

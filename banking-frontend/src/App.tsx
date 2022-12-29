@@ -84,10 +84,8 @@ function App() {
                                 <>
                                     <Route path="/" element={<WelcomePage />} />
                                     <Route path="/login" element={<Login />} />
-                                    <Route
-                                        path="/register"
-                                        element={<Register />}
-                                    />
+                                    <Route path="/register" element={<Register />} />
+                                    <Route path="/accounts/transfer" element={<TransferFunds />} />
                                 </>
                             )}
                             <Route path="*" element={<PageNotFound />} />

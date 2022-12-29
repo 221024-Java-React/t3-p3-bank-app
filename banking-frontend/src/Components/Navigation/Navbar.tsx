@@ -27,6 +27,11 @@ const Icon = styled.img`
 `;
 const MenuItem = styled.div`
     margin-left: 1rem;
+    text-decoration: none;
+    color: ${props => props.theme.color};
+    font-weight: bold;
+    cursor: pointer;
+
     & a {
         text-decoration: none;
         color: ${(props) => props.theme.color};
@@ -46,10 +51,8 @@ const Logo = styled.img`
 `;
 
 const Navbar: React.FC = () => {
-    const { currentUser } = useContext(UserContext) as UserContextState;
-    const { mode, toggleDarkMode } = useContext(
-        DarkModeContext
-    ) as DarkModeContextState;
+    const { currentUser, logoutUser } = useContext(UserContext) as UserContextState;
+    const { mode, toggleDarkMode } = useContext(DarkModeContext) as DarkModeContextState;
 
     return (
         <Container>
@@ -76,9 +79,7 @@ const Navbar: React.FC = () => {
                                 Account Settings
                             </Link>
                         </MenuItem>
-                        <MenuItem>
-                            <Link to="/logout">Log Out</Link>
-                        </MenuItem>
+                        <MenuItem onClick={logoutUser}>Log Out</MenuItem>
                     </>
                 )}
                 {currentUser.type === "" && (
@@ -88,14 +89,11 @@ const Navbar: React.FC = () => {
                 )}
             </Menu>
             <Banner>
-                <Link to={currentUser.type === "" ? "/" : "/home"}>
-                    <Logo
-                        src={GBLogo_White}
-                        alt="White GoodBank logo with mountains"
-                    />
+                <Link to={"/"}>
+                    <Logo src={GBLogo_White} alt="White GoodBank logo with mountains" />
                 </Link>
             </Banner>
-        </Container>
+        </Container >
     );
 };
 

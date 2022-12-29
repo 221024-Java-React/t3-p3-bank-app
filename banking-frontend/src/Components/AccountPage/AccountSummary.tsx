@@ -1,12 +1,10 @@
-import React, { useState, useContext, useMemo, useEffect } from "react";
+import { useState, useContext, useMemo, useEffect } from "react";
 import styled from "styled-components";
 import AccountHeader from "./AccountHeader";
 import AccountBox from "./AccountBox";
 import { UserContext } from "../../Context/UserContext";
-import { AccountContext } from "../../Context/AccountContext";
 import { UserContextState } from "../../Interfaces/User";
-import { Account, AccountContextState } from "../../Interfaces/Account";
-import { axInst } from "../../Util/axInstance";
+import { Account } from "../../Interfaces/Account";
 
 const Container = styled.div`
     border: 2px solid ${props => props.theme.primaryMed};
@@ -29,22 +27,6 @@ const FooterData = styled.h1`
     padding: 0 1rem;
 `;
 
-// replace w/ bankAccounts array in TSX below
-const testArray = [
-    {
-        type: "Checking",
-        balance: 900,
-    },
-    {
-        type: "Savings",
-        balance: 750,
-    },
-    {
-        type: "Credit",
-        balance: 10000,
-    },
-];
-
 const AccountSummary = () => {
     const [bankAccounts, setBankAccounts] = useState<Account[]>([]);
     const [totalBalance, setTotalBalance] = useState<number>(0);
@@ -56,7 +38,6 @@ const AccountSummary = () => {
         });
     }, []);
 
-    // change testArray to bankAccounts here and in JSX
     useMemo(() => bankAccounts?.forEach(ba => setTotalBalance(prev => prev + ba.balance)), []);
 
     return (
