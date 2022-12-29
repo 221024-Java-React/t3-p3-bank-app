@@ -39,6 +39,7 @@ const UserProvider: React.FC<ProviderProps> = ({ children }) => {
                     userId,
                 }
             );
+
             return accounts;
         } catch (e) {
             console.log(e);
