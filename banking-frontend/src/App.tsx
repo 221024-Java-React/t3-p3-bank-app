@@ -48,8 +48,9 @@ function App() {
                             )}
                             {currentUser.type === "MEMBER" && (
                                 <>
-                                    <Route path="/" element={<MemberHome />} />
-                                    <Route path="accounts/summary" element={<AccountSummary />} />
+                                    {/* <Route path="/" element={<MemberHome />} /> */}
+                                    <Route path="/" element={<AccountSummary />} />
+                                    <Route path="/accounts/summary" element={<AccountSummary />} />
                                     <Route path="/accounts/checking" element={<AccountHistory />} />
                                     <Route path="/accounts/savings" element={<AccountHistory />} />
                                     <Route path="/accounts/credit" element={<AccountHistory />} />
@@ -65,8 +66,8 @@ function App() {
                                 <>
                                     <Route path="/" element={<WelcomePage />} />
                                     <Route path="/login" element={<Login />} />
-                                    <Route path="/register" element={<Register />} />
-                                    <Route path="/accounts/transfer" element={<TransferFunds />} />
+                                    {/* <Route path="/register" element={<Register />} /> */}
+                                    {/* <Route path="/accounts/transfer" element={<TransferFunds />} /> */}
                                 </>
                             )}
                             <Route path="*" element={<PageNotFound />} />
