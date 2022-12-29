@@ -43,6 +43,7 @@ public class UserController {
     User newUser = new User(firstName, lastName, email, address, phoneNumber);
     uServ.registerUser(newUser);
     User registeredUser = uServ.getUserByEmail(email);
+    mSend.SendFirstPassword(registeredUser);
 
     if (accountType.equals("both")) {
       Account accountChecking = new Account("checking", registeredUser, balance);

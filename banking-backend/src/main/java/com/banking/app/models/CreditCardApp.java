@@ -33,5 +33,21 @@ public class CreditCardApp {
 	
 	@OneToOne(mappedBy = "appl")
 	private CreditCard card;
-
+	
+	@Column(name = "credit_score")
+	private Integer creditScore;
+	
+	@Column(name = "yearly_income")
+	private Double totalIncome;
+	
+	@Column(name = "Estimated_debt")
+	private Double totalDebt;
+	
+	@Column(name = "approved_limit")
+	private Double approvedLimit;
+	
+	public void setApprovedLimit() {
+		
+		
+	}
 }
