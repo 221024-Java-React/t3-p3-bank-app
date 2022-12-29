@@ -22,14 +22,14 @@ const AccordionWrapper = styled.div`
 `;
 const AccordionItem = styled.div``;
 const AccordionHeader = styled.h2`
-    border-bottom: 1px solid ${(props) => props.theme.border};
+    border-bottom: 1px solid ${props => props.theme.border};
     padding: 5px;
     display: flex;
 `;
 const AccordionButton = styled.button`
     border: none;
     background-color: transparent;
-    color: ${(props) => props.theme.text};
+    color: ${props => props.theme.text};
     width: 100%;
     text-align: left;
     font-size: 1em;
@@ -38,7 +38,7 @@ const AccordionButton = styled.button`
 const AccordionContentWrapper = styled.div<{ accordionIndex: boolean }>`
     overflow: hidden;
     padding: 5px;
-    height: ${(props) => (props.accordionIndex ? "fit-content" : "0px")};
+    height: ${props => (props.accordionIndex ? "fit-content" : "0px")};
     transition: height 1s;
 `;
 const AccordionContent = styled.div`
@@ -54,10 +54,8 @@ const OurServices = () => {
         } else {
             setActiveAccordion(n);
         }
-        console.log(n);
     };
 
-    console.log(activeAccordion);
     return (
         <Container>
             <ServicesTitle>Our Services</ServicesTitle>
@@ -66,23 +64,15 @@ const OurServices = () => {
                     <AccordionHeader onClick={() => handleActiveItem(1)}>
                         <AccordionButton>Checking Accounts</AccordionButton>
                         <AccordionButton style={{ textAlign: "right" }}>
-                            {activeAccordion === 1 ? (
-                                <IoIosArrowUp />
-                            ) : (
-                                <IoIosArrowDown />
-                            )}
+                            {activeAccordion === 1 ? <IoIosArrowUp /> : <IoIosArrowDown />}
                         </AccordionButton>
                     </AccordionHeader>
-                    <AccordionContentWrapper
-                        accordionIndex={activeAccordion === 1}
-                    >
+                    <AccordionContentWrapper accordionIndex={activeAccordion === 1}>
                         <AccordionContent>
-                            Bank name's checking accounts offer a variety of
-                            benefits including no monthly fees, free online and
-                            mobile banking, a free debit card, overdraft
-                            protection, and competitive interest rates. They are
-                            a convenient and cost-effective way to manage your
-                            money.
+                            Bank name's checking accounts offer a variety of benefits including no
+                            monthly fees, free online and mobile banking, a free debit card,
+                            overdraft protection, and competitive interest rates. They are a
+                            convenient and cost-effective way to manage your money.
                         </AccordionContent>
                     </AccordionContentWrapper>
                 </AccordionItem>
@@ -90,22 +80,15 @@ const OurServices = () => {
                     <AccordionHeader onClick={() => handleActiveItem(2)}>
                         <AccordionButton>Savings Accounts</AccordionButton>
                         <AccordionButton style={{ textAlign: "right" }}>
-                            {activeAccordion === 2 ? (
-                                <IoIosArrowUp />
-                            ) : (
-                                <IoIosArrowDown />
-                            )}
+                            {activeAccordion === 2 ? <IoIosArrowUp /> : <IoIosArrowDown />}
                         </AccordionButton>
                     </AccordionHeader>
-                    <AccordionContentWrapper
-                        accordionIndex={activeAccordion === 2}
-                    >
+                    <AccordionContentWrapper accordionIndex={activeAccordion === 2}>
                         <AccordionContent>
-                            Bank name's savings accounts offer competitive
-                            interest rates, no minimum balance requirements,
-                            easy access to your money, FDIC insurance, and
-                            convenient account management. They are a simple and
-                            effective way to grow your savings.
+                            Bank name's savings accounts offer competitive interest rates, no
+                            minimum balance requirements, easy access to your money, FDIC insurance,
+                            and convenient account management. They are a simple and effective way
+                            to grow your savings.
                         </AccordionContent>
                     </AccordionContentWrapper>
                 </AccordionItem>
@@ -113,22 +96,15 @@ const OurServices = () => {
                     <AccordionHeader onClick={() => handleActiveItem(3)}>
                         <AccordionButton>Credit Accounts</AccordionButton>
                         <AccordionButton style={{ textAlign: "right" }}>
-                            {activeAccordion === 3 ? (
-                                <IoIosArrowUp />
-                            ) : (
-                                <IoIosArrowDown />
-                            )}
+                            {activeAccordion === 3 ? <IoIosArrowUp /> : <IoIosArrowDown />}
                         </AccordionButton>
                     </AccordionHeader>
-                    <AccordionContentWrapper
-                        accordionIndex={activeAccordion === 3}
-                    >
+                    <AccordionContentWrapper accordionIndex={activeAccordion === 3}>
                         <AccordionContent>
-                            Bank name's credit accounts offer competitive
-                            interest rates, flexible payment options, rewards
-                            programs, fraud protection, and customer service.
-                            They are a convenient and cost-effective way to
-                            borrow money and make purchases.
+                            Bank name's credit accounts offer competitive interest rates, flexible
+                            payment options, rewards programs, fraud protection, and customer
+                            service. They are a convenient and cost-effective way to borrow money
+                            and make purchases.
                         </AccordionContent>
                     </AccordionContentWrapper>
                 </AccordionItem>
