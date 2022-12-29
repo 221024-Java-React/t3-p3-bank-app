@@ -5,7 +5,6 @@ import org.springframework.context.annotation.Configuration;
 
 import com.banking.app.exceptions.CannotUpdateUserException;
 import com.banking.app.models.User;
-import com.banking.app.repositories.UserRepository;
 import com.banking.app.services.UserService;
 import com.twilio.Twilio;
 import com.twilio.rest.api.v2010.account.Message;
