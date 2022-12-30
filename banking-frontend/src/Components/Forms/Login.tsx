@@ -2,14 +2,13 @@ import React, { useContext, useState } from "react";
 import styled from "styled-components";
 import { UserContext } from "../../Context/UserContext";
 import { UserContextState } from "../../Interfaces/User";
-import { axInst } from "../../Util/axInstance";
 import { useNavigate } from "react-router";
 
 const Container = styled.div`
     display: grid;
     place-items: center;
     height: 100%;
-    color: ${(props) => props.theme.color};
+    color: ${props => props.theme.color};
 `;
 const Form = styled.form`
     display: flex;
@@ -21,119 +20,111 @@ const Label = styled.label`
 const Input = styled.input`
     margin: 10px;
     background: transparent;
-    border: 1px solid ${(props) => props.theme.border};
-    color: ${(props) => props.theme.color};
+    border: 1px solid ${props => props.theme.border};
+    color: ${props => props.theme.color};
     padding: 5px;
     outline: none;
-
 `;
 const SubmitButton = styled.input`
     margin: 10px;
 `;
 
-const initLoginInputs = {
-    email_login: "",
-    password_login: "",
-};
-
-const initLoginAuthInputs = {
+const initInputs = {
+    email: "",
+    password: "",
     passcode: "",
+    newPassword_1: "",
+    newPassword_2: "",
 };
 
-const Login: React.FC = () => {
-    const [loginAuth, setLoginAuth] = useState<boolean>(false);
-    const [loginInputs, setLoginInputs] = useState(initLoginInputs);
-    const [loginAuthInputs, setLoginAuthInputs] = useState(initLoginAuthInputs);
+const Login = () => {
+    const [showAuthScreen, setShowAuthScreen] = useState<boolean>(false);
+    const [showResetPassScreen, setShowResetPassScreen] = useState<boolean>(false);
+    const [inputs, setInputs] = useState(initInputs);
 
-    const { setCurrentUser, loginUser, currentUser } = useContext(
+    const { loginUser, resetPassword, authenticateUser, firstLogin } = useContext(
         UserContext
     ) as UserContextState;
     const navigate = useNavigate();
 
-    const handleLoginFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
-        setLoginInputs((prev) => ({ ...prev, [name]: value }));
+        setInputs(prev => ({ ...prev, [name]: value }));
     };
 
-    const handleLoginFormSubmit = async (
-        e: React.ChangeEvent<HTMLFormElement>
-    ) => {
+    const handleLoginFormSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
         e.preventDefault();
+        const { email, password } = inputs;
 
-        try {
-            const { email_login: email, password_login: password } = loginInputs;
-
-            const { data: thisUser } = await axInst.post("/users/login", { email, password });
-            setLoginInputs(initLoginInputs);
-            setCurrentUser(thisUser);
-
-            setLoginAuth(true);
-        } catch (e) {
-            console.log(e);
-        }
+        await loginUser(email, password).then(() => {
+            console.log(firstLogin);
+            firstLogin ? setShowResetPassScreen(true) : setShowAuthScreen(true);
+        });
     };
 
-    const handleLoginAuthFormChange = (
-        e: React.ChangeEvent<HTMLInputElement>
-    ) => {
-        const { name, value } = e.target;
-        setLoginAuthInputs((prev) => ({ ...prev, [name]: value }));
-    };
-
-    const handleLoginAuthFormSubmit = async (
-        e: React.ChangeEvent<HTMLFormElement>
-    ) => {
+    const handleResetPassFormSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
         e.preventDefault();
+        const { email, newPassword_1, newPassword_2 } = inputs;
+        // console.log(inputs);
 
-        try {
-            const { passcode } = loginAuthInputs;
-            console.log(passcode);
+        if (newPassword_1 === newPassword_2) {
+            await resetPassword(email, newPassword_1);
+            setInputs(initInputs);
 
-            const { data: thisUser } = await axInst.post("/users/login_Auth", {
-                email: currentUser.email,
-                token: passcode,
-            });
-
-            loginUser(thisUser);
-            setLoginAuthInputs(initLoginAuthInputs);
             navigate("/");
-        } catch (e) {
-            console.log(e);
         }
     };
 
-    console.log(loginAuth)
+    const handleAuthFormSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        const { email, passcode } = inputs;
+
+        await authenticateUser(email, passcode);
+        setInputs(initInputs);
+
+        navigate("/");
+    };
+
     return (
         <Container>
-            {loginAuth === false && (
+            {!showAuthScreen && !showResetPassScreen && (
                 <Form onSubmit={handleLoginFormSubmit}>
-                    <Label htmlFor="email_login">Email</Label>
-                    <Input
-                        type="text"
-                        name="email_login"
-                        id="email_login"
-                        onChange={handleLoginFormChange}
-                    />
+                    <Label htmlFor="email">Email</Label>
+                    <Input type="text" name="email" id="email" onChange={handleInputChange} />
                     <Label htmlFor="password_login">Password</Label>
                     <Input
                         type="password"
-                        name="password_login"
-                        id="password_login"
-                        onChange={handleLoginFormChange}
+                        name="password"
+                        id="password"
+                        onChange={handleInputChange}
                     />
                     <SubmitButton type="submit" value="Log In" />
                 </Form>
             )}
-            {loginAuth === true && (
-                <Form onSubmit={handleLoginAuthFormSubmit}>
+            {showAuthScreen && (
+                <Form onSubmit={handleAuthFormSubmit}>
                     <Label htmlFor="passcode">Enter Twilio Passcode</Label>
-                    <Input
-                        type="text"
-                        name="passcode"
-                        id="passcode"
-                        onChange={handleLoginAuthFormChange}
-                    />
+                    <Input type="text" name="passcode" id="passcode" onChange={handleInputChange} />
                     <SubmitButton type="submit" value="Submit Passcode" />
+                </Form>
+            )}
+            {showResetPassScreen && (
+                <Form onSubmit={handleResetPassFormSubmit}>
+                    <Label htmlFor="newPassword_1">Enter New Password</Label>
+                    <Input
+                        type="password"
+                        name="newPassword_1"
+                        id="newPassword_1"
+                        onChange={handleInputChange}
+                    />
+                    <Label htmlFor="newPassword_2">Re-Enter New Password</Label>
+                    <Input
+                        type="password"
+                        name="newPassword_2"
+                        id="newPassword_2"
+                        onChange={handleInputChange}
+                    />
+                    <SubmitButton type="submit" value="Reset Password" />
                 </Form>
             )}
         </Container>
