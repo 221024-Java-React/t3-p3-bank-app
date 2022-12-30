@@ -43,7 +43,7 @@ public class CreditCardApp {
 	@OneToOne(mappedBy = "appl")
 	private CreditCard card;
 	
-
+	@Column(name = "applicant")
 	private String applicant;
 	
 	@Column(name = "applicant_age")
