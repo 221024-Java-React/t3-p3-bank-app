@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { axInst } from "../../Util/axInstance";
 import AccountHeader from "../AccountPage/AccountHeader";
@@ -67,20 +67,22 @@ const SubmitButton = styled.button`
     }
 `;
 
-const initInputs = {
-    netWorth: "",
-    monthlyIncome: "",
-    carPayment: "",
-    rent: "",
-    totalMiscPayments: "",
-    totalCCLimits: "",
-    dob: "",
-    fico: "",
-    hasCC: "",
-    over15: "",
-};
-
 const CreditCardApplication = () => {
+    const [totalDebt, setTotalDebt] = useState<number>(0);
+
+    const initInputs = {
+        netWorth: "",
+        monthlyIncome: "",
+        carPayment: "",
+        rent: "",
+        totalMiscPayments: "",
+        totalCCLimits: "",
+        age: "",
+        creditScore: "",
+        hasCC: "",
+        over15: "",
+    };
+
     const [inputs, setInputs] = useState(initInputs);
 
     const handleFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -100,8 +102,6 @@ const CreditCardApplication = () => {
             console.log(e, "this is the error");
         }
     };
-
-    console.log(inputs)
 
     return (
         <>
@@ -161,7 +161,8 @@ const CreditCardApplication = () => {
                         <SectionHeader>Income Information</SectionHeader>
                         <InputWrapper>
                             <Label>Total Net Worth:</Label>
-                            $ <Input
+                            ${" "}
+                            <Input
                                 type="text"
                                 name="netWorth"
                                 value={inputs.netWorth}
@@ -172,7 +173,8 @@ const CreditCardApplication = () => {
                         </InputWrapper>
                         <InputWrapper>
                             <Label>Monthly Income:</Label>
-                            $ <Input
+                            ${" "}
+                            <Input
                                 type="text"
                                 name="monthlyIncome"
                                 value={inputs.monthlyIncome}
@@ -186,7 +188,8 @@ const CreditCardApplication = () => {
                         <SectionHeader>Debt Information</SectionHeader>
                         <InputWrapper>
                             <Label>Monthly Car Payment</Label>
-                            $ <Input
+                            ${" "}
+                            <Input
                                 type="text"
                                 name="carPayment"
                                 value={inputs.carPayment}
@@ -197,7 +200,8 @@ const CreditCardApplication = () => {
                         </InputWrapper>
                         <InputWrapper>
                             <Label>Monthly Rent/Mortgage:</Label>
-                            $ <Input
+                            ${" "}
+                            <Input
                                 type="text"
                                 name="rent"
                                 value={inputs.rent}
@@ -208,7 +212,8 @@ const CreditCardApplication = () => {
                         </InputWrapper>
                         <InputWrapper>
                             <Label>Sum All Other Monthly Debt Payments:</Label>
-                            $ <Input
+                            ${" "}
+                            <Input
                                 type="text"
                                 name="totalMiscPayments"
                                 value={inputs.totalMiscPayments}
@@ -221,7 +226,8 @@ const CreditCardApplication = () => {
                             <Label>
                                 Sum All Other Monthly Credit Card Limits:
                             </Label>
-                            $ <Input
+                            ${" "}
+                            <Input
                                 type="text"
                                 name="totalCCLimits"
                                 value={inputs.totalCCLimits}
@@ -233,24 +239,37 @@ const CreditCardApplication = () => {
                     </SectionWrapper>
                     <FinalSection>
                         <SectionWrapper style={{ flex: 1, marginRight: "1em" }}>
-                            <SectionHeader>Enter DOB:</SectionHeader>
+                            {/* <SectionHeader>Enter DOB:</SectionHeader> */}
+                            {/* <InputWrapper> */}
+                            {/*     <Input */}
+                            {/*         type="date" */}
+                            {/*         name="dob" */}
+                            {/*         value={inputs.dob} */}
+                            {/*         style={{ flex: 1, color: "#154481" }} */}
+                            {/*         onChange={handleFormChange} */}
+                            {/*     /> */}
+                            {/* </InputWrapper> */}
+                            <SectionHeader>Enter Age:</SectionHeader>
                             <InputWrapper>
                                 <Input
-                                    type="date"
-                                    name="dob"
-                                    value={inputs.dob}
+                                    type="text"
+                                    name="age"
+                                    value={inputs.age}
                                     style={{ flex: 1, color: "#154481" }}
+                                    placeholder="16"
                                     onChange={handleFormChange}
                                 />
                             </InputWrapper>
                         </SectionWrapper>
                         <SectionWrapper style={{ flex: 1 }}>
-                            <SectionHeader>Enter FICO Score</SectionHeader>
+                            <SectionHeader>
+                                Enter creditScore Score
+                            </SectionHeader>
                             <InputWrapper>
                                 <Input
                                     type="text"
-                                    name="fico"
-                                    value={inputs.fico}
+                                    name="creditScore"
+                                    value={inputs.creditScore}
                                     placeholder="0-850"
                                     style={{ flex: 1 }}
                                     onChange={handleFormChange}
