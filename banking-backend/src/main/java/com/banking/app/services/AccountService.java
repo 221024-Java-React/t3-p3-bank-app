@@ -68,14 +68,14 @@ public class AccountService {
     LocalDate time = LocalDate.now();
 
     TransactionData tFrom = new TransactionData();
-    //tFrom.setAccount(from);
+    tFrom.setAccount(from);
     tFrom.setAmount(amount);
     tFrom.setType(TransactionType.WIDTHDRAW);
     tFrom.setDate(time);
     tFrom.setMessage(TransactionMessageGenerator.generateMessage(TransactionType.WIDTHDRAW, amount));
 
     TransactionData tTo = new TransactionData();
-    //tTo.setAccount(to);
+    tTo.setAccount(to);
     tTo.setAmount(amount);
     tFrom.setType(TransactionType.DEPOSIT);
     tTo.setDate(time);

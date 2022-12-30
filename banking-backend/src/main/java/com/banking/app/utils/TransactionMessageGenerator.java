@@ -18,6 +18,8 @@ public class TransactionMessageGenerator {
 	        break;
 	  	case PAY :
 	  		message = "A payment of $" + amount + " was made.";
+	  	case PURCHASE:
+	  		message = "A purchase of $"+amount+" was made.";
 	  }
 	  return message;
   }
