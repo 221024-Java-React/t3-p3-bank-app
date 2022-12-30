@@ -35,12 +35,12 @@ public class CreditCardAppController {
   private CreditCardAppService aServ;
   private CreditCardService cServ;
   private UserService uServ;
-  
+  /*
   @PostMapping("/create")
   public CreditCardApp createApplication(@RequestBody CreditCardApp a) {
     return aServ.createCreditCardApp(a);
   }
-
+  */
   @PostMapping("/filter/{status}")
   public List<CreditCardApp> getCreditCardAppsByStatus(@PathVariable("status") Integer status) {
     CreditCardAppStatus s;
@@ -59,8 +59,8 @@ public class CreditCardAppController {
     return aServ.getCreditCardAppByApplicationID(id);
   }
 
-  @PostMapping("/update")
-  public <T> CreditCardApp approveOrDenyCreditCardApp(@RequestBody LinkedHashMap<String, T> body) {
+  @PostMapping("/create")
+  public <T> CreditCardApp createCreditCardApp(@RequestBody LinkedHashMap<String, T> body) {
     System.out.println(body.get("age") instanceof Integer);
     Integer age = (Integer) body.get("age");
     
