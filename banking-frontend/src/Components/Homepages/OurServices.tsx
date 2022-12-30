@@ -29,7 +29,7 @@ const AccordionHeader = styled.h2`
 const AccordionButton = styled.button`
     border: none;
     background-color: transparent;
-    color: ${props => props.theme.text};
+    color: ${props => props.theme.color};
     width: 100%;
     text-align: left;
     font-size: 1em;

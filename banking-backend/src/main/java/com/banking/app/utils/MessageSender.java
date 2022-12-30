@@ -51,7 +51,7 @@ public class MessageSender {
     Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
     Message message = Message.creator(
         new com.twilio.type.PhoneNumber("+1" + u.getPhoneNumber()),
-        new com.twilio.type.PhoneNumber(System.getenv("TwilioNumber")),
+        new com.twilio.type.PhoneNumber(System.getenv("TWILIONUMBER")),
         "This is a tempory password, please reset after login: " + firstPass)
         .create();
     System.out.println(message.getSid());

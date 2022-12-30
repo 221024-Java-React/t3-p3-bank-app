@@ -19,12 +19,12 @@ const AccountName = styled.p`
     font-size: ${props => props.theme.fontSize.h1};
     font-weight: bold;
     margin: 0.25rem 1rem;
-    color: ${props => props.theme.primaryDark};
+    color: ${(props) => props.theme.color};
 `;
 const Bottom = styled.div`
     display: flex;
     justify-content: space-between;
-    background: ${props => props.theme.primaryLight};
+    background: ${props => props.theme.primaryLightest};
 `;
 const Data = styled.p`
     font-size: ${props => props.theme.fontSize.h2};

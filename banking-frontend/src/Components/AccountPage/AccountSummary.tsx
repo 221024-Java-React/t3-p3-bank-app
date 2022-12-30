@@ -30,7 +30,7 @@ const FooterData = styled.h1`
 const AccountSummary = () => {
     const [bankAccounts, setBankAccounts] = useState<Account[]>([]);
     const [totalBalance, setTotalBalance] = useState<number>(0);
-    const { getBankAccounts } = useContext(UserContext) as UserContextState;
+    const { getBankAccounts, currentUser } = useContext(UserContext) as UserContextState;
 
     useEffect(() => {
         getBankAccounts().then(accounts => {
@@ -38,7 +38,8 @@ const AccountSummary = () => {
         });
     }, []);
 
-    useMemo(() => bankAccounts?.forEach(ba => setTotalBalance(prev => prev + ba.balance)), []);
+    console.log(bankAccounts)
+    useMemo(() => currentUser.accounts?.forEach(ba => setTotalBalance(prev => prev + ba.balance)), []);
 
     return (
         <>
@@ -54,10 +55,9 @@ const AccountSummary = () => {
                     })}
                 </Accounts>
                 <SummaryFooter>
-                    <FooterData>Balance Total: {totalBalance}</FooterData>
+                    <FooterData>Balance Total: $ {totalBalance}</FooterData>
                 </SummaryFooter>
             </Container>
-            ;
         </>
     );
 };
