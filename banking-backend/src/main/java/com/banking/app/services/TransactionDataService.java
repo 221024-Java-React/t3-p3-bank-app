@@ -23,6 +23,10 @@ public class TransactionDataService {
 		return tRepo.save(t);
 	}
 	
+	public void deleteTransaction(int id) {
+		tRepo.deleteById(id);
+	}
+	
 	
 	  public List<TransactionData> getTransactionsByAccountId(UUID accountId) {
 	  Account a = aRepo.getAccountByAccountId(accountId); return
