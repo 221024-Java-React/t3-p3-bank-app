@@ -30,7 +30,7 @@ const SubmitButton = styled.input`
     margin: 10px;
 `;
 
-const initLoginInputs = {
+const initInputs = {
     email: "",
     password: "",
     passcode: "",
@@ -38,20 +38,20 @@ const initLoginInputs = {
 
 const Login = () => {
     const [showAuthScreen, setShowAuthScreen] = useState<boolean>(false);
-    const [loginInputs, setLoginInputs] = useState(initLoginInputs);
+    const [inputs, setInputs] = useState(initInputs);
 
     const { loginUser, authenticateUser } = useContext(UserContext) as UserContextState;
     const navigate = useNavigate();
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
-        setLoginInputs(prev => ({ ...prev, [name]: value }));
+        setInputs(prev => ({ ...prev, [name]: value }));
     };
 
     const handleLoginFormSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        const { email, password } = loginInputs;
+        const { email, password } = inputs;
         loginUser(email, password);
 
         setShowAuthScreen(true);
@@ -60,10 +60,10 @@ const Login = () => {
     const handleAuthFormSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        const { email, passcode } = loginInputs;
+        const { email, passcode } = inputs;
         authenticateUser(email, passcode);
 
-        setLoginInputs(initLoginInputs);
+        setInputs(initInputs);
         navigate("/");
     };
 

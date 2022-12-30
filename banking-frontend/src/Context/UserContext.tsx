@@ -25,8 +25,7 @@ const UserProvider: React.FC<ProviderProps> = ({ children }) => {
 
     const loginUser = async (email: string, password: string) => {
         try {
-            const { data: loggedInUser } = await axInst.post("/users/login", { email, password });
-            setCurrentUser(loggedInUser);
+            await axInst.post("/users/login", { email, password });
         } catch (e) {
             console.log(e);
         }
