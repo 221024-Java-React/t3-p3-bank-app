@@ -1,8 +1,6 @@
 package com.banking.app.controllers;
 
 import java.util.LinkedHashMap;
-import java.util.UUID;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
