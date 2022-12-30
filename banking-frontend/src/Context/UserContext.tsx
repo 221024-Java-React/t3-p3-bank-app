@@ -17,6 +17,7 @@ export const initUser = {
     address: "",
     phoneNumber: "",
     accounts: [],
+    firstLogin: true,
 };
 
 const UserProvider: React.FC<ProviderProps> = ({ children }) => {
@@ -25,7 +26,20 @@ const UserProvider: React.FC<ProviderProps> = ({ children }) => {
 
     const loginUser = async (email: string, password: string) => {
         try {
-            await axInst.post("/users/login", { email, password });
+            const thisUser: User = await axInst.post("/users/login", { email, password });
+            return thisUser;
+        } catch (e) {
+            console.log(e);
+        }
+    };
+
+    const resetPassword = async (email: string, password: string) => {
+        try {
+            const thisUser: User = await axInst.post("/users/login_reset", {
+                email,
+                password,
+            });
+            setCurrentUser(thisUser);
         } catch (e) {
             console.log(e);
         }
@@ -33,10 +47,11 @@ const UserProvider: React.FC<ProviderProps> = ({ children }) => {
 
     const authenticateUser = async (email: string, passcode: string) => {
         try {
-            await axInst.post("/users/login_Auth", {
+            const thisUser: User = await axInst.post("/users/login_Auth", {
                 email,
                 passcode,
             });
+            setCurrentUser(thisUser);
         } catch (e) {
             console.log(e);
         }
@@ -77,6 +92,7 @@ const UserProvider: React.FC<ProviderProps> = ({ children }) => {
                 currentUser,
                 setCurrentUser,
                 loginUser,
+                resetPassword,
                 authenticateUser,
                 logoutUser,
                 getBankAccounts,
