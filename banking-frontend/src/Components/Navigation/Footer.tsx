@@ -1,16 +1,19 @@
+import { useContext } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import GBLogo_Black from "../../Assets/GoodBank-Logo_Black.png";
+import { DarkModeContext } from "../../Context/DarkModeContext";
+import { DarkModeContextState } from "../../Interfaces/DarkMode";
+import GBLogo_White from "../../Assets/GoodBank-Logo_White.png";
 
 const Container = styled.div`
     position: sticky;
     bottom: 0;
     display: flex;
     justify-content: space-evenly;
-    border: 1px solid ${(props) => props.theme.border};
+    border-top: 1px solid ${(props) => props.theme.border};
     border-radius: ${(props) => props.theme.borderRadius};
     background: ${(props) => props.theme.body};
-    box-shadow: 0 -20px 0px ${(props) => props.theme.background};
     color: ${(props) => props.theme.color};
 `;
 const Box = styled.div`
@@ -28,6 +31,8 @@ const Logo = styled.img`
 `;
 
 const Footer = () => {
+    const { mode } = useContext(DarkModeContext) as DarkModeContextState;
+
     return (
         <Container>
             <Box>
@@ -36,10 +41,17 @@ const Footer = () => {
                 <Data>Silverlake, NJ</Data>
             </Box>
             <Link to="/">
-                <Logo
-                    src={GBLogo_Black}
-                    alt="Black GoodBank logo with mountains"
-                />
+                {mode === "Light" ? (
+                    <Logo
+                        src={GBLogo_Black}
+                        alt="Black GoodBank logo with mountains"
+                    />
+                ) : (
+                    <Logo
+                        src={GBLogo_White}
+                        alt="Black GoodBank logo with mountains"
+                    />
+                )}
             </Link>
             <Box>
                 <Data>(###)-###-####</Data>

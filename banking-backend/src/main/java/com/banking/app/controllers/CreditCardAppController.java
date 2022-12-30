@@ -19,9 +19,6 @@ import com.banking.app.models.CreditCardAppStatus;
 import com.banking.app.services.CreditCardService;
 import com.banking.app.services.UserService;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.OneToOne;
-
 import com.banking.app.services.CreditCardAppService;
 
 import lombok.AllArgsConstructor;
@@ -35,12 +32,7 @@ public class CreditCardAppController {
   private CreditCardAppService aServ;
   private CreditCardService cServ;
   private UserService uServ;
-  /*
-  @PostMapping("/create")
-  public CreditCardApp createApplication(@RequestBody CreditCardApp a) {
-    return aServ.createCreditCardApp(a);
-  }
-  */
+  
   @PostMapping("/filter/{status}")
   public List<CreditCardApp> getCreditCardAppsByStatus(@PathVariable("status") Integer status) {
     CreditCardAppStatus s;
@@ -60,29 +52,22 @@ public class CreditCardAppController {
   }
 
   @PostMapping("/create")
-  public <T> CreditCardApp createCreditCardApp(@RequestBody LinkedHashMap<String, T> body) {
-    System.out.println(body.get("age") instanceof Integer);
-    Integer age = (Integer) body.get("age");
-    
-    System.out.println(body.get("userId") instanceof UUID);
-    UUID userId = (UUID) body.get("userId");
+  public CreditCardApp createCreditCardApp(@RequestBody LinkedHashMap<String, String> body) {
+    Integer age = Integer.parseInt(body.get("age"));
+
+    UUID userId = UUID.fromString(body.get("userId"));
     User u = uServ.getUserById(userId);
     String email = u.getEmail();
     CreditCard currentCard = cServ.getCreditCardByUser(uServ.getUserById(userId));
     
-    System.out.println(body.get("creditScore") instanceof Integer);
-    Integer creditScore = (Integer) body.get("creditScore");
+    Integer creditScore = Integer.parseInt(body.get("creditScore"));
+
+    Double monthlyIncome = Double.parseDouble(body.get("monthlyIncome"));
     
-    System.out.println(body.get("monthlyIncome") instanceof Double);
-    Double monthlyIncome = (Double) body.get("monthlyIncome");
+    Double netWorth = Double.parseDouble(body.get("netWorth"));
     
-    System.out.println(body.get("netWorth") instanceof Double);
-    Double netWorth = (Double) body.get("netWorth");
+    Double estDebt = Double.parseDouble(body.get("estDebt"));
     
-    System.out.println(body.get("estDebt") instanceof Double);
-    Double estDebt = (Double) body.get("estDebt");
-    
-    System.out.println(body);
     CreditCardAppStatus s;
     CreditCardApp cardApp = new CreditCardApp();
     CreditCard newCard = new CreditCard();

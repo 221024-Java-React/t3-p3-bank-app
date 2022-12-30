@@ -21,26 +21,9 @@ import lombok.AllArgsConstructor;
 public class UserService {
   private UserRepository uRepo;
 
-  /*
-   * public User registerUser(String userId, String firstName, String lastName,
-   * String email, String password,
-   * String address, String phoneNumber, UserType type, List<Account> accounts) {
-   * 
-   * User u = new User(userId, firstName, lastName, email, password,
-   * address, phoneNumber, type, accounts);
-   * try {
-   * User ret = uRepo.save(u);
-   * return ret;
-   * } catch(Exception ex) {
-   * throw new EmailAlreadyExistsException();
-   * }
-   * }
-   */
   public User registerUser(User u) {
     try {
-      // System.out.println("service1 "+ u);
       User ret = uRepo.save(u);
-      // System.out.println("service2 "+ ret);
       return ret;
     } catch (Exception ex) {
       throw new EmailAlreadyExistsException();

@@ -15,10 +15,6 @@ public interface AccountRepository extends JpaRepository<Account, Integer> {
 
   List<Account> getAccountsByUser(User u);
 
-  /*
-   * List<Ticket> getTicketsBySubmitterAndType(Employee e, TicketType t);
-   * List<Ticket> getTicketsBySubmitterAndStatus(Employee e, TicketStatus s);
-   */
   List<Account> getAccountsByType(AccountType s);
 
   Account getAccountByAccountId(UUID id);
