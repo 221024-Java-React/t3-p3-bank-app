@@ -61,28 +61,28 @@ public class CreditCardAppController {
 
   @PostMapping("/create")
   public CreditCardApp createCreditCardApp(@RequestBody LinkedHashMap<String, String> body) {
-    System.out.println(body.get("age"));
+    //System.out.println(body.get("age"));
     Integer age = Integer.parseInt(body.get("age"));
     
-    System.out.println(body.get("userId"));
+    //System.out.println(body.get("userId"));
     UUID userId = UUID.fromString(body.get("userId"));
     User u = uServ.getUserById(userId);
     String email = u.getEmail();
     CreditCard currentCard = cServ.getCreditCardByUser(uServ.getUserById(userId));
     
-    System.out.println(body.get("creditScore"));
+    //System.out.println(body.get("creditScore"));
     Integer creditScore = Integer.parseInt(body.get("creditScore"));
     
-    System.out.println(body.get("monthlyIncome"));
+    //System.out.println(body.get("monthlyIncome"));
     Double monthlyIncome = Double.parseDouble(body.get("monthlyIncome"));
     
-    System.out.println(body.get("netWorth"));
+    //System.out.println(body.get("netWorth"));
     Double netWorth = Double.parseDouble(body.get("netWorth"));
     
-    System.out.println(body.get("estDebt"));
+    //System.out.println(body.get("estDebt"));
     Double estDebt = Double.parseDouble(body.get("estDebt"));
     
-    System.out.println(body);
+    //System.out.println(body);
     CreditCardAppStatus s;
     CreditCardApp cardApp = new CreditCardApp();
     CreditCard newCard = new CreditCard();
