@@ -26,17 +26,7 @@ public class AccountService {
   private UserRepository uRepo;
   private TransactionRepository tRepo;
 
-  /*
-   * public Account createAccount(String email, String accountId, User user,
-   * AccountType type, Integer balance) {
-   * User u = uRepo.getByEmail(email).get();
-   * Account acc = new Account(accountId, u, type, balance);
-   * return cRepo.save(acc);
-   * }
-   */
   public Account createAccount(Account a) {
-    // User u = uRepo.getByEmail(email).get();
-    // Account acc = new Account(accountId, u, type, balance);
     return cRepo.save(a);
   }
 
