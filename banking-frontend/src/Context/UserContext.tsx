@@ -22,12 +22,17 @@ export const initUser = {
 
 const UserProvider: React.FC<ProviderProps> = ({ children }) => {
     const [currentUser, setCurrentUser] = useState<User>(initUser);
+    const [firstLogin, setFirstLogin] = useState<boolean>(false);
     const navigate = useNavigate();
 
     const loginUser = async (email: string, password: string) => {
         try {
-            const thisUser: User = await axInst.post("/users/login", { email, password });
-            return thisUser;
+            const thisUser = await axInst.post("/users/login", { email, password });
+            
+      
+
+            // console.log(thisUser.data.firstLogin);
+            // setFirstLogin(thisUser.data.firstLogin);
         } catch (e) {
             console.log(e);
         }
@@ -39,6 +44,7 @@ const UserProvider: React.FC<ProviderProps> = ({ children }) => {
                 email,
                 password,
             });
+
             setCurrentUser(thisUser);
         } catch (e) {
             console.log(e);
@@ -96,6 +102,7 @@ const UserProvider: React.FC<ProviderProps> = ({ children }) => {
                 authenticateUser,
                 logoutUser,
                 getBankAccounts,
+                firstLogin,
             }}
         >
             {children}

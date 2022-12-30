@@ -21,4 +21,5 @@ export interface UserContextState {
     authenticateUser: (email: string, passcode: string) => Promise<User | undefined | void>;
     logoutUser: () => void;
     getBankAccounts: () => Promise<Account[] | undefined>;
+    firstLogin: boolean | undefined;
 }

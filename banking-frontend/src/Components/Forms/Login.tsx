@@ -42,7 +42,7 @@ const Login = () => {
     const [showResetPassScreen, setShowResetPassScreen] = useState<boolean>(false);
     const [inputs, setInputs] = useState(initInputs);
 
-    const { loginUser, resetPassword, authenticateUser } = useContext(
+    const { loginUser, resetPassword, authenticateUser, firstLogin } = useContext(
         UserContext
     ) as UserContextState;
     const navigate = useNavigate();
@@ -56,13 +56,16 @@ const Login = () => {
         e.preventDefault();
         const { email, password } = inputs;
 
-        const loggedInUser = await loginUser(email, password);
-        loggedInUser?.firstLogin ? setShowResetPassScreen(true) : setShowAuthScreen(true);
+        await loginUser(email, password).then(() => {
+            console.log(firstLogin);
+            firstLogin ? setShowResetPassScreen(true) : setShowAuthScreen(true);
+        });
     };
 
     const handleResetPassFormSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
         e.preventDefault();
         const { email, newPassword_1, newPassword_2 } = inputs;
+        // console.log(inputs);
 
         if (newPassword_1 === newPassword_2) {
             await resetPassword(email, newPassword_1);
