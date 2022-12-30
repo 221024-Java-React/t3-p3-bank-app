@@ -80,7 +80,7 @@ const Navbar: React.FC = () => {
                         </MenuItem>
                         <MenuItem>
                             <Link to="/credit-card-application">
-                                Account Settings
+                                Apply for Card
                             </Link>
                         </MenuItem>
                         <MenuItem onClick={logoutUser}>Log Out</MenuItem>
