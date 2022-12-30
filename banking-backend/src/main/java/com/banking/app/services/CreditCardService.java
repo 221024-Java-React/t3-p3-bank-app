@@ -1,5 +1,6 @@
 package com.banking.app.services;
 
+import java.util.NoSuchElementException;
 import java.time.LocalDate;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,14 +30,42 @@ public class CreditCardService {
 	}
 	
 	public CreditCard getCreditCardByUser(User u) {
-	    return cRepo.getCreditCardByUser(u);
+		CreditCard c = null;
+
+	    try {
+	      return cRepo.getCreditCardByUser(u);
+	    } catch (NoSuchElementException e) {
+	      return c;
+	    }
+	    //return cRepo.getCreditCardByUser(u);
 	}
 	
 	public CreditCard getCreditCardByAccountId(Long id) {
-	    return cRepo.getCreditCardByCardId(id);
+		CreditCard c = null;
+
+	    try {
+	      return cRepo.getCreditCardByCardId(id);
+	    } catch (NoSuchElementException e) {
+	      return c;
+	    }
+	    //return cRepo.getCreditCardByCardId(id);
 	}
 	
 	public boolean addToCreditCardBalance(Long id, double amount) {
+		try {
+			CreditCard card = cRepo.getCreditCardByCardId(id);
+			if((card.getBalance()+amount)>card.getCreditLimit()) {
+				card.setBalance(card.getBalance()+amount);
+				cRepo.save(card);
+				return true;
+			}
+			else {
+				return false;
+			}
+	    } catch (NoSuchElementException e) {
+	      return false;
+	    }
+		/*
 		CreditCard card = cRepo.getCreditCardByCardId(id);
 		LocalDate time = LocalDate.now();
 		if((card.getBalance()+amount)>card.getCreditLimit()) {
@@ -54,9 +83,20 @@ public class CreditCardService {
 		else {
 			return false;
 		}
+		*/
 	}
 	
 	public double payCreditCardBalance(Long id, double amount) {
+		try {
+			CreditCard card = cRepo.getCreditCardByCardId(id);
+			card.setBalance(card.getBalance()-amount);
+			cRepo.save(card);
+			return card.getBalance();
+	    } catch (NoSuchElementException e) {
+	      return 0.0;
+	    }
+		
+		/*
 		CreditCard card = cRepo.getCreditCardByCardId(id);
 		card.setBalance(card.getBalance()-amount);
 		cRepo.save(card);
@@ -69,5 +109,6 @@ public class CreditCardService {
 	    t.setMessage(TransactionMessageGenerator.generateMessage(TransactionType.PAY, amount));
 	    tRepo.save(t);
 		return card.getBalance();
+		*/
 	}
 }
