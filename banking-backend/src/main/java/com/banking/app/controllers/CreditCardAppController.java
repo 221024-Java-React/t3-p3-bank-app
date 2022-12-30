@@ -67,6 +67,7 @@ public class CreditCardAppController {
     System.out.println(body.get("userId") instanceof UUID);
     UUID userId = (UUID) body.get("userId");
     User u = uServ.getUserById(userId);
+    String email = u.getEmail();
     CreditCard currentCard = cServ.getCreditCardByUser(uServ.getUserById(userId));
     
     System.out.println(body.get("creditScore") instanceof Integer);
@@ -95,6 +96,7 @@ public class CreditCardAppController {
     	cardApp.setNetWorth(netWorth);
     	cardApp.setEstDebt(estDebt);
     	cardApp.setApprovedLimit(0.0);
+    	cardApp.setApplicant(email);
     }
     else {
     	s = CreditCardAppStatus.APPROVED;
@@ -106,6 +108,7 @@ public class CreditCardAppController {
     	cardApp.setNetWorth(netWorth);
     	cardApp.setEstDebt(estDebt);
     	cardApp.setApprovedLimit(age, creditScore, monthlyIncome, estDebt);
+    	cardApp.setApplicant(email);
     	
     	Double limit = cardApp.getApprovedLimit();
     	newCard.setUser(u);
