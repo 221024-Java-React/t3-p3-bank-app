@@ -2,14 +2,14 @@ package com.banking.app.utils;
 
 public class LimitCalculator {
 
-	public Double calcCreditLimit(double income, double debt, double dti) {
+	public static Double calcCreditLimit(double income, double debt, double dti) {
 		double cDti = debt/income;
 		double dDti = dti - cDti;
 		double limit = income*dDti;
 		return limit;
 	}
 	
-	public double calcMaxDti(int age, int score) {
+	public static double calcMaxDti(int age, int score) {
 		int[] ageRange = {19, 24, 29, 39, 59, 79};
 		int[] scoreRange = {579, 669, 739, 799, 850};
 		if(score>850) 
@@ -33,7 +33,7 @@ public class LimitCalculator {
 		return maxDti;
 	}
 	
-	public int findIndex(int num, int[] arr) {
+	public static int findIndex(int num, int[] arr) {
 		int index = 0;
 		for(int i : arr) {
 			if (num > i)

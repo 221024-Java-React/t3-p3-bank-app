@@ -62,17 +62,20 @@ public class UserController {
   public User login(@RequestBody LinkedHashMap<String, String> body) {
     String email = body.get("email");
     String password = body.get("password");
-    /*
-     * Switch method to void, create frontend that goes to
-     * separate login with Auth
-     * then do this:
-     */
     User u = uServ.loginUser(email, password);
-    System.out.println("before message sender **************");
-    mSend.SendMessage(u); // call message sender with this
-    System.out.println("after message sender **************");
-
+    if(u.getFirstLogin()) {
+    	return uServ.loginUser(email, password);
+    }
+    mSend.SendMessage(u); 
     return uServ.loginUser(email, password);
+  }
+  
+  @PutMapping("/login_reset")
+  public User loginReset(@RequestBody LinkedHashMap<String, String> body) {
+	  String email = body.get("email");
+	  String password = body.get("password");
+	  User u = uServ.updatePassword(email, password);
+	  return u;
   }
 
   @PostMapping("/login_Auth")
