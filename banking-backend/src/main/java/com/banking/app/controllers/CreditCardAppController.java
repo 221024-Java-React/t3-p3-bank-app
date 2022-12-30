@@ -60,27 +60,27 @@ public class CreditCardAppController {
   }
 
   @PostMapping("/create")
-  public <T> CreditCardApp createCreditCardApp(@RequestBody LinkedHashMap<String, T> body) {
-    System.out.println(body.get("age") instanceof Integer);
-    Integer age = (Integer) body.get("age");
+  public CreditCardApp createCreditCardApp(@RequestBody LinkedHashMap<String, String> body) {
+    System.out.println(body.get("age"));
+    Integer age = Integer.parseInt(body.get("age"));
     
-    System.out.println(body.get("userId") instanceof UUID);
-    UUID userId = (UUID) body.get("userId");
+    System.out.println(body.get("userId"));
+    UUID userId = UUID.fromString(body.get("userId"));
     User u = uServ.getUserById(userId);
     String email = u.getEmail();
     CreditCard currentCard = cServ.getCreditCardByUser(uServ.getUserById(userId));
     
-    System.out.println(body.get("creditScore") instanceof Integer);
-    Integer creditScore = (Integer) body.get("creditScore");
+    System.out.println(body.get("creditScore"));
+    Integer creditScore = Integer.parseInt(body.get("creditScore"));
     
-    System.out.println(body.get("monthlyIncome") instanceof Double);
-    Double monthlyIncome = (Double) body.get("monthlyIncome");
+    System.out.println(body.get("monthlyIncome"));
+    Double monthlyIncome = Double.parseDouble(body.get("monthlyIncome"));
     
-    System.out.println(body.get("netWorth") instanceof Double);
-    Double netWorth = (Double) body.get("netWorth");
+    System.out.println(body.get("netWorth"));
+    Double netWorth = Double.parseDouble(body.get("netWorth"));
     
-    System.out.println(body.get("estDebt") instanceof Double);
-    Double estDebt = (Double) body.get("estDebt");
+    System.out.println(body.get("estDebt"));
+    Double estDebt = Double.parseDouble(body.get("estDebt"));
     
     System.out.println(body);
     CreditCardAppStatus s;
