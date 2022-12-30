@@ -52,7 +52,7 @@ public class MessageSender {
     Message message = Message.creator(
         new com.twilio.type.PhoneNumber("+1" + u.getPhoneNumber()),
         new com.twilio.type.PhoneNumber(System.getenv("TWILIONUMBER")),
-        "This is a tempory password, please reset after login: " + firstPass)
+        "This is a tempory password, please reset after login: " + tempPass)
         .create();
   }
 
