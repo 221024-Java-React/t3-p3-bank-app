@@ -86,6 +86,10 @@ function App() {
                                     <Route path="/login" element={<Login />} />
                                     <Route path="/register" element={<Register />} />
                                     <Route path="/accounts/transfer" element={<TransferFunds />} />
+                                    <Route
+                                        path="/register"
+                                        element={<Register />}
+                                    />
                                 </>
                             )}
                             <Route path="*" element={<PageNotFound />} />

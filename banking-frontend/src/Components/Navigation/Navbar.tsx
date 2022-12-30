@@ -78,6 +78,11 @@ const Navbar: React.FC = () => {
                                 Account Settings
                             </Link>
                         </MenuItem>
+                        <MenuItem>
+                            <Link to="/credit-card-application">
+                                Account Settings
+                            </Link>
+                        </MenuItem>
                         <MenuItem onClick={logoutUser}>Log Out</MenuItem>
                     </>
                 )}
