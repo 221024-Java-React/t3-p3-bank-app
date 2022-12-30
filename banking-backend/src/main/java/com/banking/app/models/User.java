@@ -69,8 +69,7 @@ public class User {
   @Column(name = "first_Login")
   private Boolean firstLogin;
 
-  // Register Constructor
-  // Basic Register constructor
+  
   public User(String firstName, String lastName, String email, String address, String phoneNumber) {
     this.type = UserType.MEMBER;
     this.firstName = firstName;

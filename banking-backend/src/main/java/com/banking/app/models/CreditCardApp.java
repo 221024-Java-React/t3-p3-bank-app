@@ -1,11 +1,7 @@
 package com.banking.app.models;
 
 
-//import org.springframework.beans.factory.annotation.Autowired;
-
 import com.banking.app.utils.LimitCalculator;
-
-//import com.banking.app.utils.LimitCalculator;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
