@@ -23,16 +23,36 @@ const UserProvider: React.FC<ProviderProps> = ({ children }) => {
     const [currentUser, setCurrentUser] = useState<User>(initUser);
     const navigate = useNavigate();
 
-    const loginUser = (user: User) => {
-        setCurrentUser(user);
+    const loginUser = async (email: string, password: string) => {
+        try {
+            const { data: loggedInUser } = await axInst.post("/users/login", { email, password });
+            setCurrentUser(loggedInUser);
+        } catch (e) {
+            console.log(e);
+        }
+    };
+
+    const authenticateUser = async (email: string, passcode: string) => {
+        try {
+            await axInst.post("/users/login_Auth", {
+                email,
+                passcode,
+            });
+        } catch (e) {
+            console.log(e);
+        }
     };
 
     const logoutUser = async () => {
-        setCurrentUser(initUser);
+        const { email } = currentUser;
 
-        await axInst.put("/users/logout", { email: currentUser.email });
-
-        navigate("/");
+        try {
+            await axInst.put("/users/logout", { email });
+            setCurrentUser(initUser);
+            navigate("/");
+        } catch (e) {
+            console.log(e);
+        }
     };
 
     const getBankAccounts = async () => {
@@ -58,6 +78,7 @@ const UserProvider: React.FC<ProviderProps> = ({ children }) => {
                 currentUser,
                 setCurrentUser,
                 loginUser,
+                authenticateUser,
                 logoutUser,
                 getBankAccounts,
             }}
