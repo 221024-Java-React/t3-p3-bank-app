@@ -17,6 +17,7 @@ import com.banking.app.models.User;
 import com.banking.app.services.AccountService;
 import com.banking.app.services.UserService;
 import com.banking.app.utils.MessageSender;
+import com.banking.app.utils.RandomPasswordGenerator;
 
 import lombok.AllArgsConstructor;
 
@@ -75,14 +76,41 @@ public class UserController {
 	  String email = body.get("email");
 	  String password = body.get("password");
 	  User u = uServ.updatePassword(email, password);
+	  u.setFirstLogin(false);
+	  u = uServ.updateFullUser(u);
 	  return u;
+  }
+  
+  @PostMapping("/forgot")
+  public ResponseEntity<String> forgotPassword(@RequestBody LinkedHashMap<String, String> body) {
+	  String email = body.get("email");
+	  User u = uServ.getUserByEmail(email);
+	  mSend.SendMessage(u);
+	  return new ResponseEntity<>("Message Sent", HttpStatus.OK);
+  }
+  
+  @PutMapping("/forgot_Auth")
+  public ResponseEntity<String> forgotPassAuth(@RequestBody LinkedHashMap<String, String> body) {
+	  String email = body.get("email");
+	  Integer authToken = Integer.parseInt(body.get("token"));
+	  User u = uServ.getUserByEmail(email);
+	  if(u.getAuthToken().equals(authToken)) {
+		  String randPass = RandomPasswordGenerator.generatePassword();
+		  u.setPassword(randPass);
+		  u.setFirstLogin(true);
+		  User updatedUser = uServ.updateFullUser(u);
+		  mSend.SendFirstPassword(updatedUser);
+		  uServ.logout(email);
+		  return new ResponseEntity<>("Message Sent", HttpStatus.OK);
+	  }else {
+		  return new ResponseEntity<>("Message Sent", HttpStatus.BAD_REQUEST);
+	  }
   }
 
   @PostMapping("/login_Auth")
   public User loginAuth(@RequestBody LinkedHashMap<String, String> body) {
     String email = (String) body.get("email");
     Integer authToken = Integer.parseInt(body.get("token"));
-
     return uServ.loginUser(email, authToken);
   }
 
@@ -116,10 +144,4 @@ public class UserController {
 
     return uServ.getUserByEmail(email);
   }
-
-  // @PostMapping("/members")
-  // public List<User> allUsers() {
-  // return uServ.getAllUsers();
-  // }
-
 }

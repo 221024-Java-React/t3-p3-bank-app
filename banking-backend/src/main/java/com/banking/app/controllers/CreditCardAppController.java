@@ -58,8 +58,7 @@ public class CreditCardAppController {
     UUID userId = UUID.fromString(body.get("userId"));
     User u = uServ.getUserById(userId);
     String email = u.getEmail();
-    CreditCard currentCard = cServ.getCreditCardByUser(uServ.getUserById(userId));
-    
+
     Integer creditScore = Integer.parseInt(body.get("creditScore"));
 
     Double monthlyIncome = Double.parseDouble(body.get("monthlyIncome"));
@@ -71,7 +70,7 @@ public class CreditCardAppController {
     CreditCardAppStatus s;
     CreditCardApp cardApp = new CreditCardApp();
     CreditCard newCard = new CreditCard();
-    if(age<=15 || creditScore<=300 || !currentCard.equals(null)) {
+    if(age<=15 || creditScore<=300) {
     	s = CreditCardAppStatus.DENIED;
     	cardApp.setStatus(s);
     	cardApp.setCard(cServ.getCreditCardByUser(uServ.getUserById(userId)));
