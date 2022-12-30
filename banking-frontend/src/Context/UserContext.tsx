@@ -17,22 +17,62 @@ export const initUser = {
     address: "",
     phoneNumber: "",
     accounts: [],
+    firstLogin: true,
 };
 
 const UserProvider: React.FC<ProviderProps> = ({ children }) => {
     const [currentUser, setCurrentUser] = useState<User>(initUser);
+    const [firstLogin, setFirstLogin] = useState<boolean>(false);
     const navigate = useNavigate();
 
-    const loginUser = (user: User) => {
-        setCurrentUser(user);
+    const loginUser = async (email: string, password: string) => {
+        try {
+            const thisUser = await axInst.post("/users/login", { email, password });
+            
+      
+
+            // console.log(thisUser.data.firstLogin);
+            // setFirstLogin(thisUser.data.firstLogin);
+        } catch (e) {
+            console.log(e);
+        }
+    };
+
+    const resetPassword = async (email: string, password: string) => {
+        try {
+            const thisUser: User = await axInst.post("/users/login_reset", {
+                email,
+                password,
+            });
+
+            setCurrentUser(thisUser);
+        } catch (e) {
+            console.log(e);
+        }
+    };
+
+    const authenticateUser = async (email: string, passcode: string) => {
+        try {
+            const thisUser: User = await axInst.post("/users/login_Auth", {
+                email,
+                passcode,
+            });
+            setCurrentUser(thisUser);
+        } catch (e) {
+            console.log(e);
+        }
     };
 
     const logoutUser = async () => {
-        setCurrentUser(initUser);
+        const { email } = currentUser;
 
-        await axInst.put("/users/logout", { email: currentUser.email });
-
-        navigate("/");
+        try {
+            await axInst.put("/users/logout", { email });
+            setCurrentUser(initUser);
+            navigate("/");
+        } catch (e) {
+            console.log(e);
+        }
     };
 
     const getBankAccounts = async () => {
@@ -58,8 +98,11 @@ const UserProvider: React.FC<ProviderProps> = ({ children }) => {
                 currentUser,
                 setCurrentUser,
                 loginUser,
+                resetPassword,
+                authenticateUser,
                 logoutUser,
                 getBankAccounts,
+                firstLogin,
             }}
         >
             {children}

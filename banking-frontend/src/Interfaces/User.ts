@@ -10,12 +10,16 @@ export interface User {
     address: string;
     phoneNumber: string;
     accounts: Account[];
+    firstLogin: boolean;
 }
 
 export interface UserContextState {
     currentUser: User;
     setCurrentUser: (user: User) => void;
-    loginUser: (user: User) => void;
+    loginUser: (email: string, password: string) => Promise<User | undefined | void>;
+    resetPassword: (email: string, password: string) => Promise<User | undefined | void>;
+    authenticateUser: (email: string, passcode: string) => Promise<User | undefined | void>;
     logoutUser: () => void;
     getBankAccounts: () => Promise<Account[] | undefined>;
+    firstLogin: boolean | undefined;
 }
