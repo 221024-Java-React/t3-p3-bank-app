@@ -32,7 +32,7 @@ public class CreditCardAppController {
   private CreditCardAppService aServ;
   private CreditCardService cServ;
   private UserService uServ;
-  
+
   @PostMapping("/filter/{status}")
   public List<CreditCardApp> getCreditCardAppsByStatus(@PathVariable("status") Integer status) {
     CreditCardAppStatus s;
@@ -58,54 +58,53 @@ public class CreditCardAppController {
     UUID userId = UUID.fromString(body.get("userId"));
     User u = uServ.getUserById(userId);
     String email = u.getEmail();
-    CreditCard currentCard = cServ.getCreditCardByUser(uServ.getUserById(userId));
-    
+
     Integer creditScore = Integer.parseInt(body.get("creditScore"));
 
     Double monthlyIncome = Double.parseDouble(body.get("monthlyIncome"));
-    
+
     Double netWorth = Double.parseDouble(body.get("netWorth"));
-    
-    Double estDebt = Double.parseDouble(body.get("estDebt"));
-    
+
+    Double estDebt = Double.parseDouble(body.get("totalMiscPayments")) + Double.parseDouble(body.get("rent"))
+        + Double.parseDouble(body.get("carPayment"));
+
     CreditCardAppStatus s;
     CreditCardApp cardApp = new CreditCardApp();
     CreditCard newCard = new CreditCard();
-    if(age<=15 || creditScore<=300 || !currentCard.equals(null)) {
-    	s = CreditCardAppStatus.DENIED;
-    	cardApp.setStatus(s);
-    	cardApp.setCard(cServ.getCreditCardByUser(uServ.getUserById(userId)));
-    	cardApp.setAge(age);
-    	cardApp.setCreditScore(creditScore);
-    	cardApp.setMonthlyIncome(monthlyIncome);
-    	cardApp.setNetWorth(netWorth);
-    	cardApp.setEstDebt(estDebt);
-    	cardApp.setApprovedLimit(0.0);
-    	cardApp.setApplicant(email);
+    if (age <= 15 || creditScore <= 300) {
+      s = CreditCardAppStatus.DENIED;
+      cardApp.setStatus(s);
+      cardApp.setCard(cServ.getCreditCardByUser(uServ.getUserById(userId)));
+      cardApp.setAge(age);
+      cardApp.setCreditScore(creditScore);
+      cardApp.setMonthlyIncome(monthlyIncome);
+      cardApp.setNetWorth(netWorth);
+      cardApp.setEstDebt(estDebt);
+      cardApp.setApprovedLimit(age, creditScore, monthlyIncome, estDebt);
+      cardApp.setApplicant(email);
+    } else {
+      s = CreditCardAppStatus.APPROVED;
+      cardApp.setStatus(s);
+
+      cardApp.setAge(age);
+      cardApp.setCreditScore(creditScore);
+      cardApp.setMonthlyIncome(monthlyIncome);
+      cardApp.setNetWorth(netWorth);
+      cardApp.setEstDebt(estDebt);
+      cardApp.setApprovedLimit(age, creditScore, monthlyIncome, estDebt);
+      cardApp.setApplicant(email);
+
+      Double limit = cardApp.getApprovedLimit();
+      newCard.setUser(u);
+      newCard.setCreditLimit(limit);
+      newCard.setBalance(0.0);
+      newCard.setAppl(cardApp);
+
+      cardApp.setCard(cServ.getCreditCardByUser(uServ.getUserById(userId)));
+
+      cServ.createCreditCard(newCard);
     }
-    else {
-    	s = CreditCardAppStatus.APPROVED;
-    	cardApp.setStatus(s);
-    	
-    	cardApp.setAge(age);
-    	cardApp.setCreditScore(creditScore);
-    	cardApp.setMonthlyIncome(monthlyIncome);
-    	cardApp.setNetWorth(netWorth);
-    	cardApp.setEstDebt(estDebt);
-    	cardApp.setApprovedLimit(age, creditScore, monthlyIncome, estDebt);
-    	cardApp.setApplicant(email);
-    	
-    	Double limit = cardApp.getApprovedLimit();
-    	newCard.setUser(u);
-    	newCard.setCreditLimit(limit);
-    	newCard.setBalance(0.0);
-    	newCard.setAppl(cardApp);
-    	
-    	cardApp.setCard(cServ.getCreditCardByUser(uServ.getUserById(userId)));
-    	
-    	cServ.createCreditCard(newCard);
-    }
-    
+
     return aServ.createCreditCardApp(cardApp);
   }
 

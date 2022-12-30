@@ -1,6 +1,5 @@
 package com.banking.app.models;
 
-
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -20,33 +19,32 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
 @Entity
 @Table(name = "Credit_Card")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class CreditCard {
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "card_number")
-	private Long cardId;
-	
-	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "user_Id")
-	private User user;
-	
-	@Column(name = "credit_limit")
-	private Double creditLimit;
-	
-	private Double balance;
-	
-	@OneToMany(mappedBy = "card", cascade = CascadeType.ALL)
-	@JsonIgnore
-	List<TransactionData> transactions;
-	
-	@OneToOne
-	@JoinColumn(name = "application_Id")
-	private CreditCardApp appl;
+
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "card_number")
+  private Long cardId;
+
+  @OneToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "user_Id")
+  private User user;
+
+  @Column(name = "credit_limit")
+  private Double creditLimit;
+
+  private Double balance;
+
+  @OneToMany(mappedBy = "card", cascade = CascadeType.ALL)
+  @JsonIgnore
+  List<TransactionData> transactions;
+
+  @OneToOne(cascade = CascadeType.ALL)
+  @JoinColumn(name = "application_Id")
+  private CreditCardApp appl;
 }

@@ -1,5 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
+import { UserContext } from "../../Context/UserContext";
+import { UserContextState } from "../../Interfaces/User";
 import { axInst } from "../../Util/axInstance";
 import AccountHeader from "../AccountPage/AccountHeader";
 
@@ -68,6 +70,9 @@ const SubmitButton = styled.button`
 `;
 
 const CreditCardApplication = () => {
+
+    const { currentUser } = useContext(UserContext) as UserContextState;
+
     const [totalDebt, setTotalDebt] = useState<number>(0);
 
     const initInputs = {
@@ -81,6 +86,7 @@ const CreditCardApplication = () => {
         creditScore: "",
         hasCC: "",
         over15: "",
+        userId: "",
     };
 
     const [inputs, setInputs] = useState(initInputs);
@@ -92,6 +98,8 @@ const CreditCardApplication = () => {
 
     const handleFormSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
         e.preventDefault();
+        setInputs({ ...inputs, userId: currentUser.userId })
+        console.log(currentUser.userId)
 
         try {
             await axInst.post("/credit-card-app/create", inputs);
