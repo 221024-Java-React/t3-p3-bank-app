@@ -1,6 +1,10 @@
 package com.banking.app.models;
 
 
+//import org.springframework.beans.factory.annotation.Autowired;
+
+import com.banking.app.utils.LimitCalculator;
+
 //import com.banking.app.utils.LimitCalculator;
 
 import jakarta.persistence.Column;
@@ -23,8 +27,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CreditCardApp {
 	
-
-	//LimitCalculator limCal;
+	
+	
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,6 +42,9 @@ public class CreditCardApp {
 	
 	@OneToOne(mappedBy = "appl")
 	private CreditCard card;
+	
+	@Column(name = "applicant")
+	private String applicant;
 	
 	@Column(name = "applicant_age")
 	private Integer age;
@@ -57,8 +64,9 @@ public class CreditCardApp {
 	@Column(name = "approved_limit")
 	private Double approvedLimit;
 	
-	public void setApprovedLimit() {
-		//double dti = 
-		
+	public void setApprovedLimit(Integer age, Integer score, Double income, Double debt) {
+		double dti = LimitCalculator.calcMaxDti(age, score);
+		Double lim = LimitCalculator.calcCreditLimit(income, score, dti);
+		this.approvedLimit = lim;
 	}
 }
