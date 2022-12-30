@@ -19,9 +19,6 @@ import com.banking.app.models.CreditCardAppStatus;
 import com.banking.app.services.CreditCardService;
 import com.banking.app.services.UserService;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.OneToOne;
-
 import com.banking.app.services.CreditCardAppService;
 
 import lombok.AllArgsConstructor;

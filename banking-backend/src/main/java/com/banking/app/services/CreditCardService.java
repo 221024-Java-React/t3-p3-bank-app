@@ -1,28 +1,18 @@
 package com.banking.app.services;
 
 import java.util.NoSuchElementException;
-import java.time.LocalDate;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.banking.app.models.User;
 import com.banking.app.models.CreditCard;
-import com.banking.app.models.TransactionData;
-import com.banking.app.models.TransactionType;
 import com.banking.app.repositories.CreditCardRepository;
-import com.banking.app.repositories.TransactionRepository;
-import com.banking.app.utils.TransactionMessageGenerator;
-
 import lombok.AllArgsConstructor;
 
 @Service
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 public class CreditCardService {
 	private CreditCardRepository cRepo;
-	private TransactionRepository tRepo;
-	
-	
 	public CreditCard createCreditCard(CreditCard c) {
 		Long randLogId = (long) ((Math.random()*(9999999999999999l - 1111111111111111l))+ 1111111111111111l);
 		c.setCardId(randLogId);
