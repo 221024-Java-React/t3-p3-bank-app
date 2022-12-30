@@ -13,7 +13,7 @@ export const vars = {
 
 export const lightTheme = {
     body: "white",
-    color: "black",
+    color: "#154481",
     background: "white",
     border: vars.primaryDark,
     altColor: "#333",

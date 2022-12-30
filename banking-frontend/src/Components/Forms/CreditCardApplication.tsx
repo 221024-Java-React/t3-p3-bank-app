@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { axInst } from "../../Util/axInstance";
 import AccountHeader from "../AccountPage/AccountHeader";
 
 const Container = styled.div``;
@@ -38,10 +39,11 @@ const Label = styled.label`
 `;
 const Input = styled.input`
     background: transparent;
-    border: 1px solid ${(props) => props.theme.border};
+    border: 1px solid ${(props) => props.theme.primaryDark};
     border-radius: ${(props) => props.theme.borderRadius};
     padding-inline: 5px;
     outline: none;
+    margin-left: 0.5em;
 `;
 const FinalSection = styled.div`
     display: flex;
@@ -58,16 +60,48 @@ const SubmitButton = styled.button`
     color: ${(props) => props.theme.color};
     outline: none;
     cursor: pointer;
+    &:hover {
+        background-color: ${(props) => props.theme.primaryMed};
+        box-shadow: inset 0 0 5px 1px rgba(255, 255, 255, 0.4);
+        color: white;
+    }
 `;
 
-const initInputs = {};
+const initInputs = {
+    netWorth: "",
+    monthlyIncome: "",
+    carPayment: "",
+    rent: "",
+    totalMiscPayments: "",
+    totalCCLimits: "",
+    dob: "",
+    fico: "",
+    hasCC: "",
+    over15: "",
+};
 
 const CreditCardApplication = () => {
     const [inputs, setInputs] = useState(initInputs);
 
-    const handleFormSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
-        e.preventDefault();
+    const handleFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+        setInputs((prev) => ({ ...prev, [name]: value }));
     };
+
+    const handleFormSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
+        e.preventDefault();
+
+        try {
+            await axInst.post("/credit-card-app/create", inputs);
+
+            setInputs(initInputs);
+            console.log(inputs);
+        } catch (e) {
+            console.log(e, "this is the error");
+        }
+    };
+
+    console.log(inputs)
 
     return (
         <>
@@ -87,25 +121,39 @@ const CreditCardApplication = () => {
                             <Input
                                 type="radio"
                                 id="yes"
-                                name="q1"
+                                name="hasCC"
                                 value="yes"
+                                onChange={handleFormChange}
                             />
                             <Label htmlFor="yes">Yes</Label>
-                            <Input type="radio" id="no" name="q1" value="no" />
+                            <Input
+                                type="radio"
+                                id="no"
+                                name="hasCC"
+                                value="no"
+                                onChange={handleFormChange}
+                            />
                             <Label htmlFor="no">No</Label>
                         </InputWrapper>
                         <InputWrapper>
                             <Label style={{ flex: 1 }}>
-                                Are you over the age of 16?
+                                Are you 16 years of age or older?
                             </Label>
                             <Input
                                 type="radio"
                                 id="yes"
-                                name="q1"
+                                name="over15"
                                 value="yes"
+                                onChange={handleFormChange}
                             />
                             <Label htmlFor="yes">Yes</Label>
-                            <Input type="radio" id="no" name="q1" value="no" />
+                            <Input
+                                type="radio"
+                                id="no"
+                                name="over15"
+                                value="no"
+                                onChange={handleFormChange}
+                            />
                             <Label htmlFor="no">No</Label>
                         </InputWrapper>
                     </SectionWrapper>
@@ -113,22 +161,24 @@ const CreditCardApplication = () => {
                         <SectionHeader>Income Information</SectionHeader>
                         <InputWrapper>
                             <Label>Total Net Worth:</Label>
-                            <Input
+                            $ <Input
                                 type="text"
-                                id="net-worth"
-                                name="q1"
-                                placeholder="$ 0.00"
+                                name="netWorth"
+                                value={inputs.netWorth}
+                                placeholder="0.00"
                                 style={{ flex: 1 }}
+                                onChange={handleFormChange}
                             />
                         </InputWrapper>
                         <InputWrapper>
                             <Label>Monthly Income:</Label>
-                            <Input
+                            $ <Input
                                 type="text"
-                                id="net-worth"
-                                name="q1"
-                                placeholder="$ 0.00"
+                                name="monthlyIncome"
+                                value={inputs.monthlyIncome}
+                                placeholder="0.00"
                                 style={{ flex: 1 }}
+                                onChange={handleFormChange}
                             />
                         </InputWrapper>
                     </SectionWrapper>
@@ -136,44 +186,48 @@ const CreditCardApplication = () => {
                         <SectionHeader>Debt Information</SectionHeader>
                         <InputWrapper>
                             <Label>Monthly Car Payment</Label>
-                            <Input
+                            $ <Input
                                 type="text"
-                                id="net-worth"
-                                name="q1"
-                                placeholder="$ 0.00"
+                                name="carPayment"
+                                value={inputs.carPayment}
+                                placeholder="0.00"
                                 style={{ flex: 1 }}
+                                onChange={handleFormChange}
                             />
                         </InputWrapper>
                         <InputWrapper>
                             <Label>Monthly Rent/Mortgage:</Label>
-                            <Input
+                            $ <Input
                                 type="text"
-                                id="net-worth"
-                                name="q1"
-                                placeholder="$ 0.00"
+                                name="rent"
+                                value={inputs.rent}
+                                placeholder="0.00"
                                 style={{ flex: 1 }}
+                                onChange={handleFormChange}
                             />
                         </InputWrapper>
                         <InputWrapper>
                             <Label>Sum All Other Monthly Debt Payments:</Label>
-                            <Input
+                            $ <Input
                                 type="text"
-                                id="net-worth"
-                                name="q1"
-                                placeholder="$ 0.00"
+                                name="totalMiscPayments"
+                                value={inputs.totalMiscPayments}
+                                placeholder="0.00"
                                 style={{ flex: 1 }}
+                                onChange={handleFormChange}
                             />
                         </InputWrapper>
                         <InputWrapper>
                             <Label>
                                 Sum All Other Monthly Credit Card Limits:
                             </Label>
-                            <Input
+                            $ <Input
                                 type="text"
-                                id="net-worth"
-                                name="q1"
-                                placeholder="$ 0.00"
+                                name="totalCCLimits"
+                                value={inputs.totalCCLimits}
+                                placeholder="0.00"
                                 style={{ flex: 1 }}
+                                onChange={handleFormChange}
                             />
                         </InputWrapper>
                     </SectionWrapper>
@@ -183,9 +237,10 @@ const CreditCardApplication = () => {
                             <InputWrapper>
                                 <Input
                                     type="date"
-                                    id="net-worth"
-                                    name="q1"
+                                    name="dob"
+                                    value={inputs.dob}
                                     style={{ flex: 1, color: "#154481" }}
+                                    onChange={handleFormChange}
                                 />
                             </InputWrapper>
                         </SectionWrapper>
@@ -194,10 +249,11 @@ const CreditCardApplication = () => {
                             <InputWrapper>
                                 <Input
                                     type="text"
-                                    id="net-worth"
-                                    name="q1"
+                                    name="fico"
+                                    value={inputs.fico}
                                     placeholder="0-850"
                                     style={{ flex: 1 }}
+                                    onChange={handleFormChange}
                                 />
                             </InputWrapper>
                         </SectionWrapper>
