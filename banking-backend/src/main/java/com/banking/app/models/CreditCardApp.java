@@ -1,7 +1,7 @@
 package com.banking.app.models;
 
 
-import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.beans.factory.annotation.Autowired;
 
 import com.banking.app.utils.LimitCalculator;
 
@@ -27,8 +27,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CreditCardApp {
 	
-	@Autowired
-	LimitCalculator limCal;
+	
+	
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,6 +42,9 @@ public class CreditCardApp {
 	
 	@OneToOne(mappedBy = "appl")
 	private CreditCard card;
+	
+
+	private String applicant;
 	
 	@Column(name = "applicant_age")
 	private Integer age;
@@ -62,8 +65,8 @@ public class CreditCardApp {
 	private Double approvedLimit;
 	
 	public void setApprovedLimit(Integer age, Integer score, Double income, Double debt) {
-		double dti = limCal.calcMaxDti(age, score);
-		Double lim = limCal.calcCreditLimit(income, score, dti);
+		double dti = LimitCalculator.calcMaxDti(age, score);
+		Double lim = LimitCalculator.calcCreditLimit(income, score, dti);
 		this.approvedLimit = lim;
 	}
 }
