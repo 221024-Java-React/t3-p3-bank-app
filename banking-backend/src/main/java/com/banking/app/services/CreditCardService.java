@@ -27,7 +27,6 @@ public class CreditCardService {
 	    } catch (NoSuchElementException e) {
 	      return c;
 	    }
-	    //return cRepo.getCreditCardByUser(u);
 	}
 	
 	public CreditCard getCreditCardByAccountId(Long id) {
@@ -38,7 +37,6 @@ public class CreditCardService {
 	    } catch (NoSuchElementException e) {
 	      return c;
 	    }
-	    //return cRepo.getCreditCardByCardId(id);
 	}
 	
 	public boolean addToCreditCardBalance(Long id, double amount) {
@@ -55,25 +53,6 @@ public class CreditCardService {
 	    } catch (NoSuchElementException e) {
 	      return false;
 	    }
-		/*
-		CreditCard card = cRepo.getCreditCardByCardId(id);
-		LocalDate time = LocalDate.now();
-		if((card.getBalance()+amount)>card.getCreditLimit()) {
-			card.setBalance(card.getBalance()+amount);
-			cRepo.save(card);
-			TransactionData t = new TransactionData();
-		    t.setCard(card);
-		    t.setAmount(amount);
-		    t.setType(TransactionType.PURCHASE);
-		    t.setDate(time);
-		    t.setMessage(TransactionMessageGenerator.generateMessage(TransactionType.PURCHASE, amount));
-		    tRepo.save(t);
-			return true;
-		}
-		else {
-			return false;
-		}
-		*/
 	}
 	
 	public double payCreditCardBalance(Long id, double amount) {
@@ -85,20 +64,5 @@ public class CreditCardService {
 	    } catch (NoSuchElementException e) {
 	      return 0.0;
 	    }
-		
-		/*
-		CreditCard card = cRepo.getCreditCardByCardId(id);
-		card.setBalance(card.getBalance()-amount);
-		cRepo.save(card);
-		LocalDate time = LocalDate.now();
-		TransactionData t = new TransactionData();
-	    t.setCard(card);
-	    t.setAmount(amount);
-	    t.setType(TransactionType.PAY);
-	    t.setDate(time);
-	    t.setMessage(TransactionMessageGenerator.generateMessage(TransactionType.PAY, amount));
-	    tRepo.save(t);
-		return card.getBalance();
-		*/
 	}
 }
