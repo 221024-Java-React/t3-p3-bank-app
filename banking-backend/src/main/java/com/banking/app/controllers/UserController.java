@@ -80,7 +80,7 @@ public class UserController {
 	  u = uServ.updateFullUser(u);
 	  return u;
   }
-  
+
   @PostMapping("/forgot")
   public ResponseEntity<String> forgotPassword(@RequestBody LinkedHashMap<String, String> body) {
 	  String email = body.get("email");

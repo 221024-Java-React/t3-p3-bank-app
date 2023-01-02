@@ -5,7 +5,6 @@ import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,11 +32,5 @@ public class TransactionController {
 	public TransactionData addTransactionToAccount(TransactionData td) {
 		return tdServ.createTransaction(td);
 	}
-	
-	@DeleteMapping("/transaction/delete")
-	public TransactionData deleteTransactionInAccount(Integer transactionId) {
-		return tdServ.deleteTransaction(transactionId);
-	}
 	 
 }
-;
