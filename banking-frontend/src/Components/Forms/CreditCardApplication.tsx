@@ -111,6 +111,10 @@ const CreditCardApplication = () => {
         setInputs({ ...inputs, userId: currentUser.userId });
 
         try {
+            if (parseInt(inputs.age) < 16) {
+                alert('You are not allowed to submit an application as you need to be 16 years of age or older');
+                throw new Error('You can not submit an application');
+            }
             await axInst.post("/credit-card-app/create", inputs);
 
             setInputs(initInputs);
