@@ -1,11 +1,15 @@
 package com.banking.app.services;
 
 import java.util.NoSuchElementException;
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.banking.app.models.User;
+import com.banking.app.models.Account;
 import com.banking.app.models.CreditCard;
+import com.banking.app.repositories.AccountRepository;
 import com.banking.app.repositories.CreditCardRepository;
 import lombok.AllArgsConstructor;
 
@@ -13,6 +17,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 public class CreditCardService {
 	private CreditCardRepository cRepo;
+	private AccountRepository aRepo;
 	public CreditCard createCreditCard(CreditCard c) {
 		Long randLogId = (long) ((Math.random()*(9999999999999999l - 1111111111111111l))+ 1111111111111111l);
 		c.setCardId(randLogId);
@@ -55,9 +60,13 @@ public class CreditCardService {
 	    }
 	}
 	
-	public double payCreditCardBalance(Long id, double amount) {
+	public double payCreditCardBalance(Long id, double amount, UUID accountId) {
 		try {
 			CreditCard card = cRepo.getCreditCardByCardId(id);
+			Account a = aRepo.getAccountByAccountId(accountId);
+			Double current = a.getBalance();
+			a.setBalance(current-amount);
+			aRepo.save(a);
 			card.setBalance(card.getBalance()-amount);
 			cRepo.save(card);
 			return card.getBalance();
