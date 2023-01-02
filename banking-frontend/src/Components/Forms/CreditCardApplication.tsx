@@ -68,9 +68,19 @@ const SubmitButton = styled.button`
         color: white;
     }
 `;
+const InvalidApp = styled.div`
+    margin-top: 1.5rem;
+    display: flex;
+    justify-content: center;
+    background-color: ${(props) => props.theme.background};
+    font-weight: bold;
+    font-size: 2em;
+    color: ${(props) => props.theme.color};
+    outline: none;
+    cursor: pointer;
+`;
 
 const CreditCardApplication = () => {
-
     const { currentUser } = useContext(UserContext) as UserContextState;
 
     const [totalDebt, setTotalDebt] = useState<number>(0);
@@ -98,14 +108,12 @@ const CreditCardApplication = () => {
 
     const handleFormSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
         e.preventDefault();
-        setInputs({ ...inputs, userId: currentUser.userId })
-        console.log(currentUser.userId)
+        setInputs({ ...inputs, userId: currentUser.userId });
 
         try {
             await axInst.post("/credit-card-app/create", inputs);
 
             setInputs(initInputs);
-            console.log(inputs);
         } catch (e) {
             console.log(e, "this is the error");
         }
@@ -165,127 +173,142 @@ const CreditCardApplication = () => {
                             <Label htmlFor="no">No</Label>
                         </InputWrapper>
                     </SectionWrapper>
-                    <SectionWrapper>
-                        <SectionHeader>Income Information</SectionHeader>
-                        <InputWrapper>
-                            <Label>Total Net Worth:</Label>
-                            ${" "}
-                            <Input
-                                type="text"
-                                name="netWorth"
-                                value={inputs.netWorth}
-                                placeholder="0.00"
-                                style={{ flex: 1 }}
-                                onChange={handleFormChange}
-                            />
-                        </InputWrapper>
-                        <InputWrapper>
-                            <Label>Monthly Income:</Label>
-                            ${" "}
-                            <Input
-                                type="text"
-                                name="monthlyIncome"
-                                value={inputs.monthlyIncome}
-                                placeholder="0.00"
-                                style={{ flex: 1 }}
-                                onChange={handleFormChange}
-                            />
-                        </InputWrapper>
-                    </SectionWrapper>
-                    <SectionWrapper>
-                        <SectionHeader>Debt Information</SectionHeader>
-                        <InputWrapper>
-                            <Label>Monthly Car Payment</Label>
-                            ${" "}
-                            <Input
-                                type="text"
-                                name="carPayment"
-                                value={inputs.carPayment}
-                                placeholder="0.00"
-                                style={{ flex: 1 }}
-                                onChange={handleFormChange}
-                            />
-                        </InputWrapper>
-                        <InputWrapper>
-                            <Label>Monthly Rent/Mortgage:</Label>
-                            ${" "}
-                            <Input
-                                type="text"
-                                name="rent"
-                                value={inputs.rent}
-                                placeholder="0.00"
-                                style={{ flex: 1 }}
-                                onChange={handleFormChange}
-                            />
-                        </InputWrapper>
-                        <InputWrapper>
-                            <Label>Sum All Other Monthly Debt Payments:</Label>
-                            ${" "}
-                            <Input
-                                type="text"
-                                name="totalMiscPayments"
-                                value={inputs.totalMiscPayments}
-                                placeholder="0.00"
-                                style={{ flex: 1 }}
-                                onChange={handleFormChange}
-                            />
-                        </InputWrapper>
-                        <InputWrapper>
-                            <Label>
-                                Sum All Other Monthly Credit Card Limits:
-                            </Label>
-                            ${" "}
-                            <Input
-                                type="text"
-                                name="totalCCLimits"
-                                value={inputs.totalCCLimits}
-                                placeholder="0.00"
-                                style={{ flex: 1 }}
-                                onChange={handleFormChange}
-                            />
-                        </InputWrapper>
-                    </SectionWrapper>
-                    <FinalSection>
-                        <SectionWrapper style={{ flex: 1, marginRight: "1em" }}>
-                            {/* <SectionHeader>Enter DOB:</SectionHeader> */}
-                            {/* <InputWrapper> */}
-                            {/*     <Input */}
-                            {/*         type="date" */}
-                            {/*         name="dob" */}
-                            {/*         value={inputs.dob} */}
-                            {/*         style={{ flex: 1, color: "#154481" }} */}
-                            {/*         onChange={handleFormChange} */}
-                            {/*     /> */}
-                            {/* </InputWrapper> */}
-                            <SectionHeader>Enter Age:</SectionHeader>
-                            <InputWrapper>
-                                <Input
-                                    type="text"
-                                    name="age"
-                                    value={inputs.age}
-                                    style={{ flex: 1, color: "#154481" }}
-                                    placeholder="16"
-                                    onChange={handleFormChange}
-                                />
-                            </InputWrapper>
-                        </SectionWrapper>
-                        <SectionWrapper style={{ flex: 1 }}>
-                            <SectionHeader>
-                                Enter creditScore Score
-                            </SectionHeader>
-                            <InputWrapper>
-                                <Input
-                                    type="text"
-                                    name="creditScore"
-                                    value={inputs.creditScore}
-                                    placeholder="0-850"
-                                    style={{ flex: 1 }}
-                                    onChange={handleFormChange}
-                                />
-                            </InputWrapper>
-                        </SectionWrapper>
-                    </FinalSection>
-                    <SubmitButton>SUBMIT</SubmitButton>
+                    {inputs.hasCC === "yes" || inputs.over15 === "no" ? (
+                        <InvalidApp>
+                            Sorry, but you do not qualify to submit an
+                            application.
+                        </InvalidApp>
+                    ) : (
+                        <>
+                            <SectionWrapper>
+                                <SectionHeader>
+                                    Income Information
+                                </SectionHeader>
+                                <InputWrapper>
+                                    <Label>Total Net Worth:</Label>${" "}
+                                    <Input
+                                        type="text"
+                                        name="netWorth"
+                                        value={inputs.netWorth}
+                                        placeholder="0.00"
+                                        style={{ flex: 1 }}
+                                        onChange={handleFormChange}
+                                    />
+                                </InputWrapper>
+                                <InputWrapper>
+                                    <Label>Monthly Income:</Label>${" "}
+                                    <Input
+                                        type="text"
+                                        name="monthlyIncome"
+                                        value={inputs.monthlyIncome}
+                                        placeholder="0.00"
+                                        style={{ flex: 1 }}
+                                        onChange={handleFormChange}
+                                    />
+                                </InputWrapper>
+                            </SectionWrapper>
+                            <SectionWrapper>
+                                <SectionHeader>Debt Information</SectionHeader>
+                                <InputWrapper>
+                                    <Label>Monthly Car Payment</Label>${" "}
+                                    <Input
+                                        type="text"
+                                        name="carPayment"
+                                        value={inputs.carPayment}
+                                        placeholder="0.00"
+                                        style={{ flex: 1 }}
+                                        onChange={handleFormChange}
+                                    />
+                                </InputWrapper>
+                                <InputWrapper>
+                                    <Label>Monthly Rent/Mortgage:</Label>${" "}
+                                    <Input
+                                        type="text"
+                                        name="rent"
+                                        value={inputs.rent}
+                                        placeholder="0.00"
+                                        style={{ flex: 1 }}
+                                        onChange={handleFormChange}
+                                    />
+                                </InputWrapper>
+                                <InputWrapper>
+                                    <Label>
+                                        Sum All Other Monthly Debt Payments:
+                                    </Label>
+                                    ${" "}
+                                    <Input
+                                        type="text"
+                                        name="totalMiscPayments"
+                                        value={inputs.totalMiscPayments}
+                                        placeholder="0.00"
+                                        style={{ flex: 1 }}
+                                        onChange={handleFormChange}
+                                    />
+                                </InputWrapper>
+                                <InputWrapper>
+                                    <Label>
+                                        Sum All Other Monthly Credit Card
+                                        Limits:
+                                    </Label>
+                                    ${" "}
+                                    <Input
+                                        type="text"
+                                        name="totalCCLimits"
+                                        value={inputs.totalCCLimits}
+                                        placeholder="0.00"
+                                        style={{ flex: 1 }}
+                                        onChange={handleFormChange}
+                                    />
+                                </InputWrapper>
+                            </SectionWrapper>
+                            <FinalSection>
+                                <SectionWrapper
+                                    style={{ flex: 1, marginRight: "1em" }}
+                                >
+                                    {/* <SectionHeader>Enter DOB:</SectionHeader> */}
+                                    {/* <InputWrapper> */}
+                                    {/*     <Input */}
+                                    {/*         type="date" */}
+                                    {/*         name="dob" */}
+                                    {/*         value={inputs.dob} */}
+                                    {/*         style={{ flex: 1, color: "#154481" }} */}
+                                    {/*         onChange={handleFormChange} */}
+                                    {/*     /> */}
+                                    {/* </InputWrapper> */}
+                                    <SectionHeader>Enter Age:</SectionHeader>
+                                    <InputWrapper>
+                                        <Input
+                                            type="text"
+                                            name="age"
+                                            value={inputs.age}
+                                            style={{
+                                                flex: 1,
+                                                color: "#154481",
+                                            }}
+                                            placeholder="16"
+                                            onChange={handleFormChange}
+                                        />
+                                    </InputWrapper>
+                                </SectionWrapper>
+                                <SectionWrapper style={{ flex: 1 }}>
+                                    <SectionHeader>
+                                        Enter creditScore Score
+                                    </SectionHeader>
+                                    <InputWrapper>
+                                        <Input
+                                            type="text"
+                                            name="creditScore"
+                                            value={inputs.creditScore}
+                                            placeholder="0-850"
+                                            style={{ flex: 1 }}
+                                            onChange={handleFormChange}
+                                        />
+                                    </InputWrapper>
+                                </SectionWrapper>
+                            </FinalSection>
+                            <SubmitButton>SUBMIT</SubmitButton>
+                        </>
+                    )}
                 </ApplicationForm>
             </Container>
         </>

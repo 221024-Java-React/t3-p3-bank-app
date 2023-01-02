@@ -21,23 +21,22 @@ import lombok.AllArgsConstructor;
 @CrossOrigin("*")
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 public class TransactionController {
-	
-	private TransactionDataService tdServ;
-	
-	@GetMapping("/")
-	public List<TransactionData> getTransactionsByAccountId(UUID accountId) {
-		return tdServ.getTransactionsByAccountId(accountId);
-	}
-	
-	@PostMapping("/transaction/create")
-	public TransactionData addTransactionToAccount(TransactionData td) {
-		return tdServ.createTransaction(td);
-	}
-	
-	@DeleteMapping("/transaction/delete")
-	public TransactionData deleteTransactionInAccount(Integer transactionId) {
-		return tdServ.deleteTransaction(transactionId);
-	}
-	 
-}
-;
+
+  private TransactionDataService tdServ;
+
+  @GetMapping("/")
+  public List<TransactionData> getTransactionsByAccountId(UUID accountId) {
+    return tdServ.getTransactionsByAccountId(accountId);
+  }
+
+  @PostMapping("/transaction/create")
+  public TransactionData addTransactionToAccount(TransactionData td) {
+    return tdServ.createTransaction(td);
+  }
+
+  // @DeleteMapping("/transaction/delete")
+  // public TransactionData deleteTransactionInAccount(Integer transactionId) {
+  // return tdServ.deleteTransaction(transactionId);
+  // }
+
+};

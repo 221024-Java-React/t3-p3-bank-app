@@ -27,6 +27,21 @@ const Input = styled.input`
 `;
 const SubmitButton = styled.input`
     margin: 10px;
+    display: flex;
+    justify-content: center;
+    background-color: ${(props) => props.theme.background};
+    border: 1px solid ${(props) => props.theme.primaryMed};
+    border-radius: ${(props) => props.theme.borderRadius};
+    font-weight: bold;
+    font-size: 1.5em;
+    color: ${(props) => props.theme.color};
+    outline: none;
+    cursor: pointer;
+    &:hover {
+        background-color: ${(props) => props.theme.primaryMed};
+        box-shadow: inset 0 0 3px 1px rgba(255, 255, 255, 0.4);
+        color: white;
+    }
 `;
 
 const initInputs = {
@@ -57,7 +72,6 @@ const Login = () => {
         const { email, password } = inputs;
 
         await loginUser(email, password).then(() => {
-            console.log(firstLogin);
             firstLogin ? setShowResetPassScreen(true) : setShowAuthScreen(true);
         });
     };
@@ -65,7 +79,6 @@ const Login = () => {
     const handleResetPassFormSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
         e.preventDefault();
         const { email, newPassword_1, newPassword_2 } = inputs;
-        // console.log(inputs);
 
         if (newPassword_1 === newPassword_2) {
             await resetPassword(email, newPassword_1);

@@ -18,6 +18,7 @@ export const lightTheme = {
     border: vars.primaryDark,
     altColor: "#333",
     gradient: "background: linear-gradient(#fff, #888)",
+    altText: "black",
 };
 
 export const darkTheme = {
@@ -27,4 +28,5 @@ export const darkTheme = {
     border: "#222",
     altColor: "#888",
     gradient: "background: linear-gradient(#333, #fff)",
+    altText: "white",
 };

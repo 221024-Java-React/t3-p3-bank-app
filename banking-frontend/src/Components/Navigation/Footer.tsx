@@ -54,7 +54,7 @@ const Footer = () => {
                 )}
             </Link>
             <Box>
-                <Data>(###)-###-####</Data>
+                <Data>(888)-888-8888</Data>
             </Box>
         </Container>
     );
