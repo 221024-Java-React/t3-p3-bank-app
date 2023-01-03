@@ -63,7 +63,7 @@ public class CreditCardController {
 	t.setAmount(amount);
 	t.setMessage(message);
 	t.setDate(date);
-	t.setCard(card);
+	t.setCreditCard(card);
 	tdServ.createTransaction(t);
     
     return new ResponseEntity<>("Made a credit card purchase successfully", HttpStatus.OK);
@@ -84,7 +84,7 @@ public class CreditCardController {
 	tdCard.setAmount(amount);
 	tdCard.setMessage(cardMessage);
 	tdCard.setDate(date);
-	tdCard.setCard(c);
+	tdCard.setCreditCard(c);
 	tdServ.createTransaction(tdCard);
 	
 	Account a = aServ.getAccountByAccountId(accountId);
