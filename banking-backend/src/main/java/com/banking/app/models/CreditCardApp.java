@@ -1,11 +1,6 @@
 package com.banking.app.models;
 
-
-//import org.springframework.beans.factory.annotation.Autowired;
-
 import com.banking.app.utils.LimitCalculator;
-
-//import com.banking.app.utils.LimitCalculator;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -21,32 +16,25 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "Credit_Card_Application")
+@Table(name = "credit_card_apps")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class CreditCardApp {
-	
-	
-	
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "application_Id")
+	@Column(name = "application_id")
 	private Integer applicationId;
 	
-	
 	@Enumerated(EnumType.STRING)
-	@Column(name = "status")
 	private CreditCardAppStatus status;
 	
-	@OneToOne(mappedBy = "appl")
+	@OneToOne(mappedBy = "app")
 	private CreditCard card;
 	
-	@Column(name = "applicant")
 	private String applicant;
 	
-	@Column(name = "applicant_age")
 	private Integer age;
 
 	@Column(name = "credit_score")
@@ -58,15 +46,15 @@ public class CreditCardApp {
 	@Column(name = "net_worth")
 	private Double netWorth;
 	
-	@Column(name = "Estimated_debt")
-	private Double estDebt;
+	@Column(name = "estimated_debt")
+	private Double estimatedDebt;
 	
 	@Column(name = "approved_limit")
 	private Double approvedLimit;
 	
-	public void setApprovedLimit(Integer age, Integer score, Double income, Double debt) {
-		double dti = LimitCalculator.calcMaxDti(age, score);
-		Double lim = LimitCalculator.calcCreditLimit(income, score, dti);
+	public void setApprovedLimit(Integer age, Integer creditScore, Double income, Double debt) {
+		Double dti = LimitCalculator.calcMaxDti(age, creditScore);
+		Double lim = LimitCalculator.calcCreditLimit(income, creditScore, dti);
 		this.approvedLimit = lim;
 	}
 }

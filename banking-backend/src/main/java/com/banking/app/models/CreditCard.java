@@ -20,7 +20,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "Credit_Card")
+@Table(name = "credit_cards")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -28,11 +28,11 @@ public class CreditCard {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "card_number")
+  @Column(name = "card_id")
   private Long cardId;
 
   @OneToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "user_Id")
+  @JoinColumn(name = "user_id")
   private User user;
 
   @Column(name = "credit_limit")
@@ -45,6 +45,6 @@ public class CreditCard {
   List<TransactionData> transactions;
 
   @OneToOne(cascade = CascadeType.ALL)
-  @JoinColumn(name = "application_Id")
-  private CreditCardApp appl;
+  @JoinColumn(name = "application_id")
+  private CreditCardApp app;
 }
