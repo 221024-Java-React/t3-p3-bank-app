@@ -113,14 +113,15 @@ public class UserService {
     }
 
   }
+
   public User getUserById(UUID id) {
-	    User u = null;
+    User u = null;
 
-	    try {
-	      return uRepo.findByUserId(id);
-	    } catch (NoSuchElementException e) {
-	      return u;
-	    }
+    try {
+      return uRepo.findByUserId(id);
+    } catch (NoSuchElementException e) {
+      return u;
+    }
 
-	  }
+  }
 }

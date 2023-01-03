@@ -47,7 +47,7 @@ const SubmitButton = styled.input`
 const initInputs = {
     email: "",
     password: "",
-    passcode: "",
+    token: "",
     newPassword_1: "",
     newPassword_2: "",
 };
@@ -74,6 +74,7 @@ const Login = () => {
         setLoading(true);
 
         loginUser(email, password)
+        console.log(email, password)
         // firstLogin ? setShowResetPassScreen(true) : setShowAuthScreen(true);
         if (firstLogin) {
             setShowResetPassScreen(true);
@@ -98,9 +99,10 @@ const Login = () => {
 
     const handleAuthFormSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
         e.preventDefault();
-        const { email, passcode } = inputs;
+        const { email, token } = inputs;
 
-        await authenticateUser(email, passcode);
+        console.log(email, token)
+        await authenticateUser(email, token);
         setInputs(initInputs);
 
         navigate("/");
@@ -128,8 +130,8 @@ const Login = () => {
             )}
             {showAuthScreen && (
                 <Form onSubmit={handleAuthFormSubmit}>
-                    <Label htmlFor="passcode">Enter Twilio Passcode</Label>
-                    <Input type="text" name="passcode" id="passcode" onChange={handleInputChange} />
+                    <Label htmlFor="token">Enter Twilio Passcode</Label>
+                    <Input type="text" name="token" id="token" onChange={handleInputChange} />
                     <SubmitButton type="submit" value="Submit Passcode" />
                 </Form>
             )}

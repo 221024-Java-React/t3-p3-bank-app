@@ -63,19 +63,19 @@ public class UserController {
     String email = body.get("email");
     String password = body.get("password");
     User u = uServ.loginUser(email, password);
-    if(u.getFirstLogin()) {
-    	return uServ.loginUser(email, password);
+    if (u.getFirstLogin()) {
+      return uServ.loginUser(email, password);
     }
-    mSend.SendMessage(u); 
+    mSend.SendMessage(u);
     return uServ.loginUser(email, password);
   }
-  
+
   @PutMapping("/login_reset")
   public User loginReset(@RequestBody LinkedHashMap<String, String> body) {
-	  String email = body.get("email");
-	  String password = body.get("password");
-	  User u = uServ.updatePassword(email, password);
-	  return u;
+    String email = body.get("email");
+    String password = body.get("password");
+    User u = uServ.updatePassword(email, password);
+    return u;
   }
 
   @PostMapping("/login_Auth")

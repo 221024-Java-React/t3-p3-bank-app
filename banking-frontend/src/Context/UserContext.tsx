@@ -28,6 +28,7 @@ const UserProvider: React.FC<ProviderProps> = ({ children }) => {
     const loginUser = async (email: string, password: string) => {
         try {
             const thisUser = await axInst.post("/users/login", { email, password });
+            console.log(thisUser)
 
         } catch (e) {
             console.log(e);
@@ -47,11 +48,11 @@ const UserProvider: React.FC<ProviderProps> = ({ children }) => {
         }
     };
 
-    const authenticateUser = async (email: string, passcode: string) => {
+    const authenticateUser = async (email: string, token: string) => {
         try {
             const thisUser: User = await axInst.post("/users/login_Auth", {
                 email,
-                passcode,
+                token,
             });
             setCurrentUser(thisUser);
         } catch (e) {
