@@ -40,16 +40,16 @@ public class UserController {
     String accountType = body.get("accountType").toLowerCase();
     Double balance = 0.0;
 
-    User newUser = new User(firstName, lastName, email, address, phoneNumber);
-    uServ.registerUser(newUser);
+    User u = new User(firstName, lastName, email, address, phoneNumber);
+    uServ.registerUser(u);
     User registeredUser = uServ.getUserByEmail(email);
     mSend.SendFirstPassword(registeredUser);
 
     if (accountType.equals("both")) {
-      Account accountChecking = new Account("checking", registeredUser, balance);
-      Account accountSavings = new Account("savings", registeredUser, balance);
-      aServ.createAccount(accountChecking);
-      aServ.createAccount(accountSavings);
+      Account checking = new Account("checking", registeredUser, balance);
+      Account savings = new Account("savings", registeredUser, balance);
+      aServ.createAccount(checking);
+      aServ.createAccount(savings);
     } else {
       Account account = new Account(accountType, registeredUser, balance);
       aServ.createAccount(account);
@@ -63,27 +63,32 @@ public class UserController {
     String email = body.get("email");
     String password = body.get("password");
     User u = uServ.loginUser(email, password);
-    if(u.getFirstLogin()) {
-    	return uServ.loginUser(email, password);
+    
+    if (!u.getFirstLogin()) {
+      mSend.SendMessage(u); 
     }
-    mSend.SendMessage(u); 
-    return uServ.loginUser(email, password);
+    
+    return u;
   }
   
-  @PutMapping("/login_reset")
-  public User loginReset(@RequestBody LinkedHashMap<String, String> body) {
+  @PutMapping("/reset-password")
+  public User resetPassword(@RequestBody LinkedHashMap<String, String> body) {
 	  String email = body.get("email");
 	  String password = body.get("password");
-	  User u = uServ.updatePassword(email, password);
-	  return u;
+	  
+	  User u = uServ.getUserByEmail(email);
+	  u.setPassword(password);
+	  u.setFirstLogin(false);
+	  
+	  return uServ.updateUser(u);
   }
 
-  @PostMapping("/login_Auth")
-  public User loginAuth(@RequestBody LinkedHashMap<String, String> body) {
-    String email = (String) body.get("email");
-    Integer authToken = Integer.parseInt(body.get("token"));
+  @PostMapping("/authenticate")
+  public User authenticateUser(@RequestBody LinkedHashMap<String, String> body) {
+    String email = body.get("email");
+    Integer token = Integer.parseInt(body.get("token"));
 
-    return uServ.loginUser(email, authToken);
+    return uServ.authenticateUser(email, token);
   }
 
   @PutMapping("/logout")
@@ -93,33 +98,11 @@ public class UserController {
     return new ResponseEntity<>("Logged out Successfully", HttpStatus.OK);
   }
 
-  @PutMapping("/update")
-  public User updateUser(@RequestBody LinkedHashMap<String, String> body) {
-    String firstName = body.get("firstName");
-    String lastName = body.get("lastName");
-    String email = body.get("email");
-
-    return uServ.updateUser(firstName, lastName, email);
-  }
-
-  @PutMapping("/update_password")
-  public User updatePassword(@RequestBody LinkedHashMap<String, String> body) {
-    String email = body.get("email");
-    String password = body.get("password");
-
-    return uServ.updatePassword(email, password);
-  }
-
   @PostMapping("/user")
-  public User userByEmail(@RequestBody LinkedHashMap<String, String> body) {
+  public User getUserByEmail(@RequestBody LinkedHashMap<String, String> body) {
     String email = body.get("email");
 
     return uServ.getUserByEmail(email);
   }
-
-  // @PostMapping("/members")
-  // public List<User> allUsers() {
-  // return uServ.getAllUsers();
-  // }
 
 }

@@ -40,7 +40,7 @@ public class UserService {
     return u;
   }
 
-  public User loginUser(String email, Integer authToken) {
+  public User authenticateUser(String email, Integer authToken) {
     User u = uRepo.getByEmail(email).orElseThrow(InvalidCredentialsException::new);
 
     if (!u.getAuthToken().equals(authToken)) {
@@ -53,6 +53,7 @@ public class UserService {
   public void logout(String email) {
     User u = uRepo.getByEmail(email).orElseThrow(InvalidCredentialsException::new);
     u.setAuthToken(null);
+    
     try {
       uRepo.save(u);
     } catch (Exception ex) {
@@ -60,44 +61,9 @@ public class UserService {
     }
   }
 
-  public User updateUser(String firstName, String lastName, String email) {
-
-    User u = uRepo.getByEmail(email).orElseThrow(InvalidCredentialsException::new);
-
-    u.setFirstName(firstName);
-    u.setLastName(lastName);
-
-    try {
-      User ret = uRepo.save(u);
-      return ret;
-    } catch (Exception ex) {
-      throw new CannotUpdateUserException();
-    }
-  }
-
-  public User updateFullUser(User updateUser) {
-    User prevUser = uRepo.findByUserId(updateUser.getUserId());
-
-    prevUser.setFirstName(updateUser.getFirstName());
-    prevUser.setLastName(updateUser.getLastName());
-    prevUser.setEmail(updateUser.getEmail());
-    prevUser.setAddress(updateUser.getAddress());
-    prevUser.setPhoneNumber(updateUser.getPhoneNumber());
-    updateUser.setPassword(prevUser.getPassword());
-
-    return uRepo.save(updateUser);
-
-  }
-
-  public User updatePassword(String email, String password) {
-
-    User u = uRepo.getByEmail(email).orElseThrow(InvalidCredentialsException::new);
-
-    u.setPassword(password);
-
-    try {
-      User ret = uRepo.save(u);
-      return ret;
+  public User updateUser(User u) {
+	try {
+	  return uRepo.save(u);
     } catch (Exception ex) {
       throw new CannotUpdateUserException();
     }
@@ -111,16 +77,16 @@ public class UserService {
     } catch (NoSuchElementException e) {
       return u;
     }
-
   }
-  public User getUserById(UUID id) {
-	    User u = null;
+  
+  public User getUserByUserId(UUID userId) {
+    User u = null;
 
-	    try {
-	      return uRepo.findByUserId(id);
-	    } catch (NoSuchElementException e) {
-	      return u;
-	    }
-
-	  }
+    try {
+      return uRepo.findByUserId(userId);
+    } catch (NoSuchElementException e) {
+      return u;
+    }
+  }
+  
 }

@@ -13,24 +13,18 @@ import lombok.AllArgsConstructor;
 @Service
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 public class CreditCardAppService {
-	private CreditCardAppRepository aRepo;
+	private CreditCardAppRepository ccaRepo;
 	
-	public CreditCardApp createCreditCardApp(CreditCardApp c) {
-		return aRepo.save(c);
+	public CreditCardApp createCreditCardApp(CreditCardApp app) {
+		return ccaRepo.save(app);
 	}
 	
-	public List<CreditCardApp> getCreditCardAppByStatus(CreditCardAppStatus s){
-
-		return aRepo.getCreditCardAppsByStatus(s);
+	public List<CreditCardApp> getCreditCardAppsByStatus(CreditCardAppStatus s){
+		return ccaRepo.getCreditCardAppsByStatus(s);
 	}
 	
-	public CreditCardApp getCreditCardAppByApplicationID(int id) {
-		return aRepo.getCreditCardAppByApplicationId(id);
+	public CreditCardApp getCreditCardAppByApplicationId(Integer applicationId) {
+		return ccaRepo.getCreditCardAppByApplicationId(applicationId);
 	}
 	
-	public CreditCardApp updateCreditCardApp(int id, CreditCardAppStatus s) {
-		CreditCardApp a=aRepo.getCreditCardAppByApplicationId(id);
-		a.setStatus(s);
-		return aRepo.save(a);
-	}
 }

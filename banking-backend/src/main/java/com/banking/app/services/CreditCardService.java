@@ -16,62 +16,59 @@ import lombok.AllArgsConstructor;
 @Service
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 public class CreditCardService {
-	private CreditCardRepository cRepo;
+	private CreditCardRepository ccRepo;
 	private AccountRepository aRepo;
+	
 	public CreditCard createCreditCard(CreditCard c) {
-		Long randLogId = (long) ((Math.random()*(9999999999999999l - 1111111111111111l))+ 1111111111111111l);
-		c.setCardId(randLogId);
-		return cRepo.save(c);
+		Long randLongId = (long) ((Math.random()*(9999999999999999l - 1111111111111111l))+ 1111111111111111l);
+		c.setCardId(randLongId);
+		
+		return ccRepo.save(c);
 	}
 	
 	public CreditCard getCreditCardByUser(User u) {
-		CreditCard c = null;
-
 	    try {
-	      return cRepo.getCreditCardByUser(u);
+	      return ccRepo.getCreditCardByUser(u);
 	    } catch (NoSuchElementException e) {
-	      return c;
+	      throw new NoSuchElementException();
 	    }
 	}
 	
-	public CreditCard getCreditCardByAccountId(Long id) {
-		CreditCard c = null;
-
+	public CreditCard getCreditCardByCardId(Long cardId) {
 	    try {
-	      return cRepo.getCreditCardByCardId(id);
+	      return ccRepo.getCreditCardByCardId(cardId);
 	    } catch (NoSuchElementException e) {
-	      return c;
+	      throw new NoSuchElementException();
 	    }
 	}
 	
-	public boolean addToCreditCardBalance(Long id, double amount) {
+	public void addToCreditCardBalance(Long cardId, Double amount) {
 		try {
-			CreditCard card = cRepo.getCreditCardByCardId(id);
-			if((card.getBalance()+amount)>card.getCreditLimit()) {
-				card.setBalance(card.getBalance()+amount);
-				cRepo.save(card);
-				return true;
-			}
-			else {
-				return false;
-			}
-	    } catch (NoSuchElementException e) {
-	      return false;
-	    }
+			CreditCard c = ccRepo.getCreditCardByCardId(cardId);
+			Double currentBalance = c.getBalance() + amount;
+
+			c.setBalance(currentBalance);
+			ccRepo.save(c);
+
+		} catch (NoSuchElementException e) {
+			throw new NoSuchElementException();
+		}
 	}
 	
-	public double payCreditCardBalance(Long id, double amount, UUID accountId) {
+	public void payCreditCardBalance(Long cardId, Double amountPaid, UUID accountId) {
 		try {
-			CreditCard card = cRepo.getCreditCardByCardId(id);
+			CreditCard cc = ccRepo.getCreditCardByCardId(cardId);
 			Account a = aRepo.getAccountByAccountId(accountId);
-			Double current = a.getBalance();
-			a.setBalance(current-amount);
+			Double currentBalance = a.getBalance();
+			
+			a.setBalance(currentBalance-amountPaid);
 			aRepo.save(a);
-			card.setBalance(card.getBalance()-amount);
-			cRepo.save(card);
-			return card.getBalance();
+			
+			cc.setBalance(cc.getBalance()-amountPaid);
+			ccRepo.save(cc);
+			
 	    } catch (NoSuchElementException e) {
-	      return 0.0;
+	      throw new NoSuchElementException();
 	    }
 	}
 }

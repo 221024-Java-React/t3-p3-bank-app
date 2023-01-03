@@ -30,7 +30,7 @@ public class MessageSender {
       try {
         System.out.println(u.getFirstName() + u.getLastName() + u.getAuthToken() + "****************88");
         @SuppressWarnings("unused")
-        User updatedUser = uServ.updateFullUser(u);
+        User updatedUser = uServ.updateUser(u);
       } catch (Exception e) {
         throw new CannotUpdateUserException();
       }
