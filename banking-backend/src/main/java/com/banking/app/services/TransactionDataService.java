@@ -20,7 +20,6 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 public class TransactionDataService {
 	private AccountRepository aRepo;
-	private CreditCardRepository cRepo;
 	private TransactionRepository tRepo;
 	private CreditCardRepository ccRepo;
 	

@@ -39,17 +39,7 @@ public class TransactionController {
 	public List<TransactionData> getTransactionsByAccountId(@PathVariable("accountId")UUID accountId) {
 		return tdServ.getTransactionsByAccountId(accountId);
 	}
-		
-	@GetMapping("/card/{cardId}")
-	public List<TransactionData> getTransactionsByCardId(@PathVariable("cardId")Long cardId){
-		return tdServ.getTransactionsByCardId(cardId);
-	}
-	
-	@GetMapping("/type/{type}")
-	public List<TransactionData> getTransactionsBytype(@PathVariable("type")String type){
-		return tdServ.getTransactionsByType(TransactionType.valueOf(type.toUpperCase()));
-	}
-	
+
 	@GetMapping("/credit-card/{cardId}")
 	public List<TransactionData> getTransactionsByCardId(@PathVariable("cardId")Long cardId) {
 		return tdServ.getTransactionsByCardId(cardId);
