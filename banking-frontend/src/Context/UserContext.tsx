@@ -85,7 +85,7 @@ const UserProvider: React.FC<ProviderProps> = ({ children }) => {
 
         try {
             const { data: accounts } = await axInst.post<Promise<Account[] | undefined>>(
-                "/accounts/account",
+                `/accounts/account/${userId}`,
                 {
                     userId,
                 }
