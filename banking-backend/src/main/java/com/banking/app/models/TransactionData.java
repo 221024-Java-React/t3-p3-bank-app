@@ -39,7 +39,7 @@ public class TransactionData {
   
   @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "card_id")
-  private CreditCard card;
+  private CreditCard creditCard;
 
   private String message;
 
