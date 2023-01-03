@@ -46,7 +46,7 @@ const UserProvider: React.FC<ProviderProps> = ({ children }) => {
 
     const resetPassword = async (email: string, password: string) => {
         try {
-            const thisUser: User = await axInst.put("/users/login_reset", {
+            const thisUser: User = await axInst.put("/users/reset-password", {
                 email,
                 password,
             });
@@ -58,7 +58,7 @@ const UserProvider: React.FC<ProviderProps> = ({ children }) => {
 
     const authenticateUser = async (email: string, token: string) => {
         try {
-            const thisUser: User = await axInst.post("/users/login_Auth", {
+            const thisUser: User = await axInst.post("/users/authenticate", {
                 email,
                 token,
             });
