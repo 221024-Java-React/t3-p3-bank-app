@@ -22,53 +22,52 @@ import lombok.AllArgsConstructor;
 @Service
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 public class AccountService {
-  private AccountRepository cRepo;
+  private AccountRepository aRepo;
   private UserRepository uRepo;
   private TransactionRepository tRepo;
 
   public Account createAccount(Account a) {
-    return cRepo.save(a);
+    return aRepo.save(a);
   }
 
-  public List<Account> getAccountsByUserId(UUID accountId) {
-    User u = uRepo.findByUserId(accountId);
-
-    return cRepo.getAccountsByUser(u);
+  public List<Account> getAccountsByUserId(UUID userId) {
+    User u = uRepo.findByUserId(userId);
+    
+    return aRepo.getAccountsByUser(u);
   }
 
-  public Account getAccountById(UUID id) {
-    return cRepo.getAccountByAccountId(id);
+  public Account getAccountByAccountId(UUID accountId) {
+    return aRepo.getAccountByAccountId(accountId);
   }
 
-  public List<Account> getAccountsByType(AccountType s) {
-
-    return cRepo.getAccountsByType(s);
+  public List<Account> getAccountsByType(AccountType t) {
+    return aRepo.getAccountsByType(t);
   }
 
   public TransactionData transferBetweenAccounts(UUID accountIdFrom, UUID accountIdTo, Double amount) {
-    Account from = cRepo.getAccountByAccountId(accountIdFrom);
-    Account to = cRepo.getAccountByAccountId(accountIdTo);
+    Account from = aRepo.getAccountByAccountId(accountIdFrom);
+    Account to = aRepo.getAccountByAccountId(accountIdTo);
 
     double fromA = from.getBalance() - amount;
     from.setBalance(fromA);
     double toA = to.getBalance() + amount;
     to.setBalance(toA);
-    cRepo.save(from);
-    cRepo.save(to);
-    LocalDate time = LocalDate.now();
+    aRepo.save(from);
+    aRepo.save(to);
+    LocalDate date = LocalDate.now();
 
     TransactionData tFrom = new TransactionData();
     tFrom.setAccount(from);
     tFrom.setAmount(amount);
-    tFrom.setType(TransactionType.WIDTHDRAW);
-    tFrom.setDate(time);
-    tFrom.setMessage(TransactionMessageGenerator.generateMessage(TransactionType.WIDTHDRAW, amount));
+    tFrom.setType(TransactionType.WITHDRAW);
+    tFrom.setDate(date);
+    tFrom.setMessage(TransactionMessageGenerator.generateMessage(TransactionType.WITHDRAW, amount));
 
     TransactionData tTo = new TransactionData();
     tTo.setAccount(to);
     tTo.setAmount(amount);
     tFrom.setType(TransactionType.DEPOSIT);
-    tTo.setDate(time);
+    tTo.setDate(date);
     tTo.setMessage(TransactionMessageGenerator.generateMessage(TransactionType.DEPOSIT, amount));
 
     tRepo.save(tTo);

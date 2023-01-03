@@ -36,7 +36,6 @@ public class User {
   private UUID userId;
 
   @Enumerated(EnumType.STRING)
-  @Column(name = "user_type")
   private UserType type;
 
   @Column(name = "first_name")
@@ -58,15 +57,14 @@ public class User {
   @JsonIgnore
   private List<Account> accounts;
   
-  
   @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
-  @JoinColumn(name = "credit_Card")
+  @JoinColumn(name = "credit_card")
   private CreditCard creditCard;
 
-  @Column(name = "Auth_token")
-  private Integer AuthToken;
+  @Column(name = "auth_token")
+  private Integer authToken;
 
-  @Column(name = "first_Login")
+  @Column(name = "first_login")
   private Boolean firstLogin;
 
   // Register Constructor

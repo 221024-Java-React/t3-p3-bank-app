@@ -7,7 +7,7 @@ public class TransactionMessageGenerator {
   public static String generateMessage(TransactionType type, Double amount) {
 	  String message = "Unidentified Transaction.";
 	  switch(type) {
-	  	case WIDTHDRAW :
+	  	case WITHDRAW :
 		  message = "A widthdrawal of $" + amount + " was made.";
 		  break;
 	  	case DEPOSIT :

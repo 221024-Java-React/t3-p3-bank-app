@@ -10,7 +10,7 @@ import com.banking.app.models.User;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer> {
+  
   Optional<User> getByEmail(String email);
-
-  User findByUserId(UUID accountId);
+  User findByUserId(UUID userId);
 }

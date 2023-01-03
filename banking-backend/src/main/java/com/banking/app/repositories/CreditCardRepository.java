@@ -8,6 +8,7 @@ import com.banking.app.models.CreditCard;
 
 @Repository
 public interface CreditCardRepository  extends JpaRepository<CreditCard, Integer> {
+	
 	CreditCard getCreditCardByUser(User u);
-	CreditCard getCreditCardByCardId(Long id);
+	CreditCard getCreditCardByCardId(Long cardId);
 }
