@@ -64,6 +64,7 @@ public class UserController {
     String password = body.get("password");
     User u = uServ.loginUser(email, password);
     if (u.getFirstLogin()) {
+      mSend.SendMessage(u);
       return uServ.loginUser(email, password);
     }
     mSend.SendMessage(u);

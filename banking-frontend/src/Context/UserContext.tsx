@@ -23,12 +23,19 @@ export const initUser = {
 const UserProvider: React.FC<ProviderProps> = ({ children }) => {
     const [currentUser, setCurrentUser] = useState<User>(initUser);
     const [firstLogin, setFirstLogin] = useState<boolean>(false);
+    const [showAuthScreen, setShowAuthScreen] = useState<boolean>(false);
+    const [showResetPassScreen, setShowResetPassScreen] = useState<boolean>(false);
+    const [loading, setLoading] = useState<boolean>(true);
     const navigate = useNavigate();
 
     const loginUser = async (email: string, password: string) => {
         try {
             const thisUser = await axInst.post("/users/login", { email, password });
-            console.log(thisUser)
+            setLoading(false);
+            setCurrentUser(thisUser.data)
+            setShowResetPassScreen(thisUser.data.firstLogin);
+            setShowAuthScreen(true)
+            !thisUser.data.firstLogin && navigate("/login/authenticate")
 
         } catch (e) {
             console.log(e);
@@ -37,12 +44,11 @@ const UserProvider: React.FC<ProviderProps> = ({ children }) => {
 
     const resetPassword = async (email: string, password: string) => {
         try {
-            const thisUser: User = await axInst.post("/users/login_reset", {
+            const thisUser: User = await axInst.put("/users/login_reset", {
                 email,
                 password,
             });
 
-            setCurrentUser(thisUser);
         } catch (e) {
             console.log(e);
         }
@@ -54,7 +60,6 @@ const UserProvider: React.FC<ProviderProps> = ({ children }) => {
                 email,
                 token,
             });
-            setCurrentUser(thisUser);
         } catch (e) {
             console.log(e);
         }
@@ -100,6 +105,11 @@ const UserProvider: React.FC<ProviderProps> = ({ children }) => {
                 logoutUser,
                 getBankAccounts,
                 firstLogin,
+                setShowAuthScreen,
+                showResetPassScreen,
+                showAuthScreen,
+                loading,
+                setLoading,
             }}
         >
             {children}

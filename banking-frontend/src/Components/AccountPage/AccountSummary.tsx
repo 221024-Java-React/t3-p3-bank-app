@@ -40,6 +40,8 @@ const AccountSummary = () => {
 
     useMemo(() => currentUser.accounts?.forEach(ba => setTotalBalance(prev => prev + ba.balance)), []);
 
+    console.log(currentUser)
+
     return (
         <>
             <AccountHeader

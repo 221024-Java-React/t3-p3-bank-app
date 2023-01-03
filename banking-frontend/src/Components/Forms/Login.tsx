@@ -53,12 +53,9 @@ const initInputs = {
 };
 
 const Login = () => {
-    const [showAuthScreen, setShowAuthScreen] = useState<boolean>(false);
-    const [showResetPassScreen, setShowResetPassScreen] = useState<boolean>(false);
     const [inputs, setInputs] = useState(initInputs);
-    const [loading, setLoading] = useState<boolean>(false);
 
-    const { loginUser, resetPassword, authenticateUser, firstLogin } = useContext(
+    const { loginUser, showResetPassScreen, showAuthScreen, setLoading } = useContext(
         UserContext
     ) as UserContextState;
     const navigate = useNavigate();
@@ -75,43 +72,8 @@ const Login = () => {
 
         loginUser(email, password)
         console.log(email, password)
-        // firstLogin ? setShowResetPassScreen(true) : setShowAuthScreen(true);
-        if (firstLogin) {
-            setShowResetPassScreen(true);
-            setLoading(false);
-        } else {
-            setShowAuthScreen(true);
-            setLoading(false);
-        }
+        navigate("/login/reset_password")
     };
-
-    const handleResetPassFormSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        const { email, newPassword_1, newPassword_2 } = inputs;
-
-        if (newPassword_1 === newPassword_2) {
-            await resetPassword(email, newPassword_1);
-            setInputs(initInputs);
-
-            navigate("/");
-        }
-    };
-
-    const handleAuthFormSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        const { email, token } = inputs;
-
-        console.log(email, token)
-        await authenticateUser(email, token);
-        setInputs(initInputs);
-
-        navigate("/");
-    };
-
-    if (loading) {
-        return <Container />
-    }
-
     return (
         <Container>
             {!showAuthScreen && !showResetPassScreen && (
@@ -126,32 +88,6 @@ const Login = () => {
                         onChange={handleInputChange}
                     />
                     <SubmitButton type="submit" value="Log In" />
-                </Form>
-            )}
-            {showAuthScreen && (
-                <Form onSubmit={handleAuthFormSubmit}>
-                    <Label htmlFor="token">Enter Twilio Passcode</Label>
-                    <Input type="text" name="token" id="token" onChange={handleInputChange} />
-                    <SubmitButton type="submit" value="Submit Passcode" />
-                </Form>
-            )}
-            {showResetPassScreen && (
-                <Form onSubmit={handleResetPassFormSubmit}>
-                    <Label htmlFor="newPassword_1">Enter New Password</Label>
-                    <Input
-                        type="password"
-                        name="newPassword_1"
-                        id="newPassword_1"
-                        onChange={handleInputChange}
-                    />
-                    <Label htmlFor="newPassword_2">Re-Enter New Password</Label>
-                    <Input
-                        type="password"
-                        name="newPassword_2"
-                        id="newPassword_2"
-                        onChange={handleInputChange}
-                    />
-                    <SubmitButton type="submit" value="Reset Password" />
                 </Form>
             )}
         </Container>
