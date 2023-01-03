@@ -37,28 +37,26 @@ public class CreditCardController {
   private TransactionDataService tdServ;
   private AccountService aServ;
 
+  @PostMapping("/")
+  public CreditCard getCreditCardByCardId(@RequestBody LinkedHashMap<String, Long> body) {
+	  Long cardId = body.get("cardId");
+	  return ccServ.getCreditCardByCardId(cardId);
+  }
+  
   @PostMapping("/user")
   public CreditCard getCreditCardByUser(@RequestBody LinkedHashMap<String, String> body) {
     String email = body.get("email");
     User u = uServ.getUserByEmail(email);
-
     return ccServ.getCreditCardByUser(u);
   }
 
-  @PostMapping("/")
-  public CreditCard getCardById(@RequestBody LinkedHashMap<String, Long> body) {
-    Long cardId = body.get("cardId");
-    return ccServ.getCreditCardByCardId(cardId);
-  }
-
   @PostMapping("/purchase")
-  public ResponseEntity<String> payWithCard(@RequestBody LinkedHashMap<String, String> body) {
-    Long id = Long.parseLong(body.get("cardId"));
+  public ResponseEntity<String> purchaseWithCreditCard(@RequestBody LinkedHashMap<String, String> body) {
+    Long cardId = Long.parseLong(body.get("cardId"));
     Double amount = Double.parseDouble(body.get("amount"));
 	String message = TransactionMessageGenerator.generateMessage(TransactionType.PURCHASE, amount);
 	LocalDate date = LocalDate.now();
-	
-	CreditCard card = ccServ.getCreditCardByCardId(id);
+	CreditCard card = ccServ.getCreditCardByCardId(cardId);
 	
 	TransactionData t = new TransactionData();
 	t.setType(TransactionType.PURCHASE);
@@ -68,38 +66,39 @@ public class CreditCardController {
 	t.setCard(card);
 	tdServ.createTransaction(t);
     
-	return new ResponseEntity<>("Puchase made.", HttpStatus.OK);
+    return new ResponseEntity<>("Made a credit card purchase successfully", HttpStatus.OK);
   }
 
   @PostMapping("/pay")
   public ResponseEntity<String> payOffCard(@RequestBody LinkedHashMap<String, String> body) {
-	Long id = Long.parseLong(body.get("cardId"));
+	Long cardId = Long.parseLong(body.get("cardId"));
 	UUID accountId = UUID.fromString(body.get("accountId"));
-	Double amount = Double.parseDouble(body.get("amount")); 
+	Double amount = Double.parseDouble(body.get("amount"));
 	String cardMessage = TransactionMessageGenerator.generateMessage(TransactionType.PAY, amount);
 	LocalDate date = LocalDate.now();
 	
-	CreditCard card = ccServ.getCreditCardByCardId(id);
+	CreditCard c = ccServ.getCreditCardByCardId(cardId);
 	
-	TransactionData tCard = new TransactionData();
-	tCard.setType(TransactionType.PAY);
-	tCard.setAmount(amount);
-	tCard.setMessage(cardMessage);
-	tCard.setDate(date);
-	tCard.setCard(card);
-	tdServ.createTransaction(tCard);
+	TransactionData tdCard = new TransactionData();
+	tdCard.setType(TransactionType.PAY);
+	tdCard.setAmount(amount);
+	tdCard.setMessage(cardMessage);
+	tdCard.setDate(date);
+	tdCard.setCard(c);
+	tdServ.createTransaction(tdCard);
 	
 	Account a = aServ.getAccountByAccountId(accountId);
-	String accountMessage = TransactionMessageGenerator.generateMessage(TransactionType.WITHDRAW, amount);
-	TransactionData tAccount = new TransactionData();
-	tAccount.setType(TransactionType.WITHDRAW);
-	tAccount.setAmount(amount);
-	tAccount.setMessage(accountMessage);
-	tAccount.setDate(date);
-	tAccount.setAccount(a);
-	tdServ.createTransaction(tAccount);
-	ccServ.payCreditCardBalance(id, amount, accountId);
 	
-	return new ResponseEntity<>("Credit payment made successfully.", HttpStatus.OK);
+	String accountMessage = TransactionMessageGenerator.generateMessage(TransactionType.WITHDRAW, amount);
+	TransactionData tdAccount = new TransactionData();
+	tdAccount.setType(TransactionType.WITHDRAW);
+	tdAccount.setAmount(amount);
+	tdAccount.setMessage(accountMessage);
+	tdAccount.setDate(date);
+	tdAccount.setAccount(a);
+	tdServ.createTransaction(tdAccount);
+	
+	return new ResponseEntity<>("Credit card payment made successfully", HttpStatus.OK);
   }
+  
 }

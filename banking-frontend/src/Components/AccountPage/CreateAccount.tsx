@@ -28,8 +28,6 @@ const CreateAccount = () => {
                 balance,
             },
         });
-
-        console.log(data);
     };
 
     return (

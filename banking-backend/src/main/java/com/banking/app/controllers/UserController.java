@@ -46,10 +46,10 @@ public class UserController {
     mSend.SendFirstPassword(registeredUser);
 
     if (accountType.equals("both")) {
-      Account accountChecking = new Account("checking", registeredUser, balance);
-      Account accountSavings = new Account("savings", registeredUser, balance);
-      aServ.createAccount(accountChecking);
-      aServ.createAccount(accountSavings);
+      Account checking = new Account("checking", registeredUser, balance);
+      Account savings = new Account("savings", registeredUser, balance);
+      aServ.createAccount(checking);
+      aServ.createAccount(savings);
     } else {
       Account account = new Account(accountType, registeredUser, balance);
       aServ.createAccount(account);
@@ -63,9 +63,9 @@ public class UserController {
     String email = body.get("email");
     String password = body.get("password");
     User u = uServ.loginUser(email, password);
-    if(!u.getFirstLogin()) {
-    	mSend.SendMessage(u);
-    } 
+
+    mSend.SendMessage(u); 
+    
     return u;
   }
   
@@ -77,15 +77,16 @@ public class UserController {
 	  User u = uServ.getUserByEmail(email);
 	  u.setPassword(password);
 	  u.setFirstLogin(false);
-	  u = uServ.updateUser(u);
-	  return u;
+	  
+	  return uServ.updateUser(u);
   }
-  
+
   @PostMapping("/authenticate")
-  public User loginAuth(@RequestBody LinkedHashMap<String, String> body) {
-    String email = (String) body.get("email");
-    Integer authToken = Integer.parseInt(body.get("token"));
-    return uServ.authenticateUser(email, authToken);
+  public User authenticateUser(@RequestBody LinkedHashMap<String, String> body) {
+    String email = body.get("email");
+    Integer token = Integer.parseInt(body.get("token"));
+
+    return uServ.authenticateUser(email, token);
   }
 
 	/*
@@ -121,4 +122,5 @@ public class UserController {
     String email = body.get("email");
     return uServ.getUserByEmail(email);
   }
+
 }

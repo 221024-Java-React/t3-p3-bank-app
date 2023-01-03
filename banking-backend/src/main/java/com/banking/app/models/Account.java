@@ -38,7 +38,6 @@ public class Account {
   private UUID accountId;
 
   @Enumerated(EnumType.STRING)
-  @Column(name = "type")
   private AccountType type;
 
   @ManyToOne(fetch = FetchType.EAGER)

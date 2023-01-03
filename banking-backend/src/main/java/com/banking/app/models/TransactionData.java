@@ -41,8 +41,8 @@ public class TransactionData {
   @JoinColumn(name = "card_id")
   private CreditCard card;
 
-  
   private String message;
   private Double amount;
+
   private LocalDate date;
 }

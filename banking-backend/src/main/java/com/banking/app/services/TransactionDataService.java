@@ -22,6 +22,7 @@ public class TransactionDataService {
 	private AccountRepository aRepo;
 	private CreditCardRepository cRepo;
 	private TransactionRepository tRepo;
+	private CreditCardRepository ccRepo;
 	
 	public TransactionData createTransaction(TransactionData t) {
 		return tRepo.save(t);
@@ -37,16 +38,16 @@ public class TransactionDataService {
 	}
 	
 	public List<TransactionData> getTransactionsByCardId(Long cardId) {
-		CreditCard c = cRepo.getCreditCardByCardId(cardId);
-		return tRepo.getTransactionsByCard(c);
+		CreditCard c = ccRepo.getCreditCardByCardId(cardId);
+		return tRepo.getTransactionsByCreditCard(c);
 	}
 	
-	public List<TransactionData> getTransactionsByType(TransactionType t){
+	public List<TransactionData> getTransactionsByType(TransactionType t) {
 		return tRepo.getTransactionsByType(t);
 	}
 	
 	 
-	public TransactionData getTransactionById(Integer transactioId) {
-		return tRepo.getTransactionDataByTransactionId(transactioId);
+	public TransactionData getTransactionDataByTransactionId(Integer transactionId) {
+		return tRepo.getTransactionDataByTransactionId(transactionId);
 	}
 }

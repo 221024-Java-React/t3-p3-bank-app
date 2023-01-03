@@ -15,6 +15,12 @@ export interface User {
 
 export interface UserContextState {
     currentUser: User;
+    userData: User;
+    loading: boolean;
+    showAuthScreen: boolean;
+    showResetPassScreen: boolean;
+    setLoading: (b: boolean) => void;
+    setShowAuthScreen: (b: boolean) => void;
     setCurrentUser: (user: User) => void;
     loginUser: (email: string, password: string) => Promise<User | undefined | void>;
     resetPassword: (email: string, password: string) => Promise<User | undefined | void>;

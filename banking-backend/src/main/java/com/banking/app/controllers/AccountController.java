@@ -26,21 +26,21 @@ import lombok.AllArgsConstructor;
 public class AccountController {
 
   private AccountService aServ;
-
+  
   @PostMapping("/create")
   public Account createAccount(@RequestBody Account a) {
     return aServ.createAccount(a);
   }
 
   @PostMapping("/transfer")
-  public <T> TransactionData transferFunds(@RequestBody LinkedHashMap<String, T> body) {
-    UUID accountIdFrom = (UUID) body.get("accountIdFrom");
-    UUID accountIdTo = (UUID) body.get("accountIdTo");
-    Double amount = (Double) body.get("amount");
+  public TransactionData transferFunds(@RequestBody LinkedHashMap<String, String> body) {
+    UUID accountIdFrom = UUID.fromString(body.get("accountIdFrom"));
+    UUID accountIdTo = UUID.fromString(body.get("accountIdTo"));
+    Double amount = Double.parseDouble(body.get("amount"));
     return aServ.transferBetweenAccounts(accountIdFrom, accountIdTo, amount);
   }
 
-  @GetMapping("/account/{userId}")
+  @PostMapping("/account/{userId}")
   public List<Account> getAccountsByUserId(@PathVariable("userId")UUID userId) {
     return aServ.getAccountsByUserId(userId);
   }

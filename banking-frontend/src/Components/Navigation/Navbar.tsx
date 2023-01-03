@@ -6,8 +6,7 @@ import { Link } from "react-router-dom";
 import GBLogo_White from "../../Assets/GoodBank-Logo_White.png";
 import { DarkModeContext } from "../../Context/DarkModeContext";
 import { DarkModeContextState } from "../../Interfaces/DarkMode";
-import SunIcon from "../../Assets/sun-icon.png";
-import MoonIcon from "../../Assets/moon-icon.png";
+import { BsFillSunFill, BsFillMoonFill } from 'react-icons/bs'
 
 const Container = styled.div`
     position: sticky;
@@ -21,9 +20,13 @@ const Menu = styled.div`
     padding: 0.5rem;
     padding-right: 1rem;
 `;
-const Icon = styled.img`
-    width: 1.1rem;
+const Icon = styled.button`
+    width: fit-content;
     cursor: pointer;
+    background: transparent;
+    border: none;
+    font-size: 1rem;
+    padding: 0; 
 `;
 const MenuItem = styled.div`
     margin-left: 1rem;
@@ -40,7 +43,6 @@ const MenuItem = styled.div`
 `;
 const Banner = styled.div`
     background: ${props => props.theme.primaryDark};
-    box-shadow: 0 10px 5px ${props => props.theme.background};
     margin-bottom: 1.5rem;
     border-radius: 0 0 3px 3px;
 `;
@@ -57,7 +59,11 @@ const Navbar: React.FC = () => {
     return (
         <Container>
             <Menu>
-                <Icon src={mode === "Light" ? MoonIcon : SunIcon} onClick={toggleDarkMode} />
+                <MenuItem>
+                    <Icon onClick={toggleDarkMode}>
+                        {mode === "Light" ? <BsFillMoonFill style={{ color: 'black' }} /> : <BsFillSunFill style={{ color: 'white' }} />}
+                    </Icon>
+                </MenuItem>
                 {currentUser.type === "REP" && (
                     <MenuItem>
                         <Link to="/register">Register A New User</Link>

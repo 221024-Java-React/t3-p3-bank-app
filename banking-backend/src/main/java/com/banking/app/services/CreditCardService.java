@@ -18,16 +18,18 @@ import lombok.AllArgsConstructor;
 public class CreditCardService {
 	private CreditCardRepository ccRepo;
 	private AccountRepository aRepo;
+	
 	public CreditCard createCreditCard(CreditCard c) {
 		Long randLongId = (long) ((Math.random()*(9999999999999999l - 1111111111111111l))+ 1111111111111111l);
 		c.setCardId(randLongId);
+		
 		return ccRepo.save(c);
 	}
 	
 	public CreditCard getCreditCardByUser(User u) {
 	    try {
 	      return ccRepo.getCreditCardByUser(u);
-	    } catch (Exception e) {
+	    } catch (NoSuchElementException e) {
 	      throw new NoSuchElementException();
 	    }
 	}
@@ -35,32 +37,35 @@ public class CreditCardService {
 	public CreditCard getCreditCardByCardId(Long cardId) {
 	    try {
 	      return ccRepo.getCreditCardByCardId(cardId);
-	    } catch (Exception e) {
+	    } catch (NoSuchElementException e) {
 	      throw new NoSuchElementException();
 	    }
 	}
 	
-	public void addToCreditCardBalance(Long id, double amount) {
+	public void addToCreditCardBalance(Long cardId, Double amount) {
 		try {
-			CreditCard card = ccRepo.getCreditCardByCardId(id);
-				card.setBalance(card.getBalance()+amount);
-				ccRepo.save(card);
-	    } catch (Exception e) {
-	      throw new NoSuchElementException();
-	    }
+			CreditCard c = ccRepo.getCreditCardByCardId(cardId);
+			Double currentBalance = c.getBalance() + amount;
+
+			c.setBalance(currentBalance);
+			ccRepo.save(c);
+
+		} catch (NoSuchElementException e) {
+			throw new NoSuchElementException();
+		}
 	}
 	
-	public void payCreditCardBalance(Long cardId, double amountPaid, UUID accountId) {
+	public void payCreditCardBalance(Long cardId, Double amountPaid, UUID accountId) {
 		try {
-			CreditCard card = ccRepo.getCreditCardByCardId(cardId);
+			CreditCard cc = ccRepo.getCreditCardByCardId(cardId);
 			Account a = aRepo.getAccountByAccountId(accountId);
-			Double current = a.getBalance();
+			Double currentBalance = a.getBalance();
 			
-			a.setBalance(current-amountPaid);
+			a.setBalance(currentBalance-amountPaid);
 			aRepo.save(a);
 			
-			card.setBalance(card.getBalance()-amountPaid);
-			ccRepo.save(card);
+			cc.setBalance(cc.getBalance()-amountPaid);
+			ccRepo.save(cc);
 			
 	    } catch (NoSuchElementException e) {
 	      throw new NoSuchElementException();

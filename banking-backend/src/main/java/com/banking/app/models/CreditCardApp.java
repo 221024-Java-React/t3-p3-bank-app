@@ -1,6 +1,5 @@
 package com.banking.app.models;
 
-
 import com.banking.app.utils.LimitCalculator;
 
 import jakarta.persistence.Column;
@@ -17,20 +16,16 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "Credit_Card_Application")
+@Table(name = "credit_card_apps")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class CreditCardApp {
-	
-	
-	
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "application_Id")
+	@Column(name = "application_id")
 	private Integer applicationId;
-	
 	
 	@Enumerated(EnumType.STRING)
 	private CreditCardAppStatus status;
@@ -58,7 +53,7 @@ public class CreditCardApp {
 	private Double approvedLimit;
 	
 	public void setApprovedLimit(Integer age, Integer creditScore, Double income, Double debt) {
-		double dti = LimitCalculator.calcMaxDti(age, creditScore);
+		Double dti = LimitCalculator.calcMaxDti(age, creditScore);
 		Double lim = LimitCalculator.calcCreditLimit(income, creditScore, dti);
 		this.approvedLimit = lim;
 	}

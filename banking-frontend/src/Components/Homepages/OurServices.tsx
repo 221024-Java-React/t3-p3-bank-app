@@ -5,6 +5,7 @@ import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 const Container = styled.div`
     height: fit-content;
     padding-top: 40px;
+    color: ${props => props.theme.altText};
 `;
 const ServicesTitle = styled.h2`
     letter-spacing: 2px;
@@ -20,20 +21,23 @@ const AccordionWrapper = styled.div`
     flex-direction: column;
     align-items: center;
 `;
-const AccordionItem = styled.div``;
+const AccordionItem = styled.div`
+    color: ${props => props.theme.altText};
+`;
 const AccordionHeader = styled.h2`
     border-bottom: 1px solid ${props => props.theme.border};
     padding: 5px;
     display: flex;
 `;
-const AccordionButton = styled.button`
+const AccordionButton = styled.button<{ accordionIndex: boolean }>`
     border: none;
     background-color: transparent;
-    color: ${props => props.theme.color};
     width: 100%;
     text-align: left;
     font-size: 1em;
     cursor: pointer;
+    /* color: ${props => props.theme.altText}; */
+    color: ${props => (props.accordionIndex ? props.theme.color : props.theme.altText)};
 `;
 const AccordionContentWrapper = styled.div<{ accordionIndex: boolean }>`
     overflow: hidden;
@@ -62,8 +66,8 @@ const OurServices = () => {
             <AccordionWrapper>
                 <AccordionItem>
                     <AccordionHeader onClick={() => handleActiveItem(1)}>
-                        <AccordionButton>Checking Accounts</AccordionButton>
-                        <AccordionButton style={{ textAlign: "right" }}>
+                        <AccordionButton accordionIndex={activeAccordion === 1}>Checking Accounts</AccordionButton>
+                        <AccordionButton accordionIndex={activeAccordion === 1} style={{ textAlign: "right" }}>
                             {activeAccordion === 1 ? <IoIosArrowUp /> : <IoIosArrowDown />}
                         </AccordionButton>
                     </AccordionHeader>
@@ -78,8 +82,8 @@ const OurServices = () => {
                 </AccordionItem>
                 <AccordionItem>
                     <AccordionHeader onClick={() => handleActiveItem(2)}>
-                        <AccordionButton>Savings Accounts</AccordionButton>
-                        <AccordionButton style={{ textAlign: "right" }}>
+                        <AccordionButton accordionIndex={activeAccordion === 2}>Savings Accounts</AccordionButton>
+                        <AccordionButton accordionIndex={activeAccordion === 2} style={{ textAlign: "right" }}>
                             {activeAccordion === 2 ? <IoIosArrowUp /> : <IoIosArrowDown />}
                         </AccordionButton>
                     </AccordionHeader>
@@ -94,8 +98,8 @@ const OurServices = () => {
                 </AccordionItem>
                 <AccordionItem>
                     <AccordionHeader onClick={() => handleActiveItem(3)}>
-                        <AccordionButton>Credit Accounts</AccordionButton>
-                        <AccordionButton style={{ textAlign: "right" }}>
+                        <AccordionButton accordionIndex={activeAccordion === 3}>Credit Accounts</AccordionButton>
+                        <AccordionButton accordionIndex={activeAccordion === 3} style={{ textAlign: "right" }}>
                             {activeAccordion === 3 ? <IoIosArrowUp /> : <IoIosArrowDown />}
                         </AccordionButton>
                     </AccordionHeader>

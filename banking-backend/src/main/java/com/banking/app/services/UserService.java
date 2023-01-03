@@ -53,6 +53,7 @@ public class UserService {
   public void logout(String email) {
     User u = uRepo.getByEmail(email).orElseThrow(InvalidCredentialsException::new);
     u.setAuthToken(null);
+    
     try {
       uRepo.save(u);
     } catch (Exception ex) {
@@ -60,24 +61,9 @@ public class UserService {
     }
   }
 
-
   public User updateUser(User u) {
-	  try {
-		  return uRepo.save(u);
-	    } catch (Exception ex) {
-	      throw new CannotUpdateUserException();
-	    }
-  }
-
-  public User updatePassword(String email, String password) {
-
-    User u = uRepo.getByEmail(email).orElseThrow(InvalidCredentialsException::new);
-
-    u.setPassword(password);
-
-    try {
-      User ret = uRepo.save(u);
-      return ret;
+	try {
+	  return uRepo.save(u);
     } catch (Exception ex) {
       throw new CannotUpdateUserException();
     }
@@ -91,15 +77,15 @@ public class UserService {
     } catch (NoSuchElementException e) {
       return u;
     }
-
   }
-  public User getUserById(UUID userId) {
-	    User u = null;
+  
+  public User getUserByUserId(UUID userId) {
+    User u = null;
 
-	    try {
-	      return uRepo.findByUserId(userId);
-	    } catch (NoSuchElementException e) {
-	      return u;
-	    }
-	  }
+    try {
+      return uRepo.findByUserId(userId);
+    } catch (NoSuchElementException e) {
+      return u;
+    }
+  }
 }

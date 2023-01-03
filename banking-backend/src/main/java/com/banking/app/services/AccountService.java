@@ -32,16 +32,15 @@ public class AccountService {
 
   public List<Account> getAccountsByUserId(UUID userId) {
     User u = uRepo.findByUserId(userId);
-
+    
     return aRepo.getAccountsByUser(u);
   }
 
-  public Account getAccountByAccountId(UUID accountid) {
-    return aRepo.getAccountByAccountId(accountid);
+  public Account getAccountByAccountId(UUID accountId) {
+    return aRepo.getAccountByAccountId(accountId);
   }
 
   public List<Account> getAccountsByType(AccountType t) {
-
     return aRepo.getAccountsByType(t);
   }
 

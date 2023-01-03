@@ -50,7 +50,18 @@ public class TransactionController {
 		return tdServ.getTransactionsByType(TransactionType.valueOf(type.toUpperCase()));
 	}
 	
-	//Used to dreate dumm transaction data
+	@GetMapping("/credit-card/{cardId}")
+	public List<TransactionData> getTransactionsByCardId(@PathVariable("cardId")Long cardId) {
+		return tdServ.getTransactionsByCardId(cardId);
+	}
+	
+	@GetMapping("/type/{typeId}")
+	public List<TransactionData> getTransactionsByType(@PathVariable("typeId")String typeId) {
+		TransactionType t = TransactionType.valueOf(typeId);
+		return tdServ.getTransactionsByType(t);
+	}
+	
+	// Used to create dummy transaction data
 	@PostMapping("/transaction/create")
 	public TransactionData createTransaction(@RequestBody LinkedHashMap<String, String> body) {
 		String type = body.get("type");
@@ -58,26 +69,27 @@ public class TransactionController {
 		String message = TransactionMessageGenerator.generateMessage(TransactionType.valueOf(type), amount);
 		LocalDate date = LocalDate.now();
 		
-		TransactionData t = new TransactionData();
-		t.setType(TransactionType.valueOf(type));
-		t.setAmount(amount);
-		t.setMessage(message);
-		t.setDate(date);
+		TransactionData td = new TransactionData();
+		td.setType(TransactionType.valueOf(type));
+		td.setAmount(amount);
+		td.setMessage(message);
+		td.setDate(date);
 		
 		if (body.get("accountId") != null) {
 			UUID accountId = UUID.fromString(body.get("accountId"));
 			Account userAccount = aServ.getAccountByAccountId(accountId);
 			
-			t.setAccount(userAccount);
-			return tdServ.createTransaction(t);
+			td.setAccount(userAccount);
+			return tdServ.createTransaction(td);
 			
 		} else {
 			Long cardId = Long.parseLong(body.get("cardId"));
 			CreditCard card = ccServ.getCreditCardByCardId(cardId);
 			
-			t.setCard(card);
-			return tdServ.createTransaction(t);
+			td.setCard(card);
+			return tdServ.createTransaction(td);
 		}
 		
 	}
+
 }

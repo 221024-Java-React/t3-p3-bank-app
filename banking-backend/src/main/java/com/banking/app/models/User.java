@@ -36,7 +36,6 @@ public class User {
   private UUID userId;
 
   @Enumerated(EnumType.STRING)
-  @Column(name = "type")
   private UserType type;
 
   @Column(name = "first_name")
@@ -57,16 +56,16 @@ public class User {
   @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
   @JsonIgnore
   private List<Account> accounts;
-  
-  
+
   @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
   @JoinColumn(name = "credit_card")
+  @JsonIgnore
   private CreditCard creditCard;
 
   @Column(name = "auth_token")
   private Integer authToken;
 
-  @Column(name = "first_Login")
+  @Column(name = "first_login")
   private Boolean firstLogin;
 
   

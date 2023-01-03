@@ -13,8 +13,8 @@ import com.banking.app.models.TransactionType;
 public interface TransactionRepository extends JpaRepository<TransactionData, Integer> {
 	
   List<TransactionData> getTransactionsByAccount(Account a);
-  List<TransactionData> getTransactionsByCard(CreditCard c);
+  List<TransactionData> getTransactionsByCreditCard(CreditCard c);
   List<TransactionData> getTransactionsByType(TransactionType t);
-  TransactionData getTransactionDataByTransactionId(int transactionid);
+  TransactionData getTransactionDataByTransactionId(Integer transactionId);
 }
 
