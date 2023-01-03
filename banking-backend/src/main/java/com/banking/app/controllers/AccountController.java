@@ -40,7 +40,7 @@ public class AccountController {
     return aServ.transferBetweenAccounts(accountIdFrom, accountIdTo, amount);
   }
 
-  @GetMapping("/account/{userId}")
+  @PostMapping("/account/{userId}")
   public List<Account> getAccountsByUserId(@PathVariable("userId")UUID userId) {
     return aServ.getAccountsByUserId(userId);
   }
