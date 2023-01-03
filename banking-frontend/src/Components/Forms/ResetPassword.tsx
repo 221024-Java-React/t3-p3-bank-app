@@ -67,11 +67,11 @@ const ResetPassword = () => {
     const handleResetPassFormSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
         e.preventDefault();
         const { email, newPassword_1, newPassword_2 } = inputs;
-        console.log(email, newPassword_1);
+        console.log(email, newPassword_1, " whaat is being passed to the back");
 
 
         if (newPassword_1 === newPassword_2) {
-            await resetPassword(email, newPassword_1);
+            await resetPassword(userData.email, newPassword_1);
             setInputs(initInputs);
 
 
