@@ -58,7 +58,7 @@ public class User {
   private List<Account> accounts;
 
   @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
-  @JoinColumn(name = "credit_Card")
+  @JoinColumn(name = "credit_card")
   @JsonIgnore
   private CreditCard creditCard;
 
