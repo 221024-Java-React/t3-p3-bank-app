@@ -30,7 +30,7 @@ public class MessageSender {
       u.setAuthToken(randLogId);
       try {
         @SuppressWarnings("unused")
-        User updatedUser = uServ.updateFullUser(u);
+        User updatedUser = uServ.updateUser(u);
       } catch (Exception e) {
         throw new CannotUpdateUserException();
       }

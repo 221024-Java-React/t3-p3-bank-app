@@ -24,13 +24,7 @@ public class CreditCardAppService {
 		return aRepo.getCreditCardAppsByStatus(s);
 	}
 	
-	public CreditCardApp getCreditCardAppByApplicationID(int id) {
+	public CreditCardApp getCreditCardAppByApplicationID(Integer id) {
 		return aRepo.getCreditCardAppByApplicationId(id);
-	}
-	
-	public CreditCardApp updateCreditCardApp(int id, CreditCardAppStatus s) {
-		CreditCardApp a=aRepo.getCreditCardAppByApplicationId(id);
-		a.setStatus(s);
-		return aRepo.save(a);
 	}
 }

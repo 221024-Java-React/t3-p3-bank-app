@@ -7,8 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.banking.app.models.Account;
+import com.banking.app.models.CreditCard;
 import com.banking.app.models.TransactionData;
+import com.banking.app.models.TransactionType;
 import com.banking.app.repositories.AccountRepository;
+import com.banking.app.repositories.CreditCardRepository;
 import com.banking.app.repositories.TransactionRepository;
 
 import lombok.AllArgsConstructor;
@@ -17,22 +20,33 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 public class TransactionDataService {
 	private AccountRepository aRepo;
+	private CreditCardRepository cRepo;
 	private TransactionRepository tRepo;
 	
 	public TransactionData createTransaction(TransactionData t) {
 		return tRepo.save(t);
 	}
 	
-	public void deleteTransaction(int id) {
-		tRepo.deleteById(id);
+	public void deleteTransaction(Integer transactionId) {
+		tRepo.deleteById(transactionId);
 	}
 	
 	public List<TransactionData> getTransactionsByAccountId(UUID accountId) {
 		Account a = aRepo.getAccountByAccountId(accountId);
-		return tRepo.getTransactionDataByAccount(a);
+		return tRepo.getTransactionsByAccount(a);
 	}
+	
+	public List<TransactionData> getTransactionsByCardId(Long cardId) {
+		CreditCard c = cRepo.getCreditCardByCardId(cardId);
+		return tRepo.getTransactionsByCard(c);
+	}
+	
+	public List<TransactionData> getTransactionsByType(TransactionType t){
+		return tRepo.getTransactionsByType(t);
+	}
+	
 	 
-	public TransactionData getTransactionById(int id) {
-		return tRepo.getTransactionDataByTransactionId(id);
+	public TransactionData getTransactionById(Integer transactioId) {
+		return tRepo.getTransactionDataByTransactionId(transactioId);
 	}
 }

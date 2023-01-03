@@ -40,7 +40,7 @@ public class UserService {
     return u;
   }
 
-  public User loginUser(String email, Integer authToken) {
+  public User authenticateUser(String email, Integer authToken) {
     User u = uRepo.getByEmail(email).orElseThrow(InvalidCredentialsException::new);
 
     if (!u.getAuthToken().equals(authToken)) {
@@ -60,33 +60,13 @@ public class UserService {
     }
   }
 
-  public User updateUser(String firstName, String lastName, String email) {
 
-    User u = uRepo.getByEmail(email).orElseThrow(InvalidCredentialsException::new);
-
-    u.setFirstName(firstName);
-    u.setLastName(lastName);
-
-    try {
-      User ret = uRepo.save(u);
-      return ret;
-    } catch (Exception ex) {
-      throw new CannotUpdateUserException();
-    }
-  }
-
-  public User updateFullUser(User updateUser) {
-    User prevUser = uRepo.findByUserId(updateUser.getUserId());
-
-    prevUser.setFirstName(updateUser.getFirstName());
-    prevUser.setLastName(updateUser.getLastName());
-    prevUser.setEmail(updateUser.getEmail());
-    prevUser.setAddress(updateUser.getAddress());
-    prevUser.setPhoneNumber(updateUser.getPhoneNumber());
-    updateUser.setPassword(prevUser.getPassword());
-
-    return uRepo.save(updateUser);
-
+  public User updateUser(User u) {
+	  try {
+		  return uRepo.save(u);
+	    } catch (Exception ex) {
+	      throw new CannotUpdateUserException();
+	    }
   }
 
   public User updatePassword(String email, String password) {
@@ -113,14 +93,13 @@ public class UserService {
     }
 
   }
-  public User getUserById(UUID id) {
+  public User getUserById(UUID userId) {
 	    User u = null;
 
 	    try {
-	      return uRepo.findByUserId(id);
+	      return uRepo.findByUserId(userId);
 	    } catch (NoSuchElementException e) {
 	      return u;
 	    }
-
 	  }
 }

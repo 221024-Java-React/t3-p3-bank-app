@@ -54,7 +54,6 @@ public class CreditCardAppController {
   @PostMapping("/create")
   public CreditCardApp createCreditCardApp(@RequestBody LinkedHashMap<String, String> body) {
     Integer age = Integer.parseInt(body.get("age"));
-
     UUID userId = UUID.fromString(body.get("userId"));
     User u = uServ.getUserById(userId);
     String email = u.getEmail();
@@ -68,44 +67,28 @@ public class CreditCardAppController {
     Double estDebt = Double.parseDouble(body.get("totalMiscPayments")) + Double.parseDouble(body.get("rent"))
         + Double.parseDouble(body.get("carPayment"));
 
-    CreditCardAppStatus s;
-    CreditCardApp cardApp = new CreditCardApp();
-    CreditCard newCard = new CreditCard();
-    if (age <= 15 || creditScore <= 300) {
-      s = CreditCardAppStatus.DENIED;
-      cardApp.setStatus(s);
-      cardApp.setCard(cServ.getCreditCardByUser(uServ.getUserById(userId)));
-      cardApp.setAge(age);
-      cardApp.setCreditScore(creditScore);
-      cardApp.setMonthlyIncome(monthlyIncome);
-      cardApp.setNetWorth(netWorth);
-      cardApp.setEstDebt(estDebt);
-      cardApp.setApprovedLimit(age, creditScore, monthlyIncome, estDebt);
-      cardApp.setApplicant(email);
-    } else {
-      s = CreditCardAppStatus.APPROVED;
-      cardApp.setStatus(s);
-
-      cardApp.setAge(age);
-      cardApp.setCreditScore(creditScore);
-      cardApp.setMonthlyIncome(monthlyIncome);
-      cardApp.setNetWorth(netWorth);
-      cardApp.setEstDebt(estDebt);
-      cardApp.setApprovedLimit(age, creditScore, monthlyIncome, estDebt);
-      cardApp.setApplicant(email);
-
-      Double limit = cardApp.getApprovedLimit();
+    
+      CreditCardApp app = new CreditCardApp();
+      app.setStatus(CreditCardAppStatus.APPROVED);
+      app.setAge(age);
+      app.setCreditScore(creditScore);
+      app.setMonthlyIncome(monthlyIncome);
+      app.setNetWorth(netWorth);
+      app.setEstimatedDebt(estDebt);
+      app.setApprovedLimit(age, creditScore, monthlyIncome, estDebt);
+      app.setApplicant(email);
+      
+      CreditCard newCard = new CreditCard();
       newCard.setUser(u);
-      newCard.setCreditLimit(limit);
+      newCard.setCreditLimit(app.getApprovedLimit());
       newCard.setBalance(0.0);
-      newCard.setAppl(cardApp);
-
-      cardApp.setCard(cServ.getCreditCardByUser(uServ.getUserById(userId)));
-
+      newCard.setApp(app);
       cServ.createCreditCard(newCard);
-    }
+      
+      app.setCard(cServ.getCreditCardByUser(uServ.getUserById(userId)));
+      
 
-    return aServ.createCreditCardApp(cardApp);
+    return aServ.createCreditCardApp(app);
   }
 
 }

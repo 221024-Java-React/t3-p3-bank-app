@@ -1,5 +1,5 @@
 package com.banking.app.models;
 
 public enum TransactionType {
-  WIDTHDRAW, DEPOSIT, TRANSFER, PAY, PURCHASE
+  WITHDRAW, DEPOSIT, TRANSFER, PAY, PURCHASE
 }

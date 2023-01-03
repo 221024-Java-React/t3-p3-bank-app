@@ -26,26 +26,23 @@ public class TransactionData {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "transaction_Id")
+  @Column(name = "transaction_id")
   private Integer transactionId;
 
   @Enumerated(EnumType.STRING)
-  @Column(name = "transaction_type")
+  @Column(name = "type")
   private TransactionType type;
 
   @ManyToOne(fetch = FetchType.EAGER)
-  @JoinColumn(name = "account_number")
+  @JoinColumn(name = "account_id")
   private Account account;
   
   @ManyToOne(fetch = FetchType.EAGER)
-  @JoinColumn(name = "card_number")
+  @JoinColumn(name = "card_id")
   private CreditCard card;
 
-  @Column(name = "details")
+  
   private String message;
-
   private Double amount;
-
-  @Column(name = "date")
   private LocalDate date;
 }

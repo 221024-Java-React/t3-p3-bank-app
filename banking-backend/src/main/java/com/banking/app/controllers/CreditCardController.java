@@ -5,6 +5,8 @@ import java.util.LinkedHashMap;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,119 +32,74 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 public class CreditCardController {
 
-  private CreditCardService cServ;
+  private CreditCardService ccServ;
   private UserService uServ;
   private TransactionDataService tdServ;
   private AccountService aServ;
 
-  @PostMapping("/create")
-  public CreditCard createCard(@RequestBody CreditCard a) {
-    return cServ.createCreditCard(a);
-  }
-
   @PostMapping("/user")
-  public CreditCard getCardByUser(@RequestBody LinkedHashMap<String, String> body) {
+  public CreditCard getCreditCardByUser(@RequestBody LinkedHashMap<String, String> body) {
     String email = body.get("email");
     User u = uServ.getUserByEmail(email);
 
-    return cServ.getCreditCardByUser(u);
+    return ccServ.getCreditCardByUser(u);
   }
 
-  @PostMapping("/cardId")
+  @PostMapping("/")
   public CreditCard getCardById(@RequestBody LinkedHashMap<String, Long> body) {
-    Long cardId = body.get("userId");
-    return cServ.getCreditCardByAccountId(cardId);
+    Long cardId = body.get("cardId");
+    return ccServ.getCreditCardByCardId(cardId);
   }
 
-  @PostMapping("/buy")
-  public <T> boolean payWithCard(@RequestBody LinkedHashMap<String, T> body) {
-    Long id = (Long) body.get("cardId");
-    Double amount = (Double) body.get("amount");
-    String type = (String) body.get("type");
-	String message = TransactionMessageGenerator.generateMessage(TransactionType.valueOf(type), amount);
+  @PostMapping("/purchase")
+  public ResponseEntity<String> payWithCard(@RequestBody LinkedHashMap<String, String> body) {
+    Long id = Long.parseLong(body.get("cardId"));
+    Double amount = Double.parseDouble(body.get("amount"));
+	String message = TransactionMessageGenerator.generateMessage(TransactionType.PURCHASE, amount);
 	LocalDate date = LocalDate.now();
 	
-	CreditCard card = cServ.getCreditCardByAccountId(id);
+	CreditCard card = ccServ.getCreditCardByCardId(id);
 	
 	TransactionData t = new TransactionData();
-	t.setType(TransactionType.valueOf(type));
+	t.setType(TransactionType.PURCHASE);
 	t.setAmount(amount);
 	t.setMessage(message);
 	t.setDate(date);
 	t.setCard(card);
 	tdServ.createTransaction(t);
     
-    return cServ.addToCreditCardBalance(id, amount);
+	return new ResponseEntity<>("Puchase made.", HttpStatus.OK);
   }
 
   @PostMapping("/pay")
-  public <T> double payOffCard(@RequestBody LinkedHashMap<String, T> body) {
-	Long id = (Long) body.get("cardId");
-	UUID accountId = (UUID) body.get("accountId");
-	Double amount = (Double) body.get("amount");
-	String type = (String) body.get("type");
-	String message = TransactionMessageGenerator.generateMessage(TransactionType.valueOf(type), amount);
+  public ResponseEntity<String> payOffCard(@RequestBody LinkedHashMap<String, String> body) {
+	Long id = Long.parseLong(body.get("cardId"));
+	UUID accountId = UUID.fromString(body.get("accountId"));
+	Double amount = Double.parseDouble(body.get("amount")); 
+	String cardMessage = TransactionMessageGenerator.generateMessage(TransactionType.PAY, amount);
 	LocalDate date = LocalDate.now();
 	
-	CreditCard card = cServ.getCreditCardByAccountId(id);
+	CreditCard card = ccServ.getCreditCardByCardId(id);
 	
 	TransactionData tCard = new TransactionData();
-	tCard.setType(TransactionType.valueOf(type));
+	tCard.setType(TransactionType.PAY);
 	tCard.setAmount(amount);
-	tCard.setMessage(message);
+	tCard.setMessage(cardMessage);
 	tCard.setDate(date);
 	tCard.setCard(card);
 	tdServ.createTransaction(tCard);
 	
-	Account a = aServ.getAccountById(accountId);
-	String messageAccount = TransactionMessageGenerator.generateMessage(TransactionType.WIDTHDRAW, amount);
+	Account a = aServ.getAccountByAccountId(accountId);
+	String accountMessage = TransactionMessageGenerator.generateMessage(TransactionType.WITHDRAW, amount);
 	TransactionData tAccount = new TransactionData();
-	tAccount.setType(TransactionType.WIDTHDRAW);
+	tAccount.setType(TransactionType.WITHDRAW);
 	tAccount.setAmount(amount);
-	tAccount.setMessage(messageAccount);
+	tAccount.setMessage(accountMessage);
 	tAccount.setDate(date);
 	tAccount.setAccount(a);
 	tdServ.createTransaction(tAccount);
+	ccServ.payCreditCardBalance(id, amount, accountId);
 	
-	return cServ.payCreditCardBalance(id, amount, accountId);
+	return new ResponseEntity<>("Credit payment made successfully.", HttpStatus.OK);
   }
-  /*
-   * @PostMapping("/account")
-   * public List<Account> getAccountsByUserId(@RequestBody LinkedHashMap<String,
-   * String> body) {
-   * System.out.println(body.get("userId") instanceof String);
-   * System.out.println(body);
-   * UUID userID = UUID.fromString(body.get("userId"));
-   * return aServ.getAccountsByUserId(userID);
-   * }
-   */
-
-  /*
-   * public CreditCard getCreditCardByUser(User u) {
-   * return cRepo.getCreditCardByUser(u);
-   * }
-   * 
-   * public CreditCard getCreditCardByAccountId(UUID id) {
-   * return cRepo.getCreditCardByCardId(id);
-   * }
-   * 
-   * public boolean addToCreditCardBalance(UUID id, double amount) {
-   * CreditCard card = cRepo.getCreditCardByCardId(id);
-   * if((card.getBalance()+amount)>card.getCreditLimit()) {
-   * card.setBalance(card.getBalance()+amount);
-   * cRepo.save(card);
-   * return true;
-   * }
-   * else {
-   * return false;
-   * }
-   * }
-   * 
-   * public double payCreditCardBalance(UUID id, double amount) {
-   * CreditCard card = cRepo.getCreditCardByCardId(id);
-   * card.setBalance(card.getBalance()-amount);
-   * cRepo.save(card);
-   * return card.getBalance();
-   * }
-   */
 }

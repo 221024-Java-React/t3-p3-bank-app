@@ -33,16 +33,13 @@ public class CreditCardApp {
 	
 	
 	@Enumerated(EnumType.STRING)
-	@Column(name = "status")
 	private CreditCardAppStatus status;
 	
-	@OneToOne(mappedBy = "appl")
+	@OneToOne(mappedBy = "app")
 	private CreditCard card;
 	
-	@Column(name = "applicant")
 	private String applicant;
 	
-	@Column(name = "applicant_age")
 	private Integer age;
 
 	@Column(name = "credit_score")
@@ -54,15 +51,15 @@ public class CreditCardApp {
 	@Column(name = "net_worth")
 	private Double netWorth;
 	
-	@Column(name = "Estimated_debt")
-	private Double estDebt;
+	@Column(name = "estimated_debt")
+	private Double estimatedDebt;
 	
 	@Column(name = "approved_limit")
 	private Double approvedLimit;
 	
-	public void setApprovedLimit(Integer age, Integer score, Double income, Double debt) {
-		double dti = LimitCalculator.calcMaxDti(age, score);
-		Double lim = LimitCalculator.calcCreditLimit(income, score, dti);
+	public void setApprovedLimit(Integer age, Integer creditScore, Double income, Double debt) {
+		double dti = LimitCalculator.calcMaxDti(age, creditScore);
+		Double lim = LimitCalculator.calcCreditLimit(income, creditScore, dti);
 		this.approvedLimit = lim;
 	}
 }

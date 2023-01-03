@@ -34,15 +34,15 @@ public class Account {
 
   @Id
   @GeneratedValue(strategy = GenerationType.UUID)
-  @Column(name = "account_number")
+  @Column(name = "account_id")
   private UUID accountId;
 
   @Enumerated(EnumType.STRING)
-  @Column(name = "account_type")
+  @Column(name = "type")
   private AccountType type;
 
   @ManyToOne(fetch = FetchType.EAGER)
-  @JoinColumn(name = "user_Id")
+  @JoinColumn(name = "user_id")
   private User user;
 
   private Double balance;
