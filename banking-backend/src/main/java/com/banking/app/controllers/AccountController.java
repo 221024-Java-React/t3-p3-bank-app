@@ -26,7 +26,7 @@ import lombok.AllArgsConstructor;
 public class AccountController {
 
   private AccountService aServ;
-  
+
   @PostMapping("/create")
   public Account createAccount(@RequestBody Account a) {
     return aServ.createAccount(a);
@@ -40,9 +40,9 @@ public class AccountController {
     return aServ.transferBetweenAccounts(accountIdFrom, accountIdTo, amount);
   }
 
-  @PostMapping("/account/{userId}")
-  public List<Account> getAccountsByUserId(@PathVariable("userId")UUID userId) {
-    return aServ.getAccountsByUserId(userId);
+  @PostMapping("/account")
+  public List<Account> getAccountsByUserId(@RequestBody LinkedHashMap<String, String> body) {
+    return aServ.getAccountsByUserId(UUID.fromString(body.get("userId")));
   }
 
 }

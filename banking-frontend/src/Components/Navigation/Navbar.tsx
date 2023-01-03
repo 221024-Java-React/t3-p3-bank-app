@@ -65,9 +65,12 @@ const Navbar: React.FC = () => {
                     </Icon>
                 </MenuItem>
                 {currentUser.type === "REP" && (
-                    <MenuItem>
-                        <Link to="/register">Register A New User</Link>
-                    </MenuItem>
+                    <>
+                        <MenuItem>
+                            <Link to="/register">Register A New User</Link>
+                        </MenuItem>
+                        <MenuItem onClick={logoutUser}>Log Out</MenuItem>
+                    </>
                 )}
                 {currentUser.type === "MEMBER" && (
                     <>

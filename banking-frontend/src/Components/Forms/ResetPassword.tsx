@@ -46,7 +46,7 @@ const SubmitButton = styled.input`
 
 const ResetPassword = () => {
 
-    const { loginUser, resetPassword, authenticateUser, firstLogin, showResetPassScreen, showAuthScreen, loading, userData, setLoading } = useContext(UserContext) as UserContextState;
+    const { resetPassword, loading, userData } = useContext(UserContext) as UserContextState;
 
     const initInputs = {
         email: userData.email,
