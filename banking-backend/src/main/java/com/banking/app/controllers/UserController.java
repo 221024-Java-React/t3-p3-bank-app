@@ -63,10 +63,8 @@ public class UserController {
     String email = body.get("email");
     String password = body.get("password");
     User u = uServ.loginUser(email, password);
-    
-    if (!u.getFirstLogin()) {
-      mSend.SendMessage(u); 
-    }
+
+    mSend.SendMessage(u); 
     
     return u;
   }

@@ -18,6 +18,9 @@ import TransferFunds from "./Components/AccountPage/TransferFunds";
 import { DarkModeContext } from "./Context/DarkModeContext";
 import { DarkModeContextState } from "./Interfaces/DarkMode";
 import PageNotFound from "./Components/PageNotFound";
+import ResetPassword from "./Components/Forms/ResetPassword";
+import Authenticate from "./Components/Forms/Authenticate";
+import Invalid from "./Components/Forms/Invalid";
 
 const DarkModeProvider = styled.div`
     background-color: ${props => props.theme.background};
@@ -65,12 +68,14 @@ function App() {
                                 <>
                                     <Route path="/" element={<WelcomePage />} />
                                     <Route path="/login" element={<Login />} />
+                                    <Route path="/login/reset_password" element={<ResetPassword />} />
+                                    <Route path="/login/authenticate" element={<Authenticate />} />
                                     <Route path="/accounts/transfer" element={<TransferFunds />} />
                                     <Route path="/register" element={<Register />} />
+                                    <Route path="/invalid" element={<Invalid />} />
                                 </>
                             )}
-                            <Route path="*" element={<PageNotFound />} />
-                            <Route path="/cc" element={<CreditCardApplication />} />
+                            {/* <Route path="*" element={<PageNotFound />} /> */}
                         </Routes>
                     </Body>
                     <Footer />

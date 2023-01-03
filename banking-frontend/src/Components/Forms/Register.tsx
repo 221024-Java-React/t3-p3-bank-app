@@ -25,6 +25,21 @@ const Input = styled.input`
 `;
 const SubmitButton = styled.input`
     margin: 10px;
+    display: flex;
+    justify-content: center;
+    background-color: ${(props) => props.theme.background};
+    border: 1px solid ${(props) => props.theme.primaryMed};
+    border-radius: ${(props) => props.theme.borderRadius};
+    font-weight: bold;
+    font-size: 1.5em;
+    color: ${(props) => props.theme.color};
+    outline: none;
+    cursor: pointer;
+    &:hover {
+        background-color: ${(props) => props.theme.primaryMed};
+        box-shadow: inset 0 0 3px 1px rgba(255, 255, 255, 0.4);
+        color: white;
+    }
 `;
 
 const initInputs = {
@@ -51,7 +66,6 @@ const Register: React.FC = () => {
             await axInst.post("/users/register", inputs);
 
             setInputs(initInputs);
-            console.log(inputs);
         } catch (e) {
             console.log(e, "this is the error");
         }

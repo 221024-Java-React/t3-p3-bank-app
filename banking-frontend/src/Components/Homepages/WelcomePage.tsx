@@ -5,6 +5,7 @@ import OurServices from "./OurServices";
 
 const Container = styled.div`
     height: 100%;
+    color: ${props => props.theme.altText}
 `;
 const Wrapper = styled.div`
     height: 100%;
@@ -83,7 +84,7 @@ const WelcomePage: React.FC = () => {
                         </WelcomeParagraph>
                     </WelcomeWrapper>
                     <ImageWrapper>
-                        <Image src="https://creazilla-store.fra1.digitaloceanspaces.com/cliparts/9108/bank-clipart-md.png" />
+                        <Image src="https://i.imgur.com/HPhpjxQ.png" />
                     </ImageWrapper>
                 </TopWrapper>
                 <BottomWrapper>
