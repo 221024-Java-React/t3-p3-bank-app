@@ -40,7 +40,7 @@ public class CreditCard {
 
   private Double balance;
 
-  @OneToMany(mappedBy = "card", cascade = CascadeType.ALL)
+  @OneToMany(mappedBy = "creditCard", cascade = CascadeType.ALL)
   @JsonIgnore
   List<TransactionData> transactions;
 

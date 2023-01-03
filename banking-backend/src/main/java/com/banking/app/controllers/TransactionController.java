@@ -77,10 +77,9 @@ public class TransactionController {
 			Long cardId = Long.parseLong(body.get("cardId"));
 			CreditCard card = ccServ.getCreditCardByCardId(cardId);
 			
-			td.setCard(card);
+			td.setCreditCard(card);
 			return tdServ.createTransaction(td);
 		}
-		
 	}
 
 }
