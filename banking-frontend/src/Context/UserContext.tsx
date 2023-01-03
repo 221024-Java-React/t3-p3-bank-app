@@ -22,6 +22,7 @@ export const initUser = {
 
 const UserProvider: React.FC<ProviderProps> = ({ children }) => {
     const [currentUser, setCurrentUser] = useState<User>(initUser);
+    const [userData, setUserData] = useState<User>(initUser);
     const [firstLogin, setFirstLogin] = useState<boolean>(false);
     const [showAuthScreen, setShowAuthScreen] = useState<boolean>(false);
     const [showResetPassScreen, setShowResetPassScreen] = useState<boolean>(false);
@@ -32,13 +33,14 @@ const UserProvider: React.FC<ProviderProps> = ({ children }) => {
         try {
             const thisUser = await axInst.post("/users/login", { email, password });
             setLoading(false);
-            setCurrentUser(thisUser.data)
+            setUserData(thisUser.data)
             setShowResetPassScreen(thisUser.data.firstLogin);
             setShowAuthScreen(true)
             !thisUser.data.firstLogin && navigate("/login/authenticate")
 
         } catch (e) {
             console.log(e);
+            navigate("/invalid");
         }
     };
 
@@ -60,6 +62,7 @@ const UserProvider: React.FC<ProviderProps> = ({ children }) => {
                 email,
                 token,
             });
+            setCurrentUser(userData);
         } catch (e) {
             console.log(e);
         }
@@ -110,6 +113,7 @@ const UserProvider: React.FC<ProviderProps> = ({ children }) => {
                 showAuthScreen,
                 loading,
                 setLoading,
+                userData,
             }}
         >
             {children}

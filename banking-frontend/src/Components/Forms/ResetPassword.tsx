@@ -46,10 +46,10 @@ const SubmitButton = styled.input`
 
 const ResetPassword = () => {
 
-    const { loginUser, resetPassword, authenticateUser, firstLogin, showResetPassScreen, showAuthScreen, loading, currentUser, setLoading } = useContext(UserContext) as UserContextState;
+    const { loginUser, resetPassword, authenticateUser, firstLogin, showResetPassScreen, showAuthScreen, loading, userData, setLoading } = useContext(UserContext) as UserContextState;
 
     const initInputs = {
-        email: currentUser.email,
+        email: userData.email,
         password: "",
         token: "",
         newPassword_1: "",
@@ -71,7 +71,6 @@ const ResetPassword = () => {
 
 
         if (newPassword_1 === newPassword_2) {
-            setLoading(true)
             await resetPassword(email, newPassword_1);
             setInputs(initInputs);
 
@@ -86,7 +85,7 @@ const ResetPassword = () => {
         return <Container />
     }
 
-    console.log(currentUser)
+    console.log(userData);
 
     return (
         <Container>

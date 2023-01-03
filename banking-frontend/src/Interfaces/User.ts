@@ -15,6 +15,7 @@ export interface User {
 
 export interface UserContextState {
     currentUser: User;
+    userData: User;
     loading: boolean;
     showAuthScreen: boolean;
     showResetPassScreen: boolean;

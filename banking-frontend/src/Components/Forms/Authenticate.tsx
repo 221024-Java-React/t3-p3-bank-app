@@ -46,10 +46,10 @@ const SubmitButton = styled.input`
 
 const Authenticate = () => {
 
-    const { loginUser, resetPassword, authenticateUser, firstLogin, showResetPassScreen, showAuthScreen, loading, currentUser, setLoading } = useContext(UserContext) as UserContextState;
+    const { authenticateUser, showAuthScreen, userData, setLoading } = useContext(UserContext) as UserContextState;
 
     const initInputs = {
-        email: currentUser.email,
+        email: userData.email,
         password: "",
         token: "",
         newPassword_1: "",
@@ -79,7 +79,7 @@ const Authenticate = () => {
         return <Container />
     }
 
-    console.log(currentUser)
+    console.log(userData)
 
     return (
         <Container>
