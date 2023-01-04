@@ -75,4 +75,38 @@ public class AccountService {
 
     return tFrom;
   }
+  
+  public void depositToAccount(UUID accoutId, Double amount) {
+	  Account acc = aRepo.getAccountByAccountId(accoutId);
+	  Double newBalance = acc.getBalance()+amount;
+	  LocalDate date = LocalDate.now();
+	  
+	  acc.setBalance(newBalance);
+	  aRepo.save(acc);
+	  
+	  TransactionData t = new TransactionData();
+	  t.setAccount(acc);
+	  t.setAmount(amount);
+	  t.setType(TransactionType.DEPOSIT);
+	  t.setDate(date);
+	  t.setMessage(TransactionMessageGenerator.generateMessage(TransactionType.DEPOSIT, amount));
+	  tRepo.save(t);
+  }
+  
+  public void withdrawFromAccount(UUID accoutId, Double amount) {
+	  Account acc = aRepo.getAccountByAccountId(accoutId);
+	  Double newBalance = acc.getBalance()-amount;
+	  LocalDate date = LocalDate.now();
+	  
+	  acc.setBalance(newBalance);
+	  aRepo.save(acc);
+	  
+	  TransactionData t = new TransactionData();
+	  t.setAccount(acc);
+	  t.setAmount(amount);
+	  t.setType(TransactionType.WITHDRAW);
+	  t.setDate(date);
+	  t.setMessage(TransactionMessageGenerator.generateMessage(TransactionType.WITHDRAW, amount));
+	  tRepo.save(t);
+  }
 }

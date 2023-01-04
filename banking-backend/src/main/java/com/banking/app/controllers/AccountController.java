@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -42,6 +44,22 @@ public class AccountController {
   @PostMapping("/account/{userId}")
   public List<Account> getAccountsByUserId(@PathVariable("userId")UUID userId) {
     return aServ.getAccountsByUserId(userId);
+  }
+  
+  @PostMapping("/deposit")
+  public ResponseEntity<String> depositToAccount(@RequestBody LinkedHashMap<String, String>body) {
+    UUID accountId = UUID.fromString(body.get("accountId"));
+    Double amount = Double.parseDouble(body.get("amount"));
+    aServ.depositToAccount(accountId, amount);
+	return new ResponseEntity<>("$"+amount+" was deposited", HttpStatus.OK);
+  }
+  
+  @PostMapping("/withdraw")
+  public ResponseEntity<String> withdrawFromAccount(@RequestBody LinkedHashMap<String, String>body) {
+	UUID accountId = UUID.fromString(body.get("accountId"));
+	Double amount = Double.parseDouble(body.get("amount"));
+	aServ.withdrawFromAccount(accountId, amount);
+	return new ResponseEntity<>("$"+amount+" was withdrawn", HttpStatus.OK);
   }
 
 }
