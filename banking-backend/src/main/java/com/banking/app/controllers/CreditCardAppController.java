@@ -35,13 +35,13 @@ public class CreditCardAppController {
   private UserService uServ;
 
   @GetMapping("/status/{status}")
-  public List<CreditCardApp> getCreditCardAppsByStatus(@PathVariable("status")String status) {
-	CreditCardAppStatus appStatus = CreditCardAppStatus.valueOf(status.toUpperCase());  
+  public List<CreditCardApp> getCreditCardAppsByStatus(@PathVariable("status") String status) {
+    CreditCardAppStatus appStatus = CreditCardAppStatus.valueOf(status.toUpperCase());
     return ccaServ.getCreditCardAppsByStatus(appStatus);
   }
 
   @GetMapping("/applicationId/{applicationId}")
-  public CreditCardApp getCreditCardAppByApplicationId(@PathVariable("applicationId")Integer applicationId) {
+  public CreditCardApp getCreditCardAppByApplicationId(@PathVariable("applicationId") Integer applicationId) {
     return ccaServ.getCreditCardAppByApplicationId(applicationId);
   }
 
@@ -57,7 +57,7 @@ public class CreditCardAppController {
     Double netWorth = Double.parseDouble(body.get("netWorth"));
     Double estDebt = Double.parseDouble(body.get("totalMiscPayments")) + Double.parseDouble(body.get("rent"))
         + Double.parseDouble(body.get("carPayment"));
-  
+
     CreditCardApp app = new CreditCardApp();
     app.setStatus(CreditCardAppStatus.APPROVED);
     app.setAge(age);

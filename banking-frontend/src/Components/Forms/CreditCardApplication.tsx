@@ -96,7 +96,7 @@ const CreditCardApplication = () => {
         creditScore: "",
         hasCC: "",
         over15: "",
-        userId: "",
+        userId: currentUser.userId,
     };
 
     const [inputs, setInputs] = useState(initInputs);
@@ -296,7 +296,7 @@ const CreditCardApplication = () => {
                                 </SectionWrapper>
                                 <SectionWrapper style={{ flex: 1 }}>
                                     <SectionHeader>
-                                        Enter creditScore Score
+                                        Enter FICO Score
                                     </SectionHeader>
                                     <InputWrapper>
                                         <Input
