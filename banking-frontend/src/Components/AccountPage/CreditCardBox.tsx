@@ -11,7 +11,6 @@ const Container = styled.div`
     margin: 1rem 0;
 `;
 const Top = styled.div`
-    display: flex;
     & a {
         text-decoration: none;
     }
@@ -35,28 +34,26 @@ const Data = styled.p`
     margin: 1rem 0 0.5rem 1rem;
 `;
 
-type AccountBoxPropTypes = {
-    name: string;
+type CreditCardBoxPropTypes = {
+    creditLimit: number;
     balance: number;
-    accountId: string;
 };
 
-const AccountBox: React.FC<AccountBoxPropTypes> = ({ name, balance, accountId }) => {
+const CreditCardBox: React.FC<CreditCardBoxPropTypes> = ({ creditLimit, balance }) => {
     return (
         <Container>
             <Top>
-                <Link style={{ flex: '1' }} to={`/accounts/${name.toLowerCase()}`}>
-                    <AccountName>{name}</AccountName>
+                <Link to={`/accounts/${creditLimit}`}>
+                    <AccountName>CREDIT CARD</AccountName>
                 </Link>
-                <AccountName>Account #: {accountId}</AccountName>
             </Top>
             <Bottom>
                 <Data>Available: ${balance}</Data>
-                <Data>Current: ${balance}</Data>
+                <Data>Credit Limit: ${creditLimit}</Data>
                 <Data />
             </Bottom>
         </Container>
     );
 };
 
-export default AccountBox;
+export default CreditCardBox;

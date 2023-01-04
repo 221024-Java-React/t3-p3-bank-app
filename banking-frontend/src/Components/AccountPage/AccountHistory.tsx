@@ -35,29 +35,29 @@ const TD = styled.td`
 `;
 
 const AccountHistory: React.FC = () => {
-    // const { currentAccount } = useContext(AccountContext) as AccountContextState;
+    const { currentAccount } = useContext(AccountContext) as AccountContextState;
 
     // dummy data
-    const currentAccount = {
-        type: "Checking",
-        balance: 25000,
-        transactions: [
-            {
-                date: "Some Date",
-                description: "Some description",
-                amount: 100,
-                balance: 0,
-                type: "Some type",
-            },
-            {
-                date: "Some Date",
-                description: "Some description",
-                amount: 100,
-                balance: 0,
-                type: "Some type",
-            },
-        ],
-    };
+    // const currentAccount = {
+    //     type: "Checking",
+    //     balance: 25000,
+    //     transactions: [
+    //         {
+    //             date: "Some Date",
+    //             description: "Some description",
+    //             amount: 100,
+    //             balance: 0,
+    //             type: "Some type",
+    //         },
+    //         {
+    //             date: "Some Date",
+    //             description: "Some description",
+    //             amount: 100,
+    //             balance: 0,
+    //             type: "Some type",
+    //         },
+    //     ],
+    // };
 
     return (
         <>
@@ -66,7 +66,7 @@ const AccountHistory: React.FC = () => {
                 btnTitle="Account Summary"
                 btnLink="/accounts/summary"
             />
-            <AccountBox name={currentAccount.type} balance={currentAccount.balance} />
+            <AccountBox name={currentAccount.type} balance={currentAccount.balance} accountId={currentAccount.accountId} />
             <FilterBox>
                 <FilterTitle>Filter Options</FilterTitle>
             </FilterBox>
@@ -83,13 +83,15 @@ const AccountHistory: React.FC = () => {
                 <tbody>
                     {currentAccount.transactions.map(t => {
                         return (
-                            <tr key={t.date + t.amount}>
-                                <TD>{t.date}</TD>
-                                <TD>{t.description}</TD>
-                                <TD>{t.amount}</TD>
-                                <TD>{t.balance}</TD>
-                                <TD>{t.type}</TD>
-                            </tr>
+                            <>
+                                {/* <tr key={t.date + t.amount}> */}
+                                {/*     <TD>{t.date}</TD> */}
+                                {/*     <TD>{t.description}</TD> */}
+                                {/*     <TD>{t.amount}</TD> */}
+                                {/*     <TD>{t.balance}</TD> */}
+                                {/*     <TD>{t.type}</TD> */}
+                                {/* </tr> */}
+                            </>
                         );
                     })}
                 </tbody>

@@ -85,21 +85,25 @@ const UserProvider: React.FC<ProviderProps> = ({ children }) => {
         const { userId, email } = currentUser;
 
         try {
-            const { data: accounts } = await axInst.post<Promise<Account[] | undefined>>(
-                `/accounts/account/${userId}`,
+            const { data: accounts } = await axInst.post(
+                `/accounts/account`,
                 {
                     userId,
                 }
             );
 
-            const { data: creditCard } = await axInst.post<Promise<CreditCard[] | undefined>>(
+
+            const { data: creditCard } = await axInst.post(
                 `/credit-card/user`,
                 {
                     email,
                 }
             )
+            setCurrentUser({ ...currentUser, accounts: accounts, creditCard: creditCard })
 
-            return accounts;
+            const allAccounts = [accounts, [creditCard]];
+
+            return allAccounts;
         } catch (e) {
             console.log(e);
         }

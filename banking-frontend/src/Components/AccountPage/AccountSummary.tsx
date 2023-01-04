@@ -4,7 +4,8 @@ import AccountHeader from "./AccountHeader";
 import AccountBox from "./AccountBox";
 import { UserContext } from "../../Context/UserContext";
 import { UserContextState } from "../../Interfaces/User";
-import { Account } from "../../Interfaces/Account";
+import { Account, CreditCard } from "../../Interfaces/Account";
+import CreditCardBox from "./CreditCardBox";
 
 const Container = styled.div`
     border: 2px solid ${props => props.theme.primaryMed};
@@ -29,18 +30,22 @@ const FooterData = styled.h1`
 
 const AccountSummary = () => {
     const [bankAccounts, setBankAccounts] = useState<Account[]>([]);
+    const [creditCard, setCreditCard] = useState<CreditCard[]>([]);
     const [totalBalance, setTotalBalance] = useState<number>(0);
     const { getBankAccounts, currentUser } = useContext(UserContext) as UserContextState;
 
     useEffect(() => {
         getBankAccounts().then(accounts => {
-            accounts ? setBankAccounts(accounts) : setBankAccounts([]);
+            accounts[0] ? setBankAccounts(accounts[0]) : setBankAccounts([]);
+            accounts[1] ? setCreditCard(accounts[1]) : setCreditCard([]);
         });
+
     }, []);
 
     useMemo(() => currentUser.accounts?.forEach(ba => setTotalBalance(prev => prev + ba.balance)), []);
 
-    console.log(currentUser)
+    console.log(creditCard, " in account summary")
+    console.log(currentUser.accounts, " accounts in account summary")
 
     return (
         <>
@@ -52,7 +57,12 @@ const AccountSummary = () => {
             <Container>
                 <Accounts>
                     {bankAccounts.map(ba => {
-                        return <AccountBox key={ba.type} name={ba.type} balance={ba.balance} />;
+                        return <AccountBox key={ba.type} name={ba.type} balance={ba.balance} accountId={ba.accountId} />;
+                    })}
+                </Accounts>
+                <Accounts>
+                    {creditCard[0] && creditCard.map(cc => {
+                        return <CreditCardBox key={cc.creditLimit} creditLimit={cc.creditLimit} balance={cc.balance} />;
                     })}
                 </Accounts>
                 <SummaryFooter>

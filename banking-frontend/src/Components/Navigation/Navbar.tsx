@@ -61,7 +61,7 @@ const Navbar: React.FC = () => {
             <Menu>
                 <MenuItem>
                     <Icon onClick={toggleDarkMode}>
-                        {mode === "Light" ? <BsFillMoonFill style={{ color: 'black' }} /> : <BsFillSunFill style={{ color: 'white' }} />}
+                        {mode === "Light" ? <BsFillMoonFill style={{ color: '#154481' }} /> : <BsFillSunFill style={{ color: 'white' }} />}
                     </Icon>
                 </MenuItem>
                 {currentUser.type === "REP" && (
@@ -75,16 +75,16 @@ const Navbar: React.FC = () => {
                 {currentUser.type === "MEMBER" && (
                     <>
                         <MenuItem>
-                            <Link to="/about-us">About Us</Link>
+                            <Link to="/">About Us</Link>
                         </MenuItem>
                         <MenuItem>
                             <Link to="/accounts/summary">Account Summary</Link>
                         </MenuItem>
-                        <MenuItem>
-                            <Link to="/accounts/settings">
-                                Account Settings
-                            </Link>
-                        </MenuItem>
+                        {/* <MenuItem> */}
+                        {/*     <Link to="/accounts/settings"> */}
+                        {/*         Account Settings */}
+                        {/*     </Link> */}
+                        {/* </MenuItem> */}
                         <MenuItem>
                             <Link to="/credit-card-application">
                                 Apply for Card
