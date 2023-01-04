@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import AboutUs from "./AboutUs";
 import OurServices from "./OurServices";
+import DarkLogo from '../../Assets/GoodBank-Logo_Dark.png'
 
 const Container = styled.div`
     height: 100%;
@@ -84,7 +85,7 @@ const WelcomePage: React.FC = () => {
                         </WelcomeParagraph>
                     </WelcomeWrapper>
                     <ImageWrapper>
-                        <Image src="https://i.imgur.com/HPhpjxQ.png" />
+                        <Image src={DarkLogo} />
                     </ImageWrapper>
                 </TopWrapper>
                 <BottomWrapper>

@@ -44,7 +44,7 @@ const CreditCardBox: React.FC<CreditCardBoxPropTypes> = ({ creditLimit, balance 
         <Container>
             <Top>
                 <Link to={`/accounts/${creditLimit}`}>
-                    <AccountName>CreditCard</AccountName>
+                    <AccountName>CREDIT CARD</AccountName>
                 </Link>
             </Top>
             <Bottom>

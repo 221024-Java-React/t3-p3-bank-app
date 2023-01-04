@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import GBLogo_Black from "../../Assets/GoodBank-Logo_Black.png";
+import GBLogo_Dark from "../../Assets/GoodBank-Logo_Dark.png";
 import { DarkModeContext } from "../../Context/DarkModeContext";
 import { DarkModeContextState } from "../../Interfaces/DarkMode";
 import GBLogo_White from "../../Assets/GoodBank-Logo_White.png";
@@ -43,7 +43,7 @@ const Footer = () => {
             <Link to="/">
                 {mode === "Light" ? (
                     <Logo
-                        src={GBLogo_Black}
+                        src={GBLogo_Dark}
                         alt="Black GoodBank logo with mountains"
                     />
                 ) : (
