@@ -5,6 +5,7 @@ import AccountBox from "./AccountBox";
 import { UserContext } from "../../Context/UserContext";
 import { UserContextState } from "../../Interfaces/User";
 import { Account, CreditCard } from "../../Interfaces/Account";
+import CreditCardBox from "./CreditCardBox";
 
 const Container = styled.div`
     border: 2px solid ${props => props.theme.primaryMed};
@@ -38,10 +39,16 @@ const AccountSummary = () => {
             accounts[0] ? setBankAccounts(accounts[0]) : setBankAccounts([]);
             accounts[1] ? setCreditCard(accounts[1]) : setCreditCard([]);
         });
+
+        // for (let i: number = 0; i < currentUser.accounts.length; i++) {
+
+        // }
     }, []);
 
     useMemo(() => currentUser.accounts?.forEach(ba => setTotalBalance(prev => prev + ba.balance)), []);
 
+    console.log(creditCard, " in account summary")
+    console.log(currentUser.accounts, " accounts in account summary")
 
     return (
         <>
@@ -57,9 +64,9 @@ const AccountSummary = () => {
                     })}
                 </Accounts>
                 <Accounts>
-                    {/* {creditCard.map(cc => { */}
-                    {/*     return <AccountBox key={cc.cardId} credit={cc.} balance={cc.balance} />; */}
-                    {/* })} */}
+                    {creditCard && creditCard.map(cc => {
+                        return <CreditCardBox key={cc.creditLimit} creditLimit={cc.creditLimit} balance={cc.balance} />;
+                    })}
                 </Accounts>
                 <SummaryFooter>
                     <FooterData>Balance Total: $ {totalBalance}</FooterData>
