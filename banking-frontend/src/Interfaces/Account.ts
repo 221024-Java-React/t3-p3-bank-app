@@ -13,3 +13,12 @@ export interface AccountContextState {
     currentAccount: Account;
     setCurrentAccount: (account: Account) => void;
 }
+
+export interface CreditCard {
+    accountId: string;
+    type: string;
+    user: User;
+    balance: number;
+    transactions: Transaction[];
+    creditLimit: number;
+}
