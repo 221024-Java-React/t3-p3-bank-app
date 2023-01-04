@@ -33,6 +33,7 @@ public class CreditCard {
 
   @OneToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "user_id")
+  @JsonIgnore
   private User user;
 
   @Column(name = "credit_limit")
@@ -46,5 +47,6 @@ public class CreditCard {
 
   @OneToOne(cascade = CascadeType.ALL)
   @JoinColumn(name = "application_id")
+  @JsonIgnore
   private CreditCardApp app;
 }

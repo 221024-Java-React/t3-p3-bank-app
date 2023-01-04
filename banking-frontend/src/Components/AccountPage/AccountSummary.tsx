@@ -4,7 +4,7 @@ import AccountHeader from "./AccountHeader";
 import AccountBox from "./AccountBox";
 import { UserContext } from "../../Context/UserContext";
 import { UserContextState } from "../../Interfaces/User";
-import { Account } from "../../Interfaces/Account";
+import { Account, CreditCard } from "../../Interfaces/Account";
 
 const Container = styled.div`
     border: 2px solid ${props => props.theme.primaryMed};
@@ -29,18 +29,19 @@ const FooterData = styled.h1`
 
 const AccountSummary = () => {
     const [bankAccounts, setBankAccounts] = useState<Account[]>([]);
+    const [creditCard, setCreditCard] = useState<CreditCard[]>([]);
     const [totalBalance, setTotalBalance] = useState<number>(0);
     const { getBankAccounts, currentUser } = useContext(UserContext) as UserContextState;
 
     useEffect(() => {
         getBankAccounts().then(accounts => {
-            accounts ? setBankAccounts(accounts) : setBankAccounts([]);
+            accounts[0] ? setBankAccounts(accounts[0]) : setBankAccounts([]);
+            accounts[1] ? setCreditCard(accounts[1]) : setCreditCard([]);
         });
     }, []);
 
     useMemo(() => currentUser.accounts?.forEach(ba => setTotalBalance(prev => prev + ba.balance)), []);
 
-    console.log(currentUser)
 
     return (
         <>
@@ -54,6 +55,11 @@ const AccountSummary = () => {
                     {bankAccounts.map(ba => {
                         return <AccountBox key={ba.type} name={ba.type} balance={ba.balance} />;
                     })}
+                </Accounts>
+                <Accounts>
+                    {/* {creditCard.map(cc => { */}
+                    {/*     return <AccountBox key={cc.cardId} credit={cc.} balance={cc.balance} />; */}
+                    {/* })} */}
                 </Accounts>
                 <SummaryFooter>
                     <FooterData>Balance Total: $ {totalBalance}</FooterData>
