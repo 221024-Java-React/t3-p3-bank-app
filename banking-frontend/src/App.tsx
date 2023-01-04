@@ -68,11 +68,14 @@ function App() {
                                 <>
                                     <Route path="/" element={<WelcomePage />} />
                                     <Route path="/login" element={<Login />} />
-                                    <Route path="/login/reset_password" element={<ResetPassword />} />
+                                    <Route
+                                        path="/login/reset_password"
+                                        element={<ResetPassword />}
+                                    />
                                     <Route path="/login/authenticate" element={<Authenticate />} />
-                                    <Route path="/accounts/transfer" element={<TransferFunds />} />
                                     <Route path="/register" element={<Register />} />
                                     <Route path="/invalid" element={<Invalid />} />
+                                    <Route path="/accounts/transfer" element={<TransferFunds />} />
                                 </>
                             )}
                             {/* <Route path="*" element={<PageNotFound />} /> */}

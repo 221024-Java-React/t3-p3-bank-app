@@ -39,13 +39,12 @@ const AccountSummary = () => {
             accounts[0] ? setBankAccounts(accounts[0]) : setBankAccounts([]);
             accounts[1] ? setCreditCard(accounts[1]) : setCreditCard([]);
         });
-
     }, []);
 
-    useMemo(() => currentUser.accounts?.forEach(ba => setTotalBalance(prev => prev + ba.balance)), []);
-
-    console.log(creditCard, " in account summary")
-    console.log(currentUser.accounts, " accounts in account summary")
+    useMemo(
+        () => currentUser.accounts?.forEach(ba => setTotalBalance(prev => prev + ba.balance)),
+        []
+    );
 
     return (
         <>
@@ -61,9 +60,16 @@ const AccountSummary = () => {
                     })}
                 </Accounts>
                 <Accounts>
-                    {creditCard[0] && creditCard.map(cc => {
-                        return <CreditCardBox key={cc.creditLimit} creditLimit={cc.creditLimit} balance={cc.balance} />;
-                    })}
+                    {creditCard[0] &&
+                        creditCard.map(cc => {
+                            return (
+                                <CreditCardBox
+                                    key={cc.creditLimit}
+                                    creditLimit={cc.creditLimit}
+                                    balance={cc.balance}
+                                />
+                            );
+                        })}
                 </Accounts>
                 <SummaryFooter>
                     <FooterData>Balance Total: $ {totalBalance}</FooterData>

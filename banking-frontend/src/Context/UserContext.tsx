@@ -34,11 +34,10 @@ const UserProvider: React.FC<ProviderProps> = ({ children }) => {
         try {
             const thisUser = await axInst.post("/users/login", { email, password });
             setLoading(false);
-            setUserData(thisUser.data)
+            setUserData(thisUser.data);
             setShowResetPassScreen(thisUser.data.firstLogin);
-            setShowAuthScreen(true)
-            !thisUser.data.firstLogin && navigate("/login/authenticate")
-
+            setShowAuthScreen(true);
+            !thisUser.data.firstLogin && navigate("/login/authenticate");
         } catch (e) {
             console.log(e);
             navigate("/invalid");
@@ -51,7 +50,6 @@ const UserProvider: React.FC<ProviderProps> = ({ children }) => {
                 email,
                 password,
             });
-
         } catch (e) {
             console.log(e);
         }
@@ -85,21 +83,14 @@ const UserProvider: React.FC<ProviderProps> = ({ children }) => {
         const { userId, email } = currentUser;
 
         try {
-            const { data: accounts } = await axInst.post(
-                `/accounts/account`,
-                {
-                    userId,
-                }
-            );
+            const { data: accounts } = await axInst.post("/accounts/account", {
+                userId,
+            });
 
-
-            const { data: creditCard } = await axInst.post(
-                `/credit-card/user`,
-                {
-                    email,
-                }
-            )
-            setCurrentUser({ ...currentUser, accounts: accounts, creditCard: creditCard })
+            const { data: creditCard } = await axInst.post("/credit-card/user", {
+                email,
+            });
+            setCurrentUser({ ...currentUser, accounts: accounts, creditCard: creditCard });
 
             const allAccounts = [accounts, [creditCard]];
 
