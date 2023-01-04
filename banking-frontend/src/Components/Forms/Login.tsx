@@ -29,16 +29,16 @@ const SubmitButton = styled.input`
     margin: 10px;
     display: flex;
     justify-content: center;
-    background-color: ${(props) => props.theme.background};
-    border: 1px solid ${(props) => props.theme.primaryMed};
-    border-radius: ${(props) => props.theme.borderRadius};
+    background-color: ${props => props.theme.background};
+    border: 1px solid ${props => props.theme.primaryMed};
+    border-radius: ${props => props.theme.borderRadius};
     font-weight: bold;
     font-size: 1.5em;
-    color: ${(props) => props.theme.color};
+    color: ${props => props.theme.color};
     outline: none;
     cursor: pointer;
     &:hover {
-        background-color: ${(props) => props.theme.primaryMed};
+        background-color: ${props => props.theme.primaryMed};
         box-shadow: inset 0 0 3px 1px rgba(255, 255, 255, 0.4);
         color: white;
     }
@@ -70,9 +70,8 @@ const Login = () => {
         const { email, password } = inputs;
         setLoading(true);
 
-        loginUser(email, password)
-        console.log(email, password)
-        navigate("/login/reset_password")
+        loginUser(email, password);
+        navigate("/login/reset_password");
     };
     return (
         <Container>

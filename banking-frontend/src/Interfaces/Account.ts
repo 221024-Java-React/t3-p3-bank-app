@@ -12,6 +12,10 @@ export interface Account {
 export interface AccountContextState {
     currentAccount: Account;
     setCurrentAccount: (account: Account) => void;
+    currentAccountId: string;
+    setCurrentAccountId: (accountId: string) => void;
+    currentTransactions: Transaction[];
+    setCurrentTransactions: (transactions: Transaction[]) => void;
 }
 
 export interface CreditCard {

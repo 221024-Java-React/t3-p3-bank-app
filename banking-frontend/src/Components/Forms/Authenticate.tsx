@@ -1,8 +1,8 @@
-import React, { useContext, useState } from 'react'
-import { useNavigate } from 'react-router';
-import styled from 'styled-components';
-import { UserContext } from '../../Context/UserContext';
-import { UserContextState } from '../../Interfaces/User';
+import React, { useContext, useState } from "react";
+import { useNavigate } from "react-router";
+import styled from "styled-components";
+import { UserContext } from "../../Context/UserContext";
+import { UserContextState } from "../../Interfaces/User";
 
 const Container = styled.div`
     display: grid;
@@ -29,24 +29,25 @@ const SubmitButton = styled.input`
     margin: 10px;
     display: flex;
     justify-content: center;
-    background-color: ${(props) => props.theme.background};
-    border: 1px solid ${(props) => props.theme.primaryMed};
-    border-radius: ${(props) => props.theme.borderRadius};
+    background-color: ${props => props.theme.background};
+    border: 1px solid ${props => props.theme.primaryMed};
+    border-radius: ${props => props.theme.borderRadius};
     font-weight: bold;
     font-size: 1.5em;
-    color: ${(props) => props.theme.color};
+    color: ${props => props.theme.color};
     outline: none;
     cursor: pointer;
     &:hover {
-        background-color: ${(props) => props.theme.primaryMed};
+        background-color: ${props => props.theme.primaryMed};
         box-shadow: inset 0 0 3px 1px rgba(255, 255, 255, 0.4);
         color: white;
     }
 `;
 
 const Authenticate = () => {
-
-    const { authenticateUser, showAuthScreen, userData, setLoading } = useContext(UserContext) as UserContextState;
+    const { authenticateUser, showAuthScreen, userData } = useContext(
+        UserContext
+    ) as UserContextState;
 
     const initInputs = {
         email: userData.email,
@@ -68,7 +69,6 @@ const Authenticate = () => {
         e.preventDefault();
         const { email, token } = inputs;
 
-        console.log(email, token)
         await authenticateUser(email, token);
         setInputs(initInputs);
 
@@ -76,10 +76,10 @@ const Authenticate = () => {
     };
 
     if (!showAuthScreen) {
-        return <Container />
+        return <Container />;
     }
 
-    console.log(userData)
+    console.log(userData);
 
     return (
         <Container>
@@ -89,7 +89,7 @@ const Authenticate = () => {
                 <SubmitButton type="submit" value="Submit Passcode" />
             </Form>
         </Container>
-    )
-}
+    );
+};
 
-export default Authenticate
+export default Authenticate;

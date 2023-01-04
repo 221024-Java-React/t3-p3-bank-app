@@ -1,9 +1,10 @@
 import React, { useContext } from "react";
-import { AccountContext } from "../../Context/AccountContext";
-import { AccountContextState } from "../../Interfaces/Account";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { Transaction } from "../../Interfaces/Transaction";
+import { AccountContext } from "../../Context/AccountContext";
+import { UserContext } from "../../Context/UserContext";
+import { AccountContextState } from "../../Interfaces/Account";
+import { UserContextState } from "../../Interfaces/User";
 
 const Container = styled.div`
     border: 2px solid ${props => props.theme.primaryDark};
@@ -20,7 +21,7 @@ const AccountName = styled.p`
     font-size: ${props => props.theme.fontSize.h1};
     font-weight: bold;
     margin: 0.25rem 1rem;
-    color: ${(props) => props.theme.color};
+    color: ${props => props.theme.color};
 `;
 const Bottom = styled.div`
     display: flex;
@@ -42,10 +43,29 @@ type AccountBoxPropTypes = {
 };
 
 const AccountBox: React.FC<AccountBoxPropTypes> = ({ name, balance, accountId }) => {
+    const { setCurrentAccountId, setCurrentAccount, currentTransactions } = useContext(
+        AccountContext
+    ) as AccountContextState;
+    const { currentUser } = useContext(UserContext) as UserContextState;
+
+    const handleAccountUpdate = () => {
+        setCurrentAccount({
+            accountId: accountId,
+            type: name,
+            user: currentUser,
+            balance: balance,
+            transactions: currentTransactions,
+        });
+    };
+
     return (
         <Container>
             <Top>
-                <Link style={{ flex: '1' }} to={`/accounts/${name.toLowerCase()}`}>
+                <Link
+                    style={{ flex: "1" }}
+                    to={`/accounts/${name.toLowerCase()}`}
+                    onClick={handleAccountUpdate}
+                >
                     <AccountName>{name}</AccountName>
                 </Link>
                 <AccountName>Account #: {accountId}</AccountName>

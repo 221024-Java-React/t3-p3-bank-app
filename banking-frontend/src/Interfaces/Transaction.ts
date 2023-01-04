@@ -7,4 +7,5 @@ export interface Transaction {
     message: string;
     amount: number;
     date: string;
+    account: Account;
 }

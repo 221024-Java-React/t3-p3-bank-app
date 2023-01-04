@@ -36,16 +36,16 @@ const AccountSummary = () => {
 
     useEffect(() => {
         getBankAccounts().then(accounts => {
+            console.log(accounts);
             accounts[0] ? setBankAccounts(accounts[0]) : setBankAccounts([]);
             accounts[1] ? setCreditCard(accounts[1]) : setCreditCard([]);
         });
-
     }, []);
 
-    useMemo(() => currentUser.accounts?.forEach(ba => setTotalBalance(prev => prev + ba.balance)), []);
-
-    console.log(creditCard, " in account summary")
-    console.log(currentUser.accounts, " accounts in account summary")
+    useMemo(
+        () => currentUser.accounts?.forEach(ba => setTotalBalance(prev => prev + ba.balance)),
+        []
+    );
 
     return (
         <>
@@ -57,13 +57,27 @@ const AccountSummary = () => {
             <Container>
                 <Accounts>
                     {bankAccounts.map(ba => {
-                        return <AccountBox key={ba.type} name={ba.type} balance={ba.balance} accountId={ba.accountId} />;
+                        return (
+                            <AccountBox
+                                key={ba.accountId}
+                                name={ba.type}
+                                balance={ba.balance}
+                                accountId={ba.accountId}
+                            />
+                        );
                     })}
                 </Accounts>
                 <Accounts>
-                    {creditCard[0] && creditCard.map(cc => {
-                        return <CreditCardBox key={cc.creditLimit} creditLimit={cc.creditLimit} balance={cc.balance} />;
-                    })}
+                    {creditCard[0] &&
+                        creditCard.map(cc => {
+                            return (
+                                <CreditCardBox
+                                    key={cc.creditLimit}
+                                    creditLimit={cc.creditLimit}
+                                    balance={cc.balance}
+                                />
+                            );
+                        })}
                 </Accounts>
                 <SummaryFooter>
                     <FooterData>Balance Total: $ {totalBalance}</FooterData>

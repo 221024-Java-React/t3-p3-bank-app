@@ -3,7 +3,6 @@ import { useNavigate } from "react-router";
 import { User, UserContextState } from "../Interfaces/User";
 import { ProviderProps } from "../Interfaces/ProviderProps";
 import { axInst } from "../Util/axInstance";
-import { Account, CreditCard } from "../Interfaces/Account";
 
 export const UserContext = React.createContext<UserContextState | null>(null);
 
@@ -34,11 +33,10 @@ const UserProvider: React.FC<ProviderProps> = ({ children }) => {
         try {
             const thisUser = await axInst.post("/users/login", { email, password });
             setLoading(false);
-            setUserData(thisUser.data)
+            setUserData(thisUser.data);
             setShowResetPassScreen(thisUser.data.firstLogin);
-            setShowAuthScreen(true)
-            !thisUser.data.firstLogin && navigate("/login/authenticate")
-
+            setShowAuthScreen(true);
+            !thisUser.data.firstLogin && navigate("/login/authenticate");
         } catch (e) {
             console.log(e);
             navigate("/invalid");
@@ -47,11 +45,10 @@ const UserProvider: React.FC<ProviderProps> = ({ children }) => {
 
     const resetPassword = async (email: string, password: string) => {
         try {
-            const thisUser: User = await axInst.put("/users/reset-password", {
+            await axInst.put("/users/reset-password", {
                 email,
                 password,
             });
-
         } catch (e) {
             console.log(e);
         }
@@ -59,7 +56,7 @@ const UserProvider: React.FC<ProviderProps> = ({ children }) => {
 
     const authenticateUser = async (email: string, token: string) => {
         try {
-            const thisUser: User = await axInst.post("/users/authenticate", {
+            await axInst.post("/users/authenticate", {
                 email,
                 token,
             });
@@ -75,6 +72,7 @@ const UserProvider: React.FC<ProviderProps> = ({ children }) => {
         try {
             await axInst.put("/users/logout", { email });
             setCurrentUser(initUser);
+            setUserData(initUser);
             navigate("/");
         } catch (e) {
             console.log(e);
@@ -85,21 +83,14 @@ const UserProvider: React.FC<ProviderProps> = ({ children }) => {
         const { userId, email } = currentUser;
 
         try {
-            const { data: accounts } = await axInst.post(
-                `/accounts/account`,
-                {
-                    userId,
-                }
-            );
+            const { data: accounts } = await axInst.post("/accounts/account", {
+                userId,
+            });
 
-
-            const { data: creditCard } = await axInst.post(
-                `/credit-card/user`,
-                {
-                    email,
-                }
-            )
-            setCurrentUser({ ...currentUser, accounts: accounts, creditCard: creditCard })
+            const { data: creditCard } = await axInst.post("/credit-card/user", {
+                email,
+            });
+            setCurrentUser({ ...currentUser, accounts: accounts, creditCard: creditCard });
 
             const allAccounts = [accounts, [creditCard]];
 

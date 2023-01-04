@@ -1,9 +1,6 @@
-import React, { useContext } from "react";
-import { AccountContext } from "../../Context/AccountContext";
-import { AccountContextState } from "../../Interfaces/Account";
+import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { Transaction } from "../../Interfaces/Transaction";
 
 const Container = styled.div`
     border: 2px solid ${props => props.theme.primaryDark};
@@ -19,7 +16,7 @@ const AccountName = styled.p`
     font-size: ${props => props.theme.fontSize.h1};
     font-weight: bold;
     margin: 0.25rem 1rem;
-    color: ${(props) => props.theme.color};
+    color: ${props => props.theme.color};
 `;
 const Bottom = styled.div`
     display: flex;
