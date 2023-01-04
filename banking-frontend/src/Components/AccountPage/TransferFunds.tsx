@@ -1,10 +1,9 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import styled from "styled-components";
 import { UserContext } from "../../Context/UserContext";
 import { UserContextState } from "../../Interfaces/User";
 import { axInst } from "../../Util/axInstance";
 import AccountHeader from "./AccountHeader";
-import { Account } from "../../Interfaces/Account";
 
 const TransferForm = styled.form``;
 const TransferContainer = styled.div`

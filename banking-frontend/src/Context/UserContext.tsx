@@ -3,7 +3,6 @@ import { useNavigate } from "react-router";
 import { User, UserContextState } from "../Interfaces/User";
 import { ProviderProps } from "../Interfaces/ProviderProps";
 import { axInst } from "../Util/axInstance";
-import { Account, CreditCard } from "../Interfaces/Account";
 
 export const UserContext = React.createContext<UserContextState | null>(null);
 
@@ -46,7 +45,7 @@ const UserProvider: React.FC<ProviderProps> = ({ children }) => {
 
     const resetPassword = async (email: string, password: string) => {
         try {
-            const thisUser: User = await axInst.put("/users/reset-password", {
+            await axInst.put("/users/reset-password", {
                 email,
                 password,
             });
@@ -57,7 +56,7 @@ const UserProvider: React.FC<ProviderProps> = ({ children }) => {
 
     const authenticateUser = async (email: string, token: string) => {
         try {
-            const thisUser: User = await axInst.post("/users/authenticate", {
+            await axInst.post("/users/authenticate", {
                 email,
                 token,
             });
@@ -73,6 +72,7 @@ const UserProvider: React.FC<ProviderProps> = ({ children }) => {
         try {
             await axInst.put("/users/logout", { email });
             setCurrentUser(initUser);
+            setUserData(initUser);
             navigate("/");
         } catch (e) {
             console.log(e);

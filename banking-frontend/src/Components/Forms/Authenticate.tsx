@@ -45,7 +45,7 @@ const SubmitButton = styled.input`
 `;
 
 const Authenticate = () => {
-    const { authenticateUser, showAuthScreen, userData, setLoading } = useContext(
+    const { authenticateUser, showAuthScreen, userData } = useContext(
         UserContext
     ) as UserContextState;
 

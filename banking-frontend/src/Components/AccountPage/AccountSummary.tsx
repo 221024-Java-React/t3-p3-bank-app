@@ -36,6 +36,7 @@ const AccountSummary = () => {
 
     useEffect(() => {
         getBankAccounts().then(accounts => {
+            console.log(accounts);
             accounts[0] ? setBankAccounts(accounts[0]) : setBankAccounts([]);
             accounts[1] ? setCreditCard(accounts[1]) : setCreditCard([]);
         });
@@ -56,7 +57,14 @@ const AccountSummary = () => {
             <Container>
                 <Accounts>
                     {bankAccounts.map(ba => {
-                        return <AccountBox key={ba.type} name={ba.type} balance={ba.balance} accountId={ba.accountId} />;
+                        return (
+                            <AccountBox
+                                key={ba.accountId}
+                                name={ba.type}
+                                balance={ba.balance}
+                                accountId={ba.accountId}
+                            />
+                        );
                     })}
                 </Accounts>
                 <Accounts>

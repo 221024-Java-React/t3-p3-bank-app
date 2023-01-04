@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import styled from "styled-components";
 import { UserContext } from "../../Context/UserContext";
 import { UserContextState } from "../../Interfaces/User";
@@ -13,22 +13,22 @@ const ApplicationForm = styled.form`
 `;
 const SectionHeader = styled.div`
     padding: 0.5em;
-    background-color: ${(props) => props.theme.background};
+    background-color: ${props => props.theme.background};
     border-radius: 3px 3px 0 0;
     font-weight: bold;
-    color: ${(props) => props.theme.color};
+    color: ${props => props.theme.color};
 `;
 const SectionWrapper = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    border: 2px solid ${(props) => props.theme.primaryMed};
-    border-radius: ${(props) => props.theme.borderRadius};
+    border: 2px solid ${props => props.theme.primaryMed};
+    border-radius: ${props => props.theme.borderRadius};
     margin-top: 1.5rem;
     /* padding: 1rem; */
     justify-content: space-between;
-    background: ${(props) => props.theme.primaryLightest};
-    color: ${(props) => props.theme.primaryDark};
+    background: ${props => props.theme.primaryLightest};
+    color: ${props => props.theme.primaryDark};
 `;
 const InputWrapper = styled.div`
     display: flex;
@@ -41,8 +41,8 @@ const Label = styled.label`
 `;
 const Input = styled.input`
     background: transparent;
-    border: 1px solid ${(props) => props.theme.primaryDark};
-    border-radius: ${(props) => props.theme.borderRadius};
+    border: 1px solid ${props => props.theme.primaryDark};
+    border-radius: ${props => props.theme.borderRadius};
     padding-inline: 5px;
     outline: none;
     margin-left: 0.5em;
@@ -54,16 +54,16 @@ const SubmitButton = styled.button`
     margin-top: 1.5rem;
     display: flex;
     justify-content: center;
-    background-color: ${(props) => props.theme.background};
-    border: 2px solid ${(props) => props.theme.primaryMed};
-    border-radius: ${(props) => props.theme.borderRadius};
+    background-color: ${props => props.theme.background};
+    border: 2px solid ${props => props.theme.primaryMed};
+    border-radius: ${props => props.theme.borderRadius};
     font-weight: bold;
     font-size: 2em;
-    color: ${(props) => props.theme.color};
+    color: ${props => props.theme.color};
     outline: none;
     cursor: pointer;
     &:hover {
-        background-color: ${(props) => props.theme.primaryMed};
+        background-color: ${props => props.theme.primaryMed};
         box-shadow: inset 0 0 5px 1px rgba(255, 255, 255, 0.4);
         color: white;
     }
@@ -72,18 +72,16 @@ const InvalidApp = styled.div`
     margin-top: 1.5rem;
     display: flex;
     justify-content: center;
-    background-color: ${(props) => props.theme.background};
+    background-color: ${props => props.theme.background};
     font-weight: bold;
     font-size: 2em;
-    color: ${(props) => props.theme.color};
+    color: ${props => props.theme.color};
     outline: none;
     cursor: pointer;
 `;
 
 const CreditCardApplication = () => {
     const { currentUser } = useContext(UserContext) as UserContextState;
-
-    const [totalDebt, setTotalDebt] = useState<number>(0);
 
     const initInputs = {
         netWorth: "",
@@ -103,7 +101,7 @@ const CreditCardApplication = () => {
 
     const handleFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
-        setInputs((prev) => ({ ...prev, [name]: value }));
+        setInputs(prev => ({ ...prev, [name]: value }));
     };
 
     const handleFormSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
@@ -112,14 +110,16 @@ const CreditCardApplication = () => {
 
         try {
             if (parseInt(inputs.age) < 16) {
-                alert('You are not allowed to submit an application as you need to be 16 years of age or older');
-                throw new Error('You can not submit an application');
+                alert(
+                    "You are not allowed to submit an application as you need to be 16 years of age or older"
+                );
+                throw new Error("You can not submit an application");
             }
             await axInst.post("/credit-card-app/create", inputs);
 
             setInputs(initInputs);
 
-            alert("Application Submitted! Check Your Accounts Page To See If You Were Approved!")
+            alert("Application Submitted! Check Your Accounts Page To See If You Were Approved!");
         } catch (e) {
             console.log(e, "this is the error");
         }
@@ -158,9 +158,7 @@ const CreditCardApplication = () => {
                             <Label htmlFor="no">No</Label>
                         </InputWrapper>
                         <InputWrapper>
-                            <Label style={{ flex: 1 }}>
-                                Are you 16 years of age or older?
-                            </Label>
+                            <Label style={{ flex: 1 }}>Are you 16 years of age or older?</Label>
                             <Input
                                 type="radio"
                                 id="yes"
@@ -181,15 +179,12 @@ const CreditCardApplication = () => {
                     </SectionWrapper>
                     {inputs.hasCC === "yes" || inputs.over15 === "no" ? (
                         <InvalidApp>
-                            Sorry, but you do not qualify to submit an
-                            application.
+                            Sorry, but you do not qualify to submit an application.
                         </InvalidApp>
                     ) : (
                         <>
                             <SectionWrapper>
-                                <SectionHeader>
-                                    Income Information
-                                </SectionHeader>
+                                <SectionHeader>Income Information</SectionHeader>
                                 <InputWrapper>
                                     <Label>Total Net Worth:</Label>${" "}
                                     <Input
@@ -238,10 +233,7 @@ const CreditCardApplication = () => {
                                     />
                                 </InputWrapper>
                                 <InputWrapper>
-                                    <Label>
-                                        Sum All Other Monthly Debt Payments:
-                                    </Label>
-                                    ${" "}
+                                    <Label>Sum All Other Monthly Debt Payments:</Label>${" "}
                                     <Input
                                         type="text"
                                         name="totalMiscPayments"
@@ -252,11 +244,7 @@ const CreditCardApplication = () => {
                                     />
                                 </InputWrapper>
                                 <InputWrapper>
-                                    <Label>
-                                        Sum All Other Monthly Credit Card
-                                        Limits:
-                                    </Label>
-                                    ${" "}
+                                    <Label>Sum All Other Monthly Credit Card Limits:</Label>${" "}
                                     <Input
                                         type="text"
                                         name="totalCCLimits"
@@ -268,9 +256,7 @@ const CreditCardApplication = () => {
                                 </InputWrapper>
                             </SectionWrapper>
                             <FinalSection>
-                                <SectionWrapper
-                                    style={{ flex: 1, marginRight: "1em" }}
-                                >
+                                <SectionWrapper style={{ flex: 1, marginRight: "1em" }}>
                                     {/* <SectionHeader>Enter DOB:</SectionHeader> */}
                                     {/* <InputWrapper> */}
                                     {/*     <Input */}
@@ -297,9 +283,7 @@ const CreditCardApplication = () => {
                                     </InputWrapper>
                                 </SectionWrapper>
                                 <SectionWrapper style={{ flex: 1 }}>
-                                    <SectionHeader>
-                                        Enter FICO Score
-                                    </SectionHeader>
+                                    <SectionHeader>Enter FICO Score</SectionHeader>
                                     <InputWrapper>
                                         <Input
                                             type="text"
