@@ -56,7 +56,7 @@ const AccountSummary = () => {
             <Container>
                 <Accounts>
                     {bankAccounts.map(ba => {
-                        return <AccountBox key={ba.type} name={ba.type} balance={ba.balance} />;
+                        return <AccountBox key={ba.type} name={ba.type} balance={ba.balance} accountId={ba.accountId} />;
                     })}
                 </Accounts>
                 <Accounts>

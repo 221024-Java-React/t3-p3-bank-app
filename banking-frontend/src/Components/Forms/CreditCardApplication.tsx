@@ -118,6 +118,8 @@ const CreditCardApplication = () => {
             await axInst.post("/credit-card-app/create", inputs);
 
             setInputs(initInputs);
+
+            alert("Application Submitted! Check Your Accounts Page To See If You Were Approved!")
         } catch (e) {
             console.log(e, "this is the error");
         }

@@ -66,6 +66,7 @@ const Register: React.FC = () => {
             await axInst.post("/users/register", inputs);
 
             setInputs(initInputs);
+            alert("New User Registered. New Member Should Receive A Text Message With Their Temporary Password")
         } catch (e) {
             console.log(e, "this is the error");
         }

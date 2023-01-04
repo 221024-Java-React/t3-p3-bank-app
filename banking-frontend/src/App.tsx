@@ -52,7 +52,7 @@ function App() {
                             )}
                             {currentUser.type === "MEMBER" && (
                                 <>
-                                    <Route path="/" element={<AccountSummary />} />
+                                    <Route path="/" element={<WelcomePage />} />
                                     <Route path="/accounts/summary" element={<AccountSummary />} />
                                     <Route path="/accounts/checking" element={<AccountHistory />} />
                                     <Route path="/accounts/savings" element={<AccountHistory />} />

@@ -11,6 +11,7 @@ const Container = styled.div`
     margin: 1rem 0;
 `;
 const Top = styled.div`
+    display: flex;
     & a {
         text-decoration: none;
     }
@@ -37,15 +38,17 @@ const Data = styled.p`
 type AccountBoxPropTypes = {
     name: string;
     balance: number;
+    accountId: string;
 };
 
-const AccountBox: React.FC<AccountBoxPropTypes> = ({ name, balance }) => {
+const AccountBox: React.FC<AccountBoxPropTypes> = ({ name, balance, accountId }) => {
     return (
         <Container>
             <Top>
-                <Link to={`/accounts/${name.toLowerCase()}`}>
+                <Link style={{ flex: '1' }} to={`/accounts/${name.toLowerCase()}`}>
                     <AccountName>{name}</AccountName>
                 </Link>
+                <AccountName>Account #: {accountId}</AccountName>
             </Top>
             <Bottom>
                 <Data>Available: ${balance}</Data>
