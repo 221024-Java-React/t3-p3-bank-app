@@ -73,7 +73,7 @@ const OurServices = () => {
                     </AccordionHeader>
                     <AccordionContentWrapper accordionIndex={activeAccordion === 1}>
                         <AccordionContent>
-                            Bank name's checking accounts offer a variety of benefits including no
+                            GoodBank's checking accounts offer a variety of benefits including no
                             monthly fees, free online and mobile banking, a free debit card,
                             overdraft protection, and competitive interest rates. They are a
                             convenient and cost-effective way to manage your money.
@@ -89,7 +89,7 @@ const OurServices = () => {
                     </AccordionHeader>
                     <AccordionContentWrapper accordionIndex={activeAccordion === 2}>
                         <AccordionContent>
-                            Bank name's savings accounts offer competitive interest rates, no
+                            GoodBank's savings accounts offer competitive interest rates, no
                             minimum balance requirements, easy access to your money, FDIC insurance,
                             and convenient account management. They are a simple and effective way
                             to grow your savings.
@@ -105,7 +105,7 @@ const OurServices = () => {
                     </AccordionHeader>
                     <AccordionContentWrapper accordionIndex={activeAccordion === 3}>
                         <AccordionContent>
-                            Bank name's credit accounts offer competitive interest rates, flexible
+                            GoodBank's credit accounts offer competitive interest rates, flexible
                             payment options, rewards programs, fraud protection, and customer
                             service. They are a convenient and cost-effective way to borrow money
                             and make purchases.
