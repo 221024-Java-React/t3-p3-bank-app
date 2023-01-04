@@ -1,4 +1,4 @@
-import { Account } from "./Account";
+import { Account, CreditCard } from "./Account";
 
 export interface User {
     userId: string;
@@ -10,6 +10,7 @@ export interface User {
     address: string;
     phoneNumber: string;
     accounts: Account[];
+    creditCard: CreditCard[];
     firstLogin: boolean;
 }
 
