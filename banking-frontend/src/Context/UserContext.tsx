@@ -3,7 +3,7 @@ import { useNavigate } from "react-router";
 import { User, UserContextState } from "../Interfaces/User";
 import { ProviderProps } from "../Interfaces/ProviderProps";
 import { axInst } from "../Util/axInstance";
-import { Account } from "../Interfaces/Account";
+import { Account, CreditCard } from "../Interfaces/Account";
 
 export const UserContext = React.createContext<UserContextState | null>(null);
 
@@ -17,6 +17,7 @@ export const initUser = {
     address: "",
     phoneNumber: "",
     accounts: [],
+    creditCard: [],
     firstLogin: true,
 };
 
@@ -81,7 +82,7 @@ const UserProvider: React.FC<ProviderProps> = ({ children }) => {
     };
 
     const getBankAccounts = async () => {
-        const { userId } = currentUser;
+        const { userId, email } = currentUser;
 
         try {
             const { data: accounts } = await axInst.post<Promise<Account[] | undefined>>(
@@ -90,6 +91,13 @@ const UserProvider: React.FC<ProviderProps> = ({ children }) => {
                     userId,
                 }
             );
+
+            const { data: creditCard } = await axInst.post<Promise<CreditCard[] | undefined>>(
+                `/credit-card/user`,
+                {
+                    email,
+                }
+            )
 
             return accounts;
         } catch (e) {
